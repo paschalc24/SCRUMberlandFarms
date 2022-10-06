@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <BasicExample />
-      <Calendar />
+      <Calendar className = "cal"/>
     </div>
   );
 }
