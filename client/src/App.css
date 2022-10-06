@@ -1,9 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 .App {
   text-align: center;
 }
 
 .cal{
   width: 100%;
+  color: #005151;
+  font-family: "Varela Round";
+  font-weight: 400;
+}
+
+.mainButtons{
+  color: #005151;
+  font-weight: 400;
+  font-family: "Varela Round";
+  background-color: white;
+  width: 50%;
+  height: 75px;
 }
 
 .App-logo {

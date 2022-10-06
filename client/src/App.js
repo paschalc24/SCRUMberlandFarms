@@ -8,6 +8,8 @@ function App() {
     <div className="App">
       <BasicExample />
       <Calendar className = "cal"/>
+      <button className="mainButtons">New Goal</button>
+      <button className="mainButtons">View Past Goals</button>
     </div>
   );
 }
