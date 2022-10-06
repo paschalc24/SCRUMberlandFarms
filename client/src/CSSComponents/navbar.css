@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+.navbar,
+.navbar-default {
+    background-image: linear-gradient(to bottom,white 0,white 100%);
+    border-bottom: 0.03125rem solid;
+    border-bottom-color: #9fa1a0;
+}
+
+.navbar-brand{
+    color: #005151;
+    font-weight: 400;
+    font-family: "Varela Round";
+}
+
+.nav-link {
+    color: #005151;
+    font-weight: 400;
+    font-family: "Varela Round";
+}
+
