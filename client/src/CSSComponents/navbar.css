@@ -8,7 +8,7 @@
 }
 
 .navbar-brand{
-    color: #005151;
+    color: black;
     font-weight: 400;
     font-family: "Varela Round";
     display:flex;
@@ -21,8 +21,12 @@
 }
 
 .nav-link {
-    color: #005151;
+    color: black;
     font-weight: 400;
     font-family: "Varela Round";
+}
+
+#basic-nav-dropdown {
+    color: #53565A;
 }
 
