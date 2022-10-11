@@ -5,6 +5,7 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import GoalsList from "./UIComponents/GoalsList.js";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Container fluid className="grid">
         <Row>
           <Col sm={8}>
-          <Calendar className = "cal2"/>
+          <GoalsList/>
           </Col>
           <Col sm={4}>
           <Calendar className = "cal"/>
