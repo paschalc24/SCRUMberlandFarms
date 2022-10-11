@@ -1,0 +1,19 @@
+.goals-group{
+    margin-top: 10px;
+    height: 97%;
+    background-color: white;
+    font-family: "Varela Round";
+    font-weight: 400;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: 5px 5px 5px #003133;
+    list-style: none;
+    padding-left:0;
+}
+
+.goal-item:hover{
+    width: 100%;
+    background-color: #F5F5F5;
+    border: inset;
+}
