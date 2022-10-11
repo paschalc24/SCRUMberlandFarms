@@ -11,6 +11,13 @@
     color: #005151;
     font-weight: 400;
     font-family: "Varela Round";
+    display:flex;
+    align-items: center;
+}
+
+#logo-image{
+    padding: 7px 14px;
+    width: 18%;
 }
 
 .nav-link {
