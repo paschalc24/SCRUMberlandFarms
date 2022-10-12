@@ -13,10 +13,10 @@ function App() {
       <BasicExample />
       <Container fluid className="grid">
         <Row>
-          <Col sm={8}>
+          <Col sm={9}>
           <GoalsList/>
           </Col>
-          <Col sm={4}>
+          <Col sm={3}>
           <Calendar className = "cal"/>
           <Calendar className = "cal"/>
           </Col>
