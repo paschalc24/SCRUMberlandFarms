@@ -15,17 +15,13 @@ import Col from 'react-bootstrap/Col';
 function App() {
   return (
     <div className="App">
-      <Container fluid className="grid">
+      <Container fluid className="vh-100 d-flex flex-column">
         <Row><Header/></Row>
         <Row className="mainRow">
           <Col sm={9}><GoalsList/></Col>
           <Col sm={3}>
-            <Row>
-              <Col className="CalendarCol"><Calendar className = "cal"/></Col>
-            </Row>
-            <Row>
-              <Col className="GoalsCalendarListCol"><GoalsCalendarList/></Col>
-            </Row>
+            <Calendar className = "cal"/>
+            <GoalsCalendarList/>
           </Col>
         </Row>
       </Container>
