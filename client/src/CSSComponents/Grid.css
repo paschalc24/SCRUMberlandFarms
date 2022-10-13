@@ -1,11 +1,9 @@
 .mainRow {
-    height: 91.3vh;
-    padding-top: 18px;
-    padding-bottom: 18px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .GoalsCalendarListCol {
-    height: 44vh;
 }
 
 .col-sm-9 {
