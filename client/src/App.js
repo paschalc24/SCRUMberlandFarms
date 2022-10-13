@@ -1,4 +1,4 @@
-import Header from "./UIComponents/Navbar.js";
+import Header from "./UIComponents/Header.js";
 import Calendar from 'react-calendar';
 import GoalsList from "./UIComponents/GoalsList.js";
 import GoalsCalendarList from "./UIComponents/GoalsCalendarList.js";

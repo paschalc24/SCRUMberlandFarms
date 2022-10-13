@@ -9,3 +9,7 @@
     overflow: hidden;
     box-shadow: 5px 5px 5px #003133;
   }
+
+.react-calendar__tile--active {
+    background: #005151;
+}
