@@ -1,24 +1,31 @@
-import BasicExample from "./UIComponents/navbar.js";
+import Header from "./UIComponents/Navbar.js";
 import Calendar from 'react-calendar';
+import GoalsList from "./UIComponents/GoalsList.js";
+import GoalsCalendarList from "./UIComponents/GoalsCalendarList.js";
+
 import 'react-calendar/dist/Calendar.css';
+import './CSSComponents/Calendar.css';
+import './CSSComponents/Grid.css';
+
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import GoalsList from "./UIComponents/GoalsList.js";
 
 function App() {
   return (
     <div className="App">
-      <BasicExample />
       <Container fluid className="grid">
-        <Row>
-          <Col sm={9}>
-          <GoalsList/>
-          </Col>
+        <Row><Header/></Row>
+        <Row className="mainRow">
+          <Col sm={9}><GoalsList/></Col>
           <Col sm={3}>
-          <Calendar className = "cal"/>
-          <Calendar className = "cal"/>
+            <Row>
+              <Col className="CalendarCol"><Calendar className = "cal"/></Col>
+            </Row>
+            <Row>
+              <Col className="GoalsCalendarListCol"><GoalsCalendarList/></Col>
+            </Row>
           </Col>
         </Row>
       </Container>

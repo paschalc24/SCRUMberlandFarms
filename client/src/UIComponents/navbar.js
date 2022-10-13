@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../CSSComponents/navbar.css'
 import Logo from '../Images/ukg-logo-green.png'
 
-function BasicExample() {
+function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
@@ -35,4 +35,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default Header;

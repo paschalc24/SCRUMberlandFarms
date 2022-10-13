@@ -1,0 +1,10 @@
+.cal{
+    color: #005151;
+    font-family: "Varela Round";
+    font-weight: 400;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: white;
+    overflow: hidden;
+    box-shadow: 5px 5px 5px #003133;
+  }
