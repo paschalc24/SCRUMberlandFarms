@@ -1,0 +1,4 @@
+Example
+Test@cs320
+Abcd!234
+cs320.postgres.database.azure.com
