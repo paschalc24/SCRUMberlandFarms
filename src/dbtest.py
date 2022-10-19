@@ -30,16 +30,7 @@ def createGoal(curs: cursor, employeeID: int, managerID: int,
         description,
         category,
         status
-    ) VALUES (
-        %s,
-        %s,
-        %s,
-        %s,
-        %s,
-        %s,
-        %s,
-        %s
-    );""", values)
+    ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s );""", values)
 
 
 def retrieveData(curs: cursor):
