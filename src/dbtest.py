@@ -3,15 +3,15 @@ from psycopg2.extensions import cursor
 
 
 def createTable(curs: cursor):
-    curs.execute("""CREATE TABLE GoalsExample (
-        employeeID int,
-        managerID int,
-        startDate varchar(255),
-        endDate varchar(255),
-        title varchar(255),
-        description varchar(255),
-        category varchar(255),
-        status varchar(255)
+    curs.execute("""CREATE TABLE "GoalsExample" (
+        "EmployeeID" int,
+        "ManagerID" int,
+        "StartDate" varchar(255),
+        "EndDate" varchar(255),
+        "Title" varchar(255),
+        "Description" varchar(255),
+        "Category" varchar(255),
+        "Status" varchar(255)
     );""")
 
 
@@ -21,26 +21,28 @@ def createGoal(curs: cursor, employeeID: int, managerID: int,
                status: str = str()):
     values = [employeeID, managerID, startDate, endDate,
               title, description, category, status]
-    curs.execute("""INSERT INTO GoalsExample (
-        employeeID,
-        managerID,
-        startDate,
-        endDate,
-        title,
-        description,
-        category,
-        status
+    curs.execute("""INSERT INTO "GoalsExample" (
+        "EmployeeID",
+        "ManagerID",
+        "StartDate",
+        "EndDate",
+        "Title",
+        "Description",
+        "Category",
+        "Status"
     ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s );""", values)
 
 
 def retrieveData(curs: cursor):
-    curs.execute("SELECT * FROM GoalsExample;")
-    for string in curs.fetchall()[0]:
-        print(string)
+    curs.execute("""SELECT * FROM "GoalsExample";""")
+    values = curs.fetchall()[0]
+    columnNames = [description[0] for description in curs.description]
+    for (column, value) in zip(columnNames, values):
+        print(column + ": " + str(value))
 
 
 def dropTable(curs: cursor):
-    curs.execute("DROP TABLE GoalsExample;")
+    curs.execute("""DROP TABLE "GoalsExample";""")
 
 
 def main():
