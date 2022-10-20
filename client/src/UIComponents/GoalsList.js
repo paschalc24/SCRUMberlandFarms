@@ -4,7 +4,7 @@ import GoalsHeader from "./GoalsHeader";
 
 class GoalsList extends Component {
   state = {
-    goals: [['Goal #1', 'Due Date: Tue Feb 07 2023'], ['Goal #2', 'Due Date: Thu Oct 20 2022'], ['Goal #3', 'Due Date: Wed Nov 2 2022']]
+    goals: [['Goal #1', 'Due Date: Thu Oct 20 2022'], ['Goal #2', 'Due Date: Wed Nov 2 2022'], ['Goal #3', 'Due Date: Tue Feb 07 2023']]
   };
 
   render() {
