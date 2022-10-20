@@ -1,4 +1,4 @@
-.goals-group{
+.main-view {
     height: 100%;
     background-color: white;
     font-family: "Varela Round";
@@ -8,11 +8,27 @@
     overflow: hidden;
     box-shadow: 5px 5px 5px #003133;
     list-style: none;
-    padding-left:0;
+    padding-left: 0;
 }
 
-.goal-item:hover{
+.goal-item {
+    height: 16%;
+}
+
+.goal-item:hover {
     width: 100%;
     background-color: #F5F5F5;
     border: inset;
+}
+
+.goal-name {
+    float: left;
+    margin-left: 2rem;
+    color: #005151;
+}
+
+.goal-due-date {
+    float: right;
+    margin-right: 2rem;
+    color: #005151;
 }
