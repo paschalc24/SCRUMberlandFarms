@@ -7,7 +7,7 @@ from .serializers import employeeSerializer
 from .models import employee
 
 @api_view(["POST"])
-def addEmployee(request, *args, **kwargs):
+def postEmployee(request, *args, **kwargs):
     serializer = employeeSerializer(data=request.data)
     if serializer.is_valid():
         instance = serializer.save()

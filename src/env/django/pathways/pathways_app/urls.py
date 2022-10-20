@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     # configured the url to call the corresponding endpoints methods
-    path('', views.getEmployee),
+    path('employee/', views.getEmployee),
+    path('employee/', views.postEmployee),
 
 ]
