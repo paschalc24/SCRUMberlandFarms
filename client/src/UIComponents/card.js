@@ -1,4 +1,5 @@
 import Card from 'react-bootstrap/Card';
+import '../CSSComponents/card.css';
 
 function BgColorExample() {
   return (

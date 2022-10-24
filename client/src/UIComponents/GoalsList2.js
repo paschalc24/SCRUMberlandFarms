@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import '../CSSComponents/GoalsList2.css';
 
 
 function createData(title, sdate, edate, status, manager) {
@@ -56,12 +57,12 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                Description
+                Comments
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                 <Typography variant="h10" gutterBottom component="div">
-                This goal was completed on time and no comments were left by manager.
+                No comments yet.
               </Typography>
                 </TableHead>
               </Table>
