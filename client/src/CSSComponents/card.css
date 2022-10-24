@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+.card-header{
+    font-family: "Varela Round";
+}
+.card-body{
+    font-family: "Varela Round";
+    font-size: small;
+}
