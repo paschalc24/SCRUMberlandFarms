@@ -13,7 +13,7 @@ class GoalsList extends Component {
         <GoalsHeader/>
         <React.Fragment>
           {this.state.goals.map(goal => (
-            <li className="goal-item">
+            <li className="goal-item" key = {goal[0]}>
               <div className="goal-name">
                 {goal[0]}
               </div>
