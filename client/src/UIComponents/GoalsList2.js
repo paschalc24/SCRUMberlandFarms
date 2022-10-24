@@ -75,18 +75,11 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    sdate: PropTypes.number.isRequired,
-    status: PropTypes.number.isRequired,
-    edate: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    sdate: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    edate: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    manager: PropTypes.number.isRequired,
+    manager: PropTypes.string.isRequired,
   }).isRequired,
 };
 
