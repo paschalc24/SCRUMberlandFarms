@@ -1,4 +1,7 @@
 import * as React from 'react';
+
+import '../CSSComponents/GoalsList2.css'
+
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -96,16 +99,23 @@ const rows = [
   createData('Review Document 1', "10/12/22", "10/12/22", "In Progress", "Jane Doe"),
   createData('Finish Project 2', "10/12/22", "10/12/22", "In Progress", "John Doe"),
   createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
 ];
 
 export default function CollapsibleTable() {
   return (
-    <TableContainer component={Paper}sx={{
+    <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
       '& .MuiPaper-root-MuiTableContainer-root': {
         boxShadow: '5px 5px 5px #003133',
       },
     }}>
-      <Table aria-label="collapsible table">
+      <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >
             <TableCell />

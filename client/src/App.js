@@ -22,10 +22,12 @@ function App() {
 
   return (
     <div className="App">
-      <Container fluid className="vh-100 d-flex flex-column">
+      <Container fluid> 
         <Row><Header/></Row>
         <Row className="mainRow">
-          <Col sm={9}><CollapsibleTable/></Col>
+          <Col sm={9}>
+            <CollapsibleTable/>
+          </Col>
           <Col sm={3}>
             <Cal value={value} setValue={setValue}/>
             <GoalsCalendarList value={value}/>

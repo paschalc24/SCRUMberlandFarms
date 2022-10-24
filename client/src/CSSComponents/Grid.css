@@ -1,10 +1,19 @@
+.container-fluid {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
 .mainRow {
+    overflow: hidden;
+    display: flex;
     flex: auto;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
 .col-sm-9 {
+    height: 100%;
     padding-right: 0;
 }
 
