@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import '../CSSComponents/card.css';
 
-function BgColorExample() {
+function GoalDescription() {
   return (
     <>
       {[
@@ -30,4 +30,4 @@ function BgColorExample() {
   );
 }
 
-export default BgColorExample;
+export default GoalDescription;
