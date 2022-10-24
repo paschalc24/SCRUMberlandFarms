@@ -5,6 +5,7 @@ import Header from "./UIComponents/Header.js";
 import GoalsList from "./UIComponents/GoalsList.js";
 import GoalsCalendarList from "./UIComponents/GoalsCalendarList.js";
 import Cal from "./UIComponents/Calendar.js";
+import GoalDescription from "./UIComponents/card.js";
 
 import 'react-calendar/dist/Calendar.css';
 // import './CSSComponents/Calendar.css';
@@ -27,8 +28,8 @@ function App() {
         <Row className="mainRow">
           <Col sm={9}><CollapsibleTable/></Col>
           <Col sm={3}>
-            <Cal value={value} setValue={setValue}/>
-            <GoalsCalendarList value={value}/>
+            <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
+            <Row className="descRow"><GoalDescription/></Row>
           </Col>
         </Row>
       </Container>

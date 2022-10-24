@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import '../CSSComponents/GoalsList2.css';
 
 
 function createData(title, sdate, edate, status, manager) {
@@ -43,25 +44,23 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" >
-          {row.title}
-        </TableCell>
-        <TableCell align="right">{row.sdate}</TableCell>
-        <TableCell align="right">{row.edate}</TableCell>
-        <TableCell align="right">{row.status}</TableCell>
-        <TableCell align="right">{row.manager}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{row.title}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.sdate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Description
+              <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
+                Comments
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                <Typography variant="h10" gutterBottom component="div">
-                This goal was completed on time and no comments were left by manager.
+                <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
+                No comments yet.
               </Typography>
                 </TableHead>
               </Table>
@@ -75,18 +74,11 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    sdate: PropTypes.number.isRequired,
-    status: PropTypes.number.isRequired,
-    edate: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
-      PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-      }),
-    ).isRequired,
+    sdate: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    edate: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    manager: PropTypes.number.isRequired,
+    manager: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -101,8 +93,8 @@ const rows = [
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}sx={{
-      '& .MuiPaper-root-MuiTableContainer-root': {
-        boxShadow: '5px 5px 5px #003133',
+      '.MuiTable-root': {
+        fontFamily: "Varela Round"
       },
     }}>
       <Table aria-label="collapsible table">
