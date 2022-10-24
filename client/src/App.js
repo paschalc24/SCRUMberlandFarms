@@ -5,7 +5,7 @@ import Header from "./UIComponents/Header.js";
 import GoalsList from "./UIComponents/GoalsList.js";
 import GoalsCalendarList from "./UIComponents/GoalsCalendarList.js";
 import Cal from "./UIComponents/Calendar.js";
-import BgColorExample from "./UIComponents/card.js";
+import GoalDescription from "./UIComponents/card.js";
 
 import 'react-calendar/dist/Calendar.css';
 // import './CSSComponents/Calendar.css';
@@ -29,7 +29,7 @@ function App() {
           <Col sm={9}><CollapsibleTable/></Col>
           <Col sm={3}>
             <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
-            <Row className="descRow"><BgColorExample/></Row>
+            <Row className="descRow"><GoalDescription/></Row>
           </Col>
         </Row>
       </Container>
