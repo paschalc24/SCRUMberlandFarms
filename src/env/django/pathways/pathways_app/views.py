@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 # Create your views here.
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -11,7 +9,6 @@ def postEmployee(request, *args, **kwargs):
     serializer = employeeSerializer(data=request.data)
     if serializer.is_valid():
         instance = serializer.save()
-        print(instance)
         return Response(serializer.data)
     else:
         return Response(serializer.errors)
@@ -19,8 +16,7 @@ def postEmployee(request, *args, **kwargs):
 
 @api_view(["GET"])
 def getEmployee(request, *args, **kwargs):
-    employeeInstance = employee.objects.all().order_by("?").first()
-    data = {}
+    employeeInstance = employee.objects.filter(firstName=request.data['firstName']).values()
     if employeeInstance:
-        data = employeeSerializer(employeeInstance).data
-        return Response(data)
+        serializer = employeeSerializer(employeeInstance, many = True)
+        return Response(serializer.data)

@@ -1,11 +1,10 @@
-from email.policy import default
-from tracemalloc import start
 from rest_framework import serializers
+import uuid
 
 from .models import employee
 
 class employeeSerializer(serializers.ModelSerializer):
-    employeeId = serializers.IntegerField(default="123")
+    employeeId = serializers.CharField(default=uuid.uuid4())
     email = serializers.CharField(default="@gmail.com")
     companyName = serializers.CharField(default="inc")
     managerId = serializers.IntegerField(default="321")
@@ -15,15 +14,4 @@ class employeeSerializer(serializers.ModelSerializer):
     password = serializers.CharField(default="password")
     class Meta:
         model = employee
-        fields = [
-            'firstName',
-            'lastName',
-            'employeeId',
-            'email',
-            'companyName',
-            'managerId',
-            'positionTitle',
-            'startDate',
-            'isManager',
-            'password'
-        ]
+        fields = '__all__'
