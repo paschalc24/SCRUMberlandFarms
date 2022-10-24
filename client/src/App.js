@@ -15,6 +15,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import CollapsibleTable from "./UIComponents/GoalsList2.js";
+
 function App() {
   const [value, setValue] = useState(new Date());
 
@@ -23,7 +25,7 @@ function App() {
       <Container fluid className="vh-100 d-flex flex-column">
         <Row><Header/></Row>
         <Row className="mainRow">
-          <Col sm={9}><GoalsList/></Col>
+          <Col sm={9}><CollapsibleTable/></Col>
           <Col sm={3}>
             <Cal value={value} setValue={setValue}/>
             <GoalsCalendarList value={value}/>
