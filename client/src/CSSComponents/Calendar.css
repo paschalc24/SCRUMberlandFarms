@@ -8,7 +8,6 @@
   margin-bottom: 10px;
   border: white;
   overflow: hidden;
-  box-shadow: 5px 5px 5px #003133;
 }
 
 .cal .react-calendar__tile--active {
