@@ -16,3 +16,10 @@ body {
   width: 50%;
   height: 75px;
 }
+
+.calRow{
+  padding: 0px 10px 10px 10px;
+}
+.descRow{
+  padding:10px;
+}
