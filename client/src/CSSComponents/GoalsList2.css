@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
-.MuiTable-root{
-    font-family: "Varela Round";
+.MuiPaper-root{
+    border-radius: 10px !important;
 }

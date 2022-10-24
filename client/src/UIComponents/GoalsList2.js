@@ -44,24 +44,22 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" >
-          {row.title}
-        </TableCell>
-        <TableCell align="right">{row.sdate}</TableCell>
-        <TableCell align="right">{row.edate}</TableCell>
-        <TableCell align="right">{row.status}</TableCell>
-        <TableCell align="right">{row.manager}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{row.title}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.sdate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
                 Comments
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                <Typography variant="h10" gutterBottom component="div">
+                <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
                 No comments yet.
               </Typography>
                 </TableHead>
@@ -95,8 +93,8 @@ const rows = [
 export default function CollapsibleTable() {
   return (
     <TableContainer component={Paper}sx={{
-      '& .MuiPaper-root-MuiTableContainer-root': {
-        boxShadow: '5px 5px 5px #003133',
+      '.MuiTable-root': {
+        fontFamily: "Varela Round"
       },
     }}>
       <Table aria-label="collapsible table">
