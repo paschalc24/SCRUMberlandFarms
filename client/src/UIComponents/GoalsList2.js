@@ -14,6 +14,8 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/GoalsList2.css';
+import GoalsHeader from "./GoalsHeader";
+
 
 
 function createData(title, sdate, edate, status, manager) {
@@ -104,6 +106,7 @@ export default function CollapsibleTable() {
         fontFamily: "Varela Round"
       },
     }}>
+      <GoalsHeader/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >

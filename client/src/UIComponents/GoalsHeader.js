@@ -12,7 +12,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 class GoalsHeader extends Component {
     render() {
         return (
-            <Navbar className="goals-header">
+            <div className="goals-header">
                 <ButtonGroup className="filter-buttons-group">
                     <Button size='sm' className="filter-button">Newest</Button>
                     <Button size='sm' className="filter-button">Oldest</Button>
@@ -28,7 +28,7 @@ class GoalsHeader extends Component {
                     />
                     <Button size='sm' className="search-button">🔍</Button>
                 </InputGroup>
-            </Navbar>
+            </div>
         );
     }
 }

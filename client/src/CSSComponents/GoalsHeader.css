@@ -1,7 +1,10 @@
 .goals-header {
-    height: 20%;
+    height: 10%;
     background: rgb(235, 235, 235);
     position: sticky;
+    display: flex;
+    flex-direction: horizontal;
+    align-items: center;
 }
 
 
