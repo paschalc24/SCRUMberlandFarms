@@ -1,0 +1,33 @@
+.container-fluid {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainRow {
+    overflow: hidden;
+    display: flex;
+    flex: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.col-sm-9 {
+    height: 100%;
+    padding-right: 0;
+}
+
+.col-sm-3 {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.calRow{
+    padding: 0px 10px 10px 10px;
+}
+
+/* .descRow{
+    overflow-y: scroll;
+    padding: 0px 10px 0px 10px;
+} */

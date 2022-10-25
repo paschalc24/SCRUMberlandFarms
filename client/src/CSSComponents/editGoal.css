@@ -1,0 +1,9 @@
+.edit {
+    all: unset;
+    cursor: pointer;
+    color: grey;
+}
+
+.edit:hover {
+    color: black;
+}

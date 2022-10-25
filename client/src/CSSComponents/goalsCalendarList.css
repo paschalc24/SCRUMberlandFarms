@@ -1,0 +1,19 @@
+.goals-calendar-group{
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 100%;
+    background-color: white;
+    font-family: "Varela Round";
+    font-weight: 400;
+    border-radius: 10px;
+    margin-bottom: 0;
+    box-shadow: 5px 5px 5px #003133;
+    list-style: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.goal-item {
+    /* height: 100%; */
+}

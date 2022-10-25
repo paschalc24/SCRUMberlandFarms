@@ -3,14 +3,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import '../CSSComponents/navbar.css'
-
-function BasicExample() {
+import Logo from '../Images/ukg-logo-green.png'
+//header
+function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">UKG Goals Manager</Navbar.Brand>
+        <Navbar.Brand href="#home">
+        <img src={Logo} id="logo-image" alt=""/>Goals Manager
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav" alt="">
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
@@ -32,4 +35,4 @@ function BasicExample() {
   );
 }
 
-export default BasicExample;
+export default Header;

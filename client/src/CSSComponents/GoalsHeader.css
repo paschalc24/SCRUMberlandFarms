@@ -1,0 +1,78 @@
+.goals-header {
+    height: 10%;
+    background: rgb(235, 235, 235);
+    position: sticky;
+    display: flex;
+    flex-direction: horizontal;
+    align-items: center;
+}
+
+
+
+.time-filters {
+    margin-left: 1.5rem;
+}
+
+.status-filters {
+    margin-left: 1.5rem;
+}
+
+.filter-button {
+    height: 2rem;
+    width: 6rem;
+
+    background-color: white;
+    color: black;
+
+    border-width: 3px;
+    border-color: #005151;
+
+    text-align: center;
+}
+
+.filter-button:hover {
+    background-color: #009d9d;
+    border-color: #005151;
+}
+
+
+
+.search {
+    margin-left: 1.5rem;
+    width: auto;
+}
+
+.search-field {
+    border-width: 3px;
+    border-color: #005151;
+
+    height: 2rem;
+}
+
+.search-button {
+    background-color: white;
+
+    border-width: 3px;
+    border-color: #005151;
+    
+    height: 2rem;
+}
+
+
+
+.add-goal-button {
+    height: 2rem;
+    width: auto;
+
+    background-color: #30cebb;
+    color: black;
+
+    border-radius: 1rem;
+    border-width: 3px;
+    border-color: #005151;
+
+    margin-left: 1.5rem;
+}
+
+
+

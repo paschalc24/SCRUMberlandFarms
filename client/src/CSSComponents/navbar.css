@@ -8,14 +8,25 @@
 }
 
 .navbar-brand{
-    color: #005151;
+    color: black;
+    font-weight: 400;
+    font-family: "Varela Round";
+    display:flex;
+    align-items: center;
+}
+
+#logo-image{
+    padding: 7px 14px;
+    width: 18%;
+}
+
+.nav-link {
+    color: black;
     font-weight: 400;
     font-family: "Varela Round";
 }
 
-.nav-link {
-    color: #005151;
-    font-weight: 400;
-    font-family: "Varela Round";
+#basic-nav-dropdown {
+    color: #53565A;
 }
 

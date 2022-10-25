@@ -1,0 +1,37 @@
+{
+    "users" : [
+        {
+            "userid": 1,
+            "username": "Jason",
+            "goals": [
+                {
+                    "goalid": 1,
+                    "goalName": "goal#1",
+                    "goalDesc": "this is test desc #1",
+                    "status": "Completed",
+                    "goalStartDate": "10/1/2022",
+                    "goalEndDate": "10/20/2022",
+                    "manager": "John Doe"
+                },
+                {
+                    "goalid": 2,
+                    "goalName": "goal#2",
+                    "goalDesc": "this is test desc #2",
+                    "status": "Completed",
+                    "goalStartDate": "10/1/2022",
+                    "goalEndDate": "10/20/2022",
+                    "manager": "Jane Doe"
+                },
+                {
+                    "goalid": 3,
+                    "goalName": "goal#3",
+                    "goalDesc": "this is test desc #3",
+                    "status": "In Progress",
+                    "goalStartDate": "10/5/2022",
+                    "goalEndDate": "2/7/2023",
+                    "manager": "Jane Doe"
+                }
+            ]
+        }
+    ]
+}
