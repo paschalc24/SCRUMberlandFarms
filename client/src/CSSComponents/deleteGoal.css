@@ -1,0 +1,9 @@
+.delete {
+    all: unset;
+    cursor: pointer;
+    color: grey;
+}
+
+.delete:hover {
+    color: black;
+}

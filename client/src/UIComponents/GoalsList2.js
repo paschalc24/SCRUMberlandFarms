@@ -1,4 +1,8 @@
-import * as React from 'react';
+// import * as React from 'react';
+import React, { useState } from 'react';
+
+import DeleteGoal from "./DeleteGoal.js";
+import EditGoal from "./EditGoal.js";
 
 import data from '../tempStorage.json';
 import PropTypes from 'prop-types';
@@ -18,8 +22,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/GoalsList2.css';
 import GoalsHeader from "./GoalsHeader";
 
-
-
 function createData(title, sdate, edate, status, manager) {
   return {
     title,
@@ -33,6 +35,7 @@ function createData(title, sdate, edate, status, manager) {
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  // const [goal, setGoals] = useState(rows);
 
   return (
     <React.Fragment >
@@ -53,6 +56,7 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right"><DeleteGoal title={row.title} rows={props.goal} setGoals={props.setGoals}/><EditGoal title={row.title} rows={props.goal}/></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -106,6 +110,8 @@ const rows = [
 ];
 
 export default function CollapsibleTable() {
+
+  const [goal, setGoals] = useState(rows);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
       '.MuiTable-root': {
@@ -122,11 +128,12 @@ export default function CollapsibleTable() {
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Manager</TableCell>
+            <TableCell sx={{fontFamily: "Varela Round"}} align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody >
-          {rows.map((row) => (
-            <Row key={row.title} row={row} />
+          {goal.map((row) => (
+            <Row key={row.title} row={row} goal={goal} setGoals={setGoals}/>
           ))}
         </TableBody>
       </Table>
