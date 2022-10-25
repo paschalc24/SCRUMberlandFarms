@@ -22,8 +22,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/GoalsList2.css';
 import GoalsHeader from "./GoalsHeader";
 
-function createData(title, sdate, edate, status, manager) {
+function createData(id, title, sdate, edate, status, manager) {
   return {
+    id,
     title,
     sdate,
     edate,
@@ -56,7 +57,7 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right"><DeleteGoal title={row.title} rows={props.goal} setGoals={props.setGoals}/><EditGoal title={row.title} rows={props.goal} setGoals={props.setGoals}/></TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right"><DeleteGoal id={row.id} rows={props.goal} setGoals={props.setGoals}/><EditGoal title={row.title} rows={props.goal} setGoals={props.setGoals}/></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -92,21 +93,9 @@ Row.propTypes = {
 
 const goals = data.users[0].goals;
 const rows = [
-  createData(goals[0].goalName, new Date(goals[0].goalStartDate).toDateString(), new Date(goals[0].goalEndDate).toDateString(), goals[0].status, goals[0].manager),
-  createData(goals[1].goalName, new Date(goals[1].goalStartDate).toDateString(), new Date(goals[1].goalEndDate).toDateString(), goals[1].status, goals[1].manager),
-  createData(goals[2].goalName, new Date(goals[2].goalStartDate).toDateString(), new Date(goals[2].goalEndDate).toDateString(), goals[2].status, goals[2].manager),
-  // createData('Finish Project 1', "10/12/22", "10/12/22", "Completed", "John Doe"),
-  // createData('Contact Client A', "10/12/22", "10/12/22", "Completed", "Jane Doe"),
-  // createData('Review Document 1', "10/12/22", "10/12/22", "In Progress", "Jane Doe"),
-  // createData('Finish Project 2', "10/12/22", "10/12/22", "In Progress", "John Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData(goals[0].goalid, goals[0].goalName, new Date(goals[0].goalStartDate).toDateString(), new Date(goals[0].goalEndDate).toDateString(), goals[0].status, goals[0].manager),
+  createData(goals[1].goalid, goals[1].goalName, new Date(goals[1].goalStartDate).toDateString(), new Date(goals[1].goalEndDate).toDateString(), goals[1].status, goals[1].manager),
+  createData(goals[2].goalid, goals[2].goalName, new Date(goals[2].goalStartDate).toDateString(), new Date(goals[2].goalEndDate).toDateString(), goals[2].status, goals[2].manager),
 ];
 
 export default function CollapsibleTable() {

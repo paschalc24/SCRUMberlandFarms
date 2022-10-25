@@ -3,24 +3,34 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { CgTrash } from 'react-icons/cg';
 import '../CSSComponents/deleteGoal.css';
+import axios from 'axios'; 
 
 export default function DeleteGoal(props) {
 
     const [show, setShow] = useState(false);
 
     const handleCloseYes = () => {
-        deleteRow(props.title);
+        deleteRow(props.id);
         setShow(false);
     };
-
     const handleCloseNo = () => setShow(false);
 
     const handleShow = () => setShow(true);
 
-    const deleteRow = (title) => {
-        const newList = props.rows.filter((item) => item.title !== title);
+    const deleteRow = (id) => {
+        const newList = props.rows.filter((item) => item.id !== id);
+        /**
+         * axios request
+         * update database
+         */
+        // axios
+        // .post("http://localhost:8000/api/delete/", {
+        //     goalID: ID
+        // })
+        // .then(res => props.setGoals({ newList: res.data }))
+        // .catch(err => console.log(err));
+
         props.setGoals(newList);
-        console.log(newList)
     };
 
     return (
