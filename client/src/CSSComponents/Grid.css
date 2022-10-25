@@ -18,6 +18,16 @@
 }
 
 .col-sm-3 {
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
+
+.calRow{
+    padding: 0px 10px 10px 10px;
+}
+
+/* .descRow{
+    overflow-y: scroll;
+    padding: 0px 10px 0px 10px;
+} */

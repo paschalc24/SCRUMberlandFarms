@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Header from "./UIComponents/Header.js";
 // import Calendar from 'react-calendar';
-import GoalsList from "./UIComponents/GoalsList.js";
+// import GoalsList from "./UIComponents/GoalsList.js";
 import GoalsCalendarList from "./UIComponents/GoalsCalendarList.js";
 import Cal from "./UIComponents/Calendar.js";
 import GoalDescription from "./UIComponents/card.js";
@@ -31,7 +31,9 @@ function App() {
           </Col>
           <Col sm={3}>
             <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
-            <Row className="descRow"><GoalDescription/></Row>
+            {/* <Row className="descRow"><GoalDescription/></Row> */}
+            {/* <Row className="descRow"><GoalsCalendarList value={value}/></Row> */}
+            <GoalsCalendarList value={value}/>
           </Col>
         </Row>
       </Container>
