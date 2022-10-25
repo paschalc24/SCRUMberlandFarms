@@ -1,4 +1,3 @@
-from unittest.util import _MAX_LENGTH
 from django.db import models
 
 # Create your models here.
@@ -27,8 +26,9 @@ class goal(models.Model):
     textField = models.TextField() # description of goal
 
 class comment(models.Model):
+    commentId = models.CharField(max_length = 500)
     companyName = models.CharField(max_length = 500) # could be used as an identifier 
     goalId = models.CharField(max_length = 500) # could be used along with company name as composite key to identify which goal comment belong to
-    firstName = models.CharField(max_length = 200) # name of the employee who wrote the comment
+    employeeId = models.CharField(max_length = 500) # id of the employee who wrote the comment
     timstamp = models.CharField(max_length = 500) # unix time of when comment is created, so it can be sorted either in backend or frontend
     textField = models.TextField() # the description of the comment
