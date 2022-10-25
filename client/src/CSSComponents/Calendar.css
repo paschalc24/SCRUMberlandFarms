@@ -1,14 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 .cal {
   width: 100% !important;
   height: 100%;
   color: #005151;
-  font-family: "Varela Round";
+  font-family: "Varela Round" !important;
   font-weight: 400;
   border-radius: 10px;
   margin-bottom: 10px;
   border: white;
   overflow: hidden;
-  box-shadow: 5px 5px 5px #003133;
 }
 
 .cal .react-calendar__tile--active {
