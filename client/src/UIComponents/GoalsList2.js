@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import data from '../tempStorage.json';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -84,19 +86,23 @@ Row.propTypes = {
   }).isRequired,
 };
 
+const goals = data.users[0].goals;
 const rows = [
-  createData('Finish Project 1', "10/12/22", "10/12/22", "Completed", "John Doe"),
-  createData('Contact Client A', "10/12/22", "10/12/22", "Completed", "Jane Doe"),
-  createData('Review Document 1', "10/12/22", "10/12/22", "In Progress", "Jane Doe"),
-  createData('Finish Project 2', "10/12/22", "10/12/22", "In Progress", "John Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
-  createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  createData(goals[0].goalName, new Date(goals[0].goalStartDate).toDateString(), new Date(goals[0].goalEndDate).toDateString(), goals[0].status, goals[0].manager),
+  createData(goals[1].goalName, new Date(goals[1].goalStartDate).toDateString(), new Date(goals[1].goalEndDate).toDateString(), goals[1].status, goals[1].manager),
+  createData(goals[2].goalName, new Date(goals[2].goalStartDate).toDateString(), new Date(goals[2].goalEndDate).toDateString(), goals[2].status, goals[2].manager),
+  // createData('Finish Project 1', "10/12/22", "10/12/22", "Completed", "John Doe"),
+  // createData('Contact Client A', "10/12/22", "10/12/22", "Completed", "Jane Doe"),
+  // createData('Review Document 1', "10/12/22", "10/12/22", "In Progress", "Jane Doe"),
+  // createData('Finish Project 2', "10/12/22", "10/12/22", "In Progress", "John Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
+  // createData('Contact Client B', "10/12/22", "10/12/22", "To Do", "Jane Doe"),
 ];
 
 export default function CollapsibleTable() {

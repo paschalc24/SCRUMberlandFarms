@@ -9,8 +9,8 @@
                     "goalName": "goal#1",
                     "goalDesc": "this is test desc #1",
                     "status": "Completed",
-                    "goalStartDate": "Thu Oct 1 2022 00:00:00 GMT-0400",
-                    "goalEndDate": "Thu Oct 20 2022 00:00:00 GMT-0400",
+                    "goalStartDate": "10/1/2022",
+                    "goalEndDate": "10/20/2022",
                     "manager": "John Doe"
                 },
                 {
@@ -18,8 +18,8 @@
                     "goalName": "goal#2",
                     "goalDesc": "this is test desc #2",
                     "status": "Completed",
-                    "goalStartDate": "Thu Oct 1 2022 00:00:00 GMT-0400",
-                    "goalEndDate": "Thu Oct 20 2022 00:00:00 GMT-0400",
+                    "goalStartDate": "10/1/2022",
+                    "goalEndDate": "10/20/2022",
                     "manager": "Jane Doe"
                 },
                 {
@@ -27,8 +27,8 @@
                     "goalName": "goal#3",
                     "goalDesc": "this is test desc #3",
                     "status": "In Progress",
-                    "goalStartDate": "Thu Oct 5 2022 00:00:00 GMT-0400",
-                    "goalEndDate": "Tue Feb 07 2023 00:00:00 GMT-0400",
+                    "goalStartDate": "10/5/2022",
+                    "goalEndDate": "2/7/2023",
                     "manager": "Jane Doe"
                 }
             ]
