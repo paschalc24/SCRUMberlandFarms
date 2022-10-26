@@ -1,5 +1,5 @@
 // import * as React from 'react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import DeleteGoal from "./DeleteGoal.js";
 import EditGoal from "./EditGoal.js";
@@ -36,8 +36,6 @@ function createData(id, title, sdate, edate, status, manager) {
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  // const [goal, setGoals] = useState(rows);
-
   return (
     <React.Fragment >
       <TableRow sx={{ '& > *': { 
@@ -57,7 +55,7 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right"><DeleteGoal id={row.id} rows={props.goal} setGoals={props.setGoals}/><EditGoal title={row.title} rows={props.goal} setGoals={props.setGoals}/></TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right"><DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/><EditGoal title={row.title} goals={props.goals} setGoals={props.setGoals}/></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -91,23 +89,23 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const goals = data.users[0].goals;
+const userGoals = data.users[0].goals;
 const rows = [
-  createData(goals[0].goalid, goals[0].goalName, new Date(goals[0].goalStartDate).toDateString(), new Date(goals[0].goalEndDate).toDateString(), goals[0].status, goals[0].manager),
-  createData(goals[1].goalid, goals[1].goalName, new Date(goals[1].goalStartDate).toDateString(), new Date(goals[1].goalEndDate).toDateString(), goals[1].status, goals[1].manager),
-  createData(goals[2].goalid, goals[2].goalName, new Date(goals[2].goalStartDate).toDateString(), new Date(goals[2].goalEndDate).toDateString(), goals[2].status, goals[2].manager),
+  createData(userGoals[0].goalid, userGoals[0].goalName, new Date(userGoals[0].goalStartDate).toDateString(), new Date(userGoals[0].goalEndDate).toDateString(), userGoals[0].status, userGoals[0].manager),
+  createData(userGoals[1].goalid, userGoals[1].goalName, new Date(userGoals[1].goalStartDate).toDateString(), new Date(userGoals[1].goalEndDate).toDateString(), userGoals[1].status, userGoals[1].manager),
+  createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
 ];
 
 export default function CollapsibleTable() {
 
-  const [goal, setGoals] = useState(rows);
+  const [goals, setGoals] = useState(rows);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
       '.MuiTable-root': {
         fontFamily: "Varela Round"
       },
     }}>
-      <GoalsHeader/>
+      <GoalsHeader goals={goals} setGoals={setGoals}/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >
@@ -121,9 +119,9 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody >
-          {goal.map((row) => (
-            <Row key={row.title} row={row} goal={goal} setGoals={setGoals}/>
-          ))}
+          {goals.map((row) => {
+            return(<Row key={row.title} row={row} goals={goals} setGoals={setGoals}/>)
+          })}
         </TableBody>
       </Table>
     </TableContainer>

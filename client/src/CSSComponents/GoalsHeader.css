@@ -7,8 +7,6 @@
     align-items: center;
 }
 
-
-
 .time-filters {
     margin-left: 1.5rem;
 }
@@ -31,11 +29,14 @@
 }
 
 .filter-button:hover {
-    background-color: #009d9d;
-    border-color: #005151;
+    background-color: #005b5b !important;
+    border-color: #005b5b !important;
 }
 
-
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show{
+    background-color: #005151 !important;
+    border-color: #005151 !important;
+}
 
 .search {
     margin-left: 1.5rem;
@@ -58,21 +59,7 @@
     height: 2rem;
 }
 
-
-
-.add-goal-button {
-    height: 2rem;
-    width: auto;
-
-    background-color: #30cebb;
-    color: black;
-
-    border-radius: 1rem;
-    border-width: 3px;
-    border-color: #005151;
-
-    margin-left: 1.5rem;
+.magGlass {
+    color: #005151;
+    vertical-align: baseline;
 }
-
-
-
