@@ -6,5 +6,6 @@ urlpatterns = [
     path('employee/get/', views.getEmployee),
     path('employee/post/', views.postEmployee),
     path('goals/delete/', views.deleteGoal),
-    path('goals/post/', views.postGoal)
+    path('goals/post/', views.postGoal),
+    path('goals/get/', views.getGoal)
 ]
