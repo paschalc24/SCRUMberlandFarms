@@ -32,7 +32,7 @@ def getEmployee(request):
     employeeInstances = employee.objects.filter(email=request.data['email']).filter(password=request.data['password']).values()
     if employeeInstances:
         managedEmployees = []
-        if employeeInstances['isManager']:
+        if employeeInstances[0]['isManager']:
             employeesToManage = employeeSerializer(employee.objects.filter(managerId=employeeInstances[0]['employeeId']).values(), many = True).data
             managedEmployees = parseEmployeeInfo(employeesToManage)
         employeeJson = [{"employeeProfile": parseEmployeeInfo(employeeInstances)[0], "employeesToManage": managedEmployees}] 
