@@ -41,3 +41,9 @@ def postGoal(request):
     else:
         return Response(serializer.errors)
         
+@api_view(["GET"])
+def getGoal(request):
+    goalInstances = goal.objects.filter(employeeId=request.data['employeeId']).values()
+    if goalInstances:
+        serializer = goalSerializer(goalInstances, many = True)
+        return Response(serializer.data)   
