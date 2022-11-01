@@ -13,14 +13,32 @@ def postEmployee(request, *args, **kwargs):
         return Response(serializer.data)
     else:
         return Response(serializer.errors)
+    
+# given list of employee return a dictionary of employee and goal
+def parseEmployeeInfo(employeeInfos):
+    employeeProfiles = []
+    for employeeInstance in employeeInfos:
+        serializerGoal = goalSerializer(goal.objects.filter(employeeId=employeeInstance['employeeId']).values(), many = True).data
+        goalData = []
+        for goals in serializerGoal:
+            commentsWithGoalId = commentSerializer(comment.objects.filter(goalId=goals['goalId']).values(), many = True).data
+            goalData.append({"goal": goals, "comments": commentsWithGoalId})
+        employeeProfiles.append({"employee": employeeInstance, "goals": goalData})
+    return employeeProfiles
         
-#return a employee json based on the "depends"
+#return a employee when given the login info email and password
 @api_view(["GET"])
-def getEmployee(request, *args, **kwargs):
-    employeeInstances = employee.objects.filter(firstName=request.data['firstName']).values()
+def getEmployee(request):
+    employeeInstances = employee.objects.filter(email=request.data['email']).filter(password=request.data['password']).values()
     if employeeInstances:
-        serializer = employeeSerializer(employeeInstances, many = True)
-        return Response(serializer.data)
+        managedEmployees = []
+        if employeeInstances['isManager']:
+            employeesToManage = employeeSerializer(employee.objects.filter(managerId=employeeInstances[0]['employeeId']).values(), many = True).data
+            managedEmployees = parseEmployeeInfo(employeesToManage)
+        employeeJson = [{"employeeProfile": parseEmployeeInfo(employeeInstances)[0], "employeesToManage": managedEmployees}] 
+        return Response(employeeJson)
+    else:
+        return Response([])
 
 #delete a goal based on their goalId and return the rest of the goal in database as list of json
 @api_view(["DELETE"])

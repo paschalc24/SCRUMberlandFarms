@@ -6,7 +6,7 @@ class employee(models.Model):
     firstName = models.CharField(max_length = 200) # first name of employee
     lastName = models.CharField(max_length = 200) # last name of employee
     employeeId = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) # identifier of the employee to retrieve goals
-    email = models.CharField(max_length = 500) # email of employee
+    email = models.EmailField(max_length = 500) # email of employee
     companyName = models.CharField(max_length = 500)
     managerId = models.CharField(max_length = 500)
     positionTitle = models.CharField(max_length = 500)

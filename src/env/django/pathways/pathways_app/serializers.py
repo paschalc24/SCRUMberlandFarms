@@ -5,7 +5,8 @@ import uuid
 from .models import employee, goal, comment
 
 class employeeSerializer(serializers.ModelSerializer):
-    employeeId = serializers.UUIDField()
+    firstName = serializers.CharField()
+    lastName = serializers.CharField()
     email = serializers.CharField(default="@gmail.com")
     companyName = serializers.CharField(default="inc")
     managerId = serializers.IntegerField(default="321")
