@@ -13,11 +13,12 @@
     font-family: "Varela Round";
     display:flex;
     align-items: center;
+    width:45%;
 }
 
 #logo-image{
     padding: 7px 14px;
-    width: 18%;
+    width: 15%;
     min-width: 100px;
 }
 
