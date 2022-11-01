@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 .goals-header {
     height: 10%;
     background: rgb(235, 235, 235);
@@ -5,6 +7,8 @@
     display: flex;
     flex-direction: horizontal;
     align-items: center;
+    font-weight: 400;
+    font-family: "Varela Round";
 }
 
 .time-filters {

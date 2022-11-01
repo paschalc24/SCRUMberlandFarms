@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 body {
-  background-color: linear-gradient(-45deg, #003133, #003133, #087C79, #003133);
+  background: linear-gradient(-45deg, #087C79, #003133, #087C79, #003133);
 }
 
 .App {

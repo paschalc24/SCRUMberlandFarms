@@ -18,6 +18,7 @@
 #logo-image{
     padding: 7px 14px;
     width: 18%;
+    min-width: 100px;
 }
 
 .nav-link {
