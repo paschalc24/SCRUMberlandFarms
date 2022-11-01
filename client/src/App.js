@@ -16,7 +16,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import CollapsibleTable from "./UIComponents/GoalsList2.js";
+import CollapsibleTable from "./UIComponents/GoalsList.js";
 
 function App() {
   const [value, setValue] = useState(new Date());
