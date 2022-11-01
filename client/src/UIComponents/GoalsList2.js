@@ -22,14 +22,15 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/GoalsList2.css';
 import GoalsHeader from "./GoalsHeader";
 
-function createData(id, title, sdate, edate, status, manager) {
+function createData(id, title, sdate, edate, status, manager, description) {
   return {
     id,
     title,
     sdate,
     edate,
     status,
-    manager
+    manager,
+    description
   };
 }
 
@@ -62,13 +63,13 @@ function Row(props) {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
-                Comments
+                Description
               </Typography>
               <Table size="small" aria-label="purchases">
                 <TableHead>
-                <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
-                No comments yet.
-              </Typography>
+                  <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
+                    {row.description}
+                  </Typography>
                 </TableHead>
               </Table>
             </Box>
@@ -91,9 +92,9 @@ Row.propTypes = {
 
 const userGoals = data.users[0].goals;
 const rows = [
-  createData(userGoals[0].goalid, userGoals[0].goalName, new Date(userGoals[0].goalStartDate).toDateString(), new Date(userGoals[0].goalEndDate).toDateString(), userGoals[0].status, userGoals[0].manager),
-  createData(userGoals[1].goalid, userGoals[1].goalName, new Date(userGoals[1].goalStartDate).toDateString(), new Date(userGoals[1].goalEndDate).toDateString(), userGoals[1].status, userGoals[1].manager),
-  createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
+  // createData(userGoals[0].goalid, userGoals[0].goalName, new Date(userGoals[0].goalStartDate).toDateString(), new Date(userGoals[0].goalEndDate).toDateString(), userGoals[0].status, userGoals[0].manager),
+  // createData(userGoals[1].goalid, userGoals[1].goalName, new Date(userGoals[1].goalStartDate).toDateString(), new Date(userGoals[1].goalEndDate).toDateString(), userGoals[1].status, userGoals[1].manager),
+  // createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
 ];
 
 export default function CollapsibleTable() {

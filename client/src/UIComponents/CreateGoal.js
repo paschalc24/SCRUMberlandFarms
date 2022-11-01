@@ -29,7 +29,6 @@ export default function CreateGoal(props) {
 
     const handleCloseYes = () => {
         setShowError(false);
-
         addGoal(
          "testempid",
          "UKG", 
@@ -39,7 +38,6 @@ export default function CreateGoal(props) {
          moment(startDate).format('YYYY-MM-DD'), 
          moment(endDate).format('YYYY-MM-DD'),
          status,
-         manager,
          description
         );
 
@@ -49,14 +47,15 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(id, title, sdate, edate, status, manager) {
+    function createData(id, title, sdate, edate, status, manager, description) {
         return {
           id,
           title,
           sdate,
           edate,
           status,
-          manager
+          manager,
+          description
         };
     }
 
@@ -67,7 +66,7 @@ export default function CreateGoal(props) {
 
     const addGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
         props.goals.push(
-            createData(4, goalName, convertDate(startDate), convertDate(endDate), status, manager)
+            createData(4, goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
         );
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
@@ -84,7 +83,7 @@ export default function CreateGoal(props) {
                 status: status,
                 textField: textField,
             })
-            .then(res => console.log(res))//props.setGoals({ newList: res.data }))
+            .then(res => console.log((res.data)))//props.setGoals({ newList: res.data }))
             .catch(err => console.log(err));
 
         props.setGoals(newList);
@@ -109,7 +108,7 @@ export default function CreateGoal(props) {
                         <Form.Group className="mb-3" id="dates" controlId="exampleForm.ControlTextarea1">
                             <div id="startDateTitle">
                                 <Form.Label>Start Date</Form.Label>
-                                <DatePicker className="startDate" selected={startDate} onChange={(date) => setStartDate(date)} disabled/>
+                                <DatePicker className="startDate" selected={startDate} onChange={(date) => setStartDate(date)}/>
                             </div>
                             <div id="endDateTitle">
                                 <Form.Label>End Date</Form.Label>
