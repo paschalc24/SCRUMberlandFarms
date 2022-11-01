@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'pathways.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pathways',
+        'NAME': 'cs320_test_pathways',
         'USER': 'cs320_pathways_server@cs320-pathways',
         'PASSWORD': 'Abcd!234',
         'HOST': 'cs320-pathways.postgres.database.azure.com',
