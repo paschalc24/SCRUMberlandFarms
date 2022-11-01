@@ -1,6 +1,5 @@
 from email.policy import default
 from rest_framework import serializers
-import uuid
 
 from .models import employee, goal, comment
 
