@@ -19,3 +19,7 @@
 .cal .react-calendar__tile--active {
   background: #005151;
 }
+
+abbr[title]{
+  text-decoration: none;
+}
