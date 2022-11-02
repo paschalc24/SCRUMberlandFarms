@@ -5,10 +5,12 @@ import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
-import { BiSearchAlt2 } from 'react-icons/bi';
+import { BiSearchAlt2, BiChevronsRight } from 'react-icons/bi';
 
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+
+import { transition } from "./ManagerGoalsList.js";
 
 
 function GoalsHeader(props) {
@@ -33,6 +35,10 @@ function GoalsHeader(props) {
                 <Button size='sm' className="search-button"><BiSearchAlt2 className="magGlass" size={20}/></Button>
             </InputGroup>
             <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
+            <Button size='sm' className="employees-button" onClick={props.transition}>
+                Employees
+                <BiChevronsRight size={30}/>
+            </Button>
         </div>
     );
 }
