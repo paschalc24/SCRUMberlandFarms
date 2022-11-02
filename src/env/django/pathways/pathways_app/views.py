@@ -64,4 +64,21 @@ def getGoal(request):
     goalInstances = goal.objects.filter(employeeId=request.data['employeeId']).values()
     if goalInstances:
         serializer = goalSerializer(goalInstances, many = True)
-        return Response(serializer.data)   
+        return Response(serializer.data)
+
+@api_view(["POST"])
+def postComment(request)
+    serializer = commentSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    else:
+        return Response(serializer.errors)
+
+@api_view(["GET"])
+def getComments(request):
+    commentInstances = goal.objects.filter(goalId=request.data['goalId']).values()
+    # sort the returned comments?
+    if commentInstances:
+        serializer = commentSerializer(commentInstances, many = True)
+        return Response(serializer.data)
