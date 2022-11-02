@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 
 import Header from "./UIComponents/Header.js";
-// import Calendar from 'react-calendar';
-// import GoalsList from "./UIComponents/GoalsList.js";
-import GoalsCalendarList from "./UIComponents/GoalsCalendarList.js";
 import Cal from "./UIComponents/Calendar.js";
-import GoalDescription from "./UIComponents/card.js";
 
 import 'react-calendar/dist/Calendar.css';
-// import './CSSComponents/Calendar.css';
 import './CSSComponents/Grid.css';
 
 import './App.css';
@@ -25,7 +20,7 @@ const managerView = true;
 
 function App() {
   const [value, setValue] = useState(new Date());
-  const viewTitle = managerView ? "Manager View": "Employee View";
+  const viewTitle = managerView ? "Manager Name": "Employee Name";
   if (managerView) {
     return (
       <div className="App">
@@ -59,7 +54,7 @@ function App() {
               <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
               {/* <Row className="descRow"><GoalDescription/></Row> */}
               {/* <Row className="descRow"><GoalsCalendarList value={value}/></Row> */}
-              <GoalsCalendarList value={value}/>
+              <Row className="cardRow"><CardContainer value={value}/></Row>
             </Col>
           </Row>
         </Container>

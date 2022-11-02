@@ -31,4 +31,5 @@
     padding: 0px 10px 10px 10px;
     flex-direction: column;
     overflow: auto;
+    height: 100%;
 }
