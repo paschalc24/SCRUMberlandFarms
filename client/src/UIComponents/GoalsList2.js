@@ -97,8 +97,7 @@ const rows = [
   // createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
 ];
 
-export default function CollapsibleTable() {
-
+export default function CollapsibleTable(props) {
   const [goals, setGoals] = useState(rows);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
@@ -106,7 +105,7 @@ export default function CollapsibleTable() {
         fontFamily: "Varela Round"
       },
     }}>
-      <GoalsHeader goals={goals} setGoals={setGoals}/>
+      <GoalsHeader transition={props.transition} goals={goals} setGoals={setGoals}/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >

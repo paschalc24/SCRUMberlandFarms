@@ -67,3 +67,21 @@
     color: #005151;
     vertical-align: baseline;
 }
+
+.employees-button {
+    display: flex;
+    align-items: center;
+
+    border-width: 0px;
+    background-color: #005151;
+    color: white;
+
+    height: 2rem;
+
+    margin-right: 1.5rem;
+    padding-right: 0px;
+}
+
+.employees-button:hover {
+    background-color: #004343 !important;
+}

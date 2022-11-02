@@ -1,0 +1,30 @@
+.employees-header {
+    height: 10%;
+    background: rgb(235, 235, 235);
+    position: sticky;
+    display: flex;
+    flex-direction: horizontal;
+    align-items: center;
+    font-weight: 400;
+    font-family: "Varela Round";
+
+    justify-content: flex-end;
+}
+
+.goals-button {
+    display: flex;
+    align-items: center;
+
+    border-width: 0px;
+    background-color: #005151;
+    color: white;
+
+    height: 2rem;
+
+    margin-right: 1.5rem;
+    padding-right: 0px;
+}
+
+.goals-button:hover {
+    background-color: #004343 !important;
+}

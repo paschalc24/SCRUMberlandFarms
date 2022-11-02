@@ -16,11 +16,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
 import CollapsibleTable from "./UIComponents/GoalsList2.js";
+
+
+const managerView = true;
 
 function App() {
   const [value, setValue] = useState(new Date());
-  const managerView = true;
   const viewTitle = managerView ? "Manager View": "Employee View";
   if (managerView) {
     return (
@@ -29,7 +32,7 @@ function App() {
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
             <Col sm={9}>
-              <CollapsibleTable/>
+              <ManagerGoalsList/>
             </Col>
             <Col sm={3}>
               <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
@@ -65,3 +68,4 @@ function App() {
 }
 
 export default App;
+export {managerView};
