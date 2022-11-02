@@ -1,18 +1,20 @@
 # Create your views here.
+from urllib import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import status
 from .serializers import employeeSerializer, goalSerializer, commentSerializer
 from .models import employee, goal, comment
 
 #adds a new employee to the database
 @api_view(["POST"])
-def postEmployee(request, *args, **kwargs):
+def postEmployee(request):
     serializer = employeeSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 # given list of employee return a dictionary of employee and goal
 def parseEmployeeInfo(employeeInfos):
@@ -26,7 +28,7 @@ def parseEmployeeInfo(employeeInfos):
         employeeProfiles.append({"employee": employeeInstance, "goals": goalData})
     return employeeProfiles
         
-#return a employee when given the login info email and password
+#return a employee when given email
 @api_view(["GET"])
 def getEmployee(request):
     employeeInstances = employee.objects.filter(email=request.data['email']).filter(password=request.data['password']).values()
@@ -38,7 +40,29 @@ def getEmployee(request):
         employeeJson = [{"employeeProfile": parseEmployeeInfo(employeeInstances)[0], "employeesToManage": managedEmployees}] 
         return Response(employeeJson)
     else:
-        return Response([])
+        return Response([], status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(["PUT"])
+def updateEmployee(request):
+    #todo add check for if all parameter is present
+    employeeInstance = employee.objects.filter(employeeId=request.data['employeeId'])[0]
+    serializer = employeeSerializer(employeeInstance, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(["DELETE"])
+def deleteEmployee(request):
+    if "employeeId" in request.data:
+        employee.objects.filter(employeeId=request.data['employeeId']).delete()
+        if len(employee.objects.filter(employeeId=request.data['employeeId'])) == 0:
+            return Response({"status": "employee profile deleted"}, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response({"status": "employee could not be deleted"}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({"status": "no employeeId provided"}, status=status.HTTP_400_BAD_REQUEST)
 
 #delete a goal based on their goalId and return the rest of the goal in database as list of json
 @api_view(["DELETE"])
