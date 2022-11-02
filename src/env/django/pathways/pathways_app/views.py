@@ -67,7 +67,7 @@ def getGoal(request):
         return Response(serializer.data)
 
 @api_view(["POST"])
-def postComment(request)
+def postComment(request):
     serializer = commentSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -79,6 +79,14 @@ def postComment(request)
 def getComments(request):
     commentInstances = goal.objects.filter(goalId=request.data['goalId']).values()
     # sort the returned comments?
+    if commentInstances:
+        serializer = commentSerializer(commentInstances, many = True)
+        return Response(serializer.data)
+
+@api_view(["DELETE"])
+def deleteComments(request):
+    comment.objects.filter(commentId=request.data['commentId']).delete()
+    commentInstances = comment.objects.all()
     if commentInstances:
         serializer = commentSerializer(commentInstances, many = True)
         return Response(serializer.data)
