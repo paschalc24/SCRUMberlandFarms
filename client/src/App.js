@@ -18,6 +18,7 @@ import Col from 'react-bootstrap/Col';
 
 import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
 import CollapsibleTable from "./UIComponents/GoalsList2.js";
+import CardContainer from './UIComponents/CardContainer.js';
 
 
 const managerView = true;
@@ -38,7 +39,7 @@ function App() {
               <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
               {/* <Row className="descRow"><GoalDescription/></Row> */}
               {/* <Row className="descRow"><GoalsCalendarList value={value}/></Row> */}
-              <GoalsCalendarList value={value}/>
+              <Row className="cardRow"><CardContainer value={value}/></Row>
             </Col>
           </Row>
         </Container>

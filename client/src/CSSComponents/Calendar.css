@@ -17,7 +17,7 @@
 }
 
 .cal .react-calendar__tile--active {
-  background: #005151;
+  background: #005151 !important;
 }
 
 abbr[title]{

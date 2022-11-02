@@ -26,3 +26,9 @@
 .calRow{
     padding: 0px 10px 10px 10px;
 }
+
+.cardRow{
+    padding: 0px 10px 10px 10px;
+    flex-direction: column;
+    overflow: auto;
+}
