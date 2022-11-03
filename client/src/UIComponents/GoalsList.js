@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import '../CSSComponents/GoalsList.css';
+import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 
 function createData(id, title, sdate, edate, status, manager, description) {
@@ -117,7 +117,7 @@ export default function CollapsibleTable(props) {
         fontFamily: "Varela Round"
       },
     }}>
-      <GoalsHeader transition={props.transition} goals={goals} setGoals={setGoals}/>
+      <GoalsHeader view={props.view} transition={props.transition} goals={goals} setGoals={setGoals}/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >

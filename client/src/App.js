@@ -30,7 +30,7 @@ function App() {
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
             <Col sm={9}>
-              <ManagerGoalsList/>
+              <ManagerGoalsList view={managerView}/>
             </Col>
             <Col sm={3}>
               <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
@@ -50,7 +50,7 @@ function App() {
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
             <Col sm={9}>
-              <CollapsibleTable/>
+              <CollapsibleTable view={managerView}/>
             </Col>
             <Col sm={3}>
               <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
