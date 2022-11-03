@@ -18,11 +18,11 @@ function EmployeesList(props) {
             <Table stickyHeader aria-label="collapsible table">
                 <TableHead>
                 <TableRow>
-                    <TableCell sx={{fontFamily: "Varela Round"}}>Employee</TableCell>
-                    <TableCell sx={{fontFamily: "Varela Round"}} align="right">Goal Title</TableCell>
+                    <TableCell sx={{fontFamily: "Varela Round"}}>Goal</TableCell>
                     <TableCell sx={{fontFamily: "Varela Round"}} align="right">Start Date</TableCell>
                     <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
                     <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>
+                    <TableCell sx={{fontFamily: "Varela Round"}} align="right">Employees</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>

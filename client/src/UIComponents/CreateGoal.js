@@ -102,7 +102,7 @@ export default function CreateGoal(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Goal Name</Form.Label>
+                            <Form.Label>Goal Title</Form.Label>
                             <Form.Control value={goalName} onChange={e => setGoalName(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" id="dates" controlId="exampleForm.ControlTextarea1">

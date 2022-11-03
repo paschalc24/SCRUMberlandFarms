@@ -122,7 +122,7 @@ export default function CollapsibleTable(props) {
         <TableHead >
           <TableRow >
             <TableCell />
-            <TableCell sx={{fontFamily: "Varela Round"}}>Goals</TableCell>
+            <TableCell sx={{fontFamily: "Varela Round"}}>Goal</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Start Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>

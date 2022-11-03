@@ -123,17 +123,7 @@ export default function CreateManagerGoal(props) {
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Manager Assignments</Form.Label>
-                            <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
-                                <option value="mNone">None</option>
-                                <option value="mJason">Jason</option>
-                                <option value="mJason">Meng</option>
-                                <option value="mMeng">Paschal</option>
-                                <option value="mAll">All</option>
-                            </Form.Select>
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Employee Assignments</Form.Label>
+                            <Form.Label>Employees</Form.Label>
                             <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
                                 <option value="eNone">None</option>
                                 <option value="eJason">Jason</option>
