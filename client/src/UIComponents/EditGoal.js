@@ -93,7 +93,7 @@ export default function EditGoal(props) {
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton> 
-                <Modal.Title id="headerTitle">Create Goal</Modal.Title>
+                <Modal.Title id="headerTitle">Update Goal</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>

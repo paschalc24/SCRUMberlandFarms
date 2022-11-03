@@ -56,7 +56,19 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right"><DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/><EditGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/></TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">
+          <DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/>
+          <EditGoal id={row.id} 
+            title={row.title} 
+            sdate={row.sdate} 
+            edate={row.edate} 
+            status={row.status} 
+            manager={row.manager} 
+            description={row.description} 
+            goals={props.goals} 
+            setGoals={props.setGoals}
+          />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
