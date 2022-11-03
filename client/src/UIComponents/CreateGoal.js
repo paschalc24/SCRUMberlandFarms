@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -66,7 +66,7 @@ export default function CreateGoal(props) {
 
     const addGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
         props.goals.push(
-            createData(4, goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
+            createData(Math.floor(Math.random() * 1000), goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
         );
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);

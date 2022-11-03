@@ -12,7 +12,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
-import CollapsibleTable from "./UIComponents/GoalsList2.js";
+import CollapsibleTable from "./UIComponents/GoalsList.js";
 import CardContainer from './UIComponents/CardContainer.js';
 
 
@@ -20,6 +20,8 @@ const managerView = true;
 
 function App() {
   const [value, setValue] = useState(new Date());
+  const [goalData, setGoalData] = useState();
+
   const viewTitle = managerView ? "Manager Name": "Employee Name";
   if (managerView) {
     return (
