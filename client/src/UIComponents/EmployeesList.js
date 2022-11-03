@@ -19,7 +19,7 @@ function EmployeesList(props) {
                 <TableHead>
                 <TableRow>
                     <TableCell sx={{fontFamily: "Varela Round"}}>Employee</TableCell>
-                    <TableCell sx={{fontFamily: "Varela Round"}} align="right">Title</TableCell>
+                    <TableCell sx={{fontFamily: "Varela Round"}} align="right">Goal Title</TableCell>
                     <TableCell sx={{fontFamily: "Varela Round"}} align="right">Start Date</TableCell>
                     <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
                     <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>
