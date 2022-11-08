@@ -90,3 +90,13 @@ def deleteComments(request):
     if commentInstances:
         serializer = commentSerializer(commentInstances, many = True)
         return Response(serializer.data)
+
+@api_view(["UPDATE"])
+def updateComment(request):
+    commentInstance = goal.objects.filter(goalId=request.data['goalId'])[0]
+    serializer = commentSerializer(commentInstance, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    else:
+        return Response(serializer.errors)
