@@ -1,6 +1,6 @@
 import '../CSSComponents/GoalsHeader.css';
 import CreateGoal from "./CreateGoal.js";
-import React, { Component } from "react";
+import React from "react";
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
