@@ -3,14 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { VscAdd } from 'react-icons/vsc';
-import '../CSSComponents/createGoal.css';
+import '../CSSComponents/CreateManagerGoal.css';
 import moment from 'moment'
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios'; 
 
-export default function CreateGoal(props) {
+export default function CreateManagerGoal(props) {
 
     const [show, setShow] = useState(false);
 
@@ -102,7 +102,7 @@ export default function CreateGoal(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Goal Title</Form.Label>
+                            <Form.Label>Goal Name</Form.Label>
                             <Form.Control value={goalName} onChange={e => setGoalName(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" id="dates" controlId="exampleForm.ControlTextarea1">
@@ -123,8 +123,14 @@ export default function CreateGoal(props) {
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Manager</Form.Label>
-                            <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
+                            <Form.Label>Employees</Form.Label>
+                            <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
+                                <option value="eNone">None</option>
+                                <option value="eJason">Jason</option>
+                                <option value="eMeng">Meng</option>
+                                <option value="ePaschal">Paschal</option>
+                                <option value="eAll">All</option>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>

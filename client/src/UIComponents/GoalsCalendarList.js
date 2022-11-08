@@ -2,10 +2,10 @@ import React, { Component, useState } from "react";
 import '../CSSComponents/goalsCalendarList.css'
 import data from '../tempStorage.json';
 import Card from 'react-bootstrap/Card';
-import '../CSSComponents/card.css';
 
 function GoalsCalendarList({value}) {
-    let filterGoals = data.users[0].goals.filter(goal => Date.parse(goal.goalEndDate) === Date.parse(value));
+    let filterGoals = data.users[0].goals.filter(goal => Date.parse(goal.goalEndDate) >= Date.parse(value)
+                                                    && Date.parse(goal.goalStartDate) <= Date.parse(value));
     let goalNames = filterGoals.map(goal => goal.goalName);
     let goalDescriptions = filterGoals.map(goal => goal.goalName);
 
@@ -14,16 +14,19 @@ function GoalsCalendarList({value}) {
         // descriptions: descriptions,
     };
 
-    return (
-        <div className="goals-calendar-group">
-            {
-            state.goals.map(goal => (
-                <div 
-                key = {goal.goalName}
-                className="goal-item">
-                {[
-                    'Light'
-                ].map((variant) => (
+    if (filterGoals.length === 0) {
+        return (
+        <div>No Active Goals Today</div>
+        );
+    }
+    else {
+        return (
+            <div className="goals-calendar-group">
+                {
+                state.goals.map(goal => (
+                    <div 
+                    key = {goal.goalName}
+                    className="goal-item">
                     <Card
                     bg={'Light'.toLowerCase()}
                     key={'Light'}
@@ -42,11 +45,11 @@ function GoalsCalendarList({value}) {
                         </Card.Text>
                     </Card.Body>
                     </Card>
+                    </div>
                 ))}
-                </div>
-            ))}
-        </div>
-    );
+            </div>
+        );
+    }
 }
 
 export default GoalsCalendarList;

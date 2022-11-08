@@ -5,7 +5,7 @@
 }
 
 .mainRow {
-    overflow: hidden;
+    overflow: auto;
     display: flex;
     flex: auto;
     padding-top: 1rem;
@@ -27,7 +27,9 @@
     padding: 0px 10px 10px 10px;
 }
 
-/* .descRow{
-    overflow-y: scroll;
-    padding: 0px 10px 0px 10px;
-} */
+.cardRow{
+    padding: 0px 10px 10px 10px;
+    flex-direction: column;
+    overflow: auto;
+    height: 100%;
+}

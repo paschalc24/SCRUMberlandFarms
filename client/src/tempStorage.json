@@ -6,27 +6,27 @@
             "goals": [
                 {
                     "goalid": 1,
-                    "goalName": "goal#1",
-                    "goalDesc": "this is test desc #1",
-                    "status": "In-Progress",
+                    "goalName": "Goal 1",
+                    "goalDesc": "This is Test Desc #1.",
+                    "status": "In Progress",
                     "goalStartDate": "10/26/2022",
                     "goalEndDate": "11/20/2022",
                     "manager": "John Doe"
                 },
                 {
                     "goalid": 2,
-                    "goalName": "goal#2",
-                    "goalDesc": "this is test desc #2",
-                    "status": "In-Progress",
+                    "goalName": "Goal 2",
+                    "goalDesc": "This is Test Desc #2.",
+                    "status": "In Progress",
                     "goalStartDate": "10/26/2022",
                     "goalEndDate": "11/20/2022",
                     "manager": "Jane Doe"
                 },
                 {
                     "goalid": 3,
-                    "goalName": "goal#3",
-                    "goalDesc": "this is test desc #3",
-                    "status": "In-Progress",
+                    "goalName": "Goal 3",
+                    "goalDesc": "This is Test Desc #3.",
+                    "status": "In Progress",
                     "goalStartDate": "10/26/2022",
                     "goalEndDate": "11/25/2022",
                     "manager": "Jane Doe"

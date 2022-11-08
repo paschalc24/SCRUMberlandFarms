@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import '../CSSComponents/GoalsList2.css';
+import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 
 function createData(id, title, sdate, edate, status, manager, description) {
@@ -56,7 +56,19 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right"><DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/><EditGoal title={row.title} goals={props.goals} setGoals={props.setGoals}/></TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">
+          <DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/>
+          <EditGoal id={row.id} 
+            title={row.title} 
+            sdate={row.sdate} 
+            edate={row.edate} 
+            status={row.status} 
+            manager={row.manager} 
+            description={row.description} 
+            goals={props.goals} 
+            setGoals={props.setGoals}
+          />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -97,8 +109,7 @@ const rows = [
   // createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
 ];
 
-export default function CollapsibleTable() {
-
+export default function CollapsibleTable(props) {
   const [goals, setGoals] = useState(rows);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
@@ -106,12 +117,12 @@ export default function CollapsibleTable() {
         fontFamily: "Varela Round"
       },
     }}>
-      <GoalsHeader goals={goals} setGoals={setGoals}/>
+      <GoalsHeader view={props.view} transition={props.transition} goals={goals} setGoals={setGoals}/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >
             <TableCell />
-            <TableCell sx={{fontFamily: "Varela Round"}}>Goals</TableCell>
+            <TableCell sx={{fontFamily: "Varela Round"}}>Goal</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Start Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>
