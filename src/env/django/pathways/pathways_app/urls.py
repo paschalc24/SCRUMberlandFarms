@@ -10,5 +10,6 @@ urlpatterns = [
     path('goals/get/', views.getGoal),
     path('comments/post/', views.postComment),
     path('comments/get/', views.getComments),
-    path('comments/delete', views.deleteComments)
+    path('comments/delete/', views.deleteComments),
+    path('comments/update/', views.updateComment)
 ]
