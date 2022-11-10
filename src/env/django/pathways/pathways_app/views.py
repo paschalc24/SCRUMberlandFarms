@@ -31,7 +31,9 @@ def parseEmployeeInfo(employeeInfos):
 #return a employee when given email
 @api_view(["GET"])
 def getEmployee(request):
-    employeeInstances = employee.objects.filter(email=request.data['email']).filter(password=request.data['password']).values()
+    emailReceived = request.GET.get('email', None)
+    passwordReceived = request.GET.get('password', None)
+    employeeInstances = employee.objects.filter(email=emailReceived).filter(password=passwordReceived).values()
     if employeeInstances:
         managedEmployees = []
         if employeeInstances[0]['isManager']:
