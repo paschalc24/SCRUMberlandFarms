@@ -14,7 +14,7 @@ import Col from 'react-bootstrap/Col';
 import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
 import CollapsibleTable from "./UIComponents/GoalsList.js";
 import CardContainer from './UIComponents/CardContainer.js';
-
+import TestApi from "./UIComponents/TestAPI.js";
 
 const managerView = true;
 
@@ -26,6 +26,7 @@ function App() {
   if (managerView) {
     return (
       <div className="App">
+        <TestApi/>
         <Container fluid> 
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
