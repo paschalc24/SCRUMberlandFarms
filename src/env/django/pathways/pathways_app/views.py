@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from .serializers import employeeSerializer, goalSerializer, commentSerializer
 from .models import employee, goal, comment
-import json
 
 #adds a new employee to the database
 @api_view(["POST"])
@@ -28,6 +27,7 @@ def getEmployee(request, *args, **kwargs):
     else:
         return Response({"failure": "the employee you are looking for does not exist"}, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(["GET"])
 def getGoal(request, *args, **kwargs):
     # if there is no employee id specified, return a failed response
@@ -38,11 +38,10 @@ def getGoal(request, *args, **kwargs):
     # if there are no goals, return a failed response, otherwise return the serialized data (no need to check success as data is retrieved from database)
     if goalInstances:
         serializer = goalSerializer(goalInstances, many = True)
-        return Response(serializer.data)   
+        return Response({"success": serializer.data}, status=status.HTTP_200_OK)   
     else:
         return Response({"failure": "there are no goals associated with given employee"}, status=status.HTTP_400_BAD_REQUEST)
 
-#delete a goal based on their goalId and return the rest of the goal in database as list of json
 @api_view(["DELETE"])
 def deleteGoal(request, *args, **kwargs):
     # if there is no goal id specified, return a failed response
@@ -63,7 +62,6 @@ def deleteGoal(request, *args, **kwargs):
     else:
         return Response({"failure": "there was an error with the deletion"}, status=status.HTTP_400_BAD_REQUEST)
 
-# adds a goal to the database based on iput and return the goal if it is successfully added
 @api_view(["POST"])
 def postGoal(request, *args, **kwargs):
     # attempt to serialize the data provided
@@ -75,48 +73,22 @@ def postGoal(request, *args, **kwargs):
     else:
         return Response(serializedData.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
 @api_view(["PUT"])
 def updateGoal(request, *args, **kwargs):
+    # get the name of all fields of goal model (aside from goalid)
     fields = [f.name for f in goal._meta.get_fields()]
     if (len([field for field in fields if field not in request.data])>0):
         return Response({"failure": "incomplete goal"}, status=status.HTTP_400_BAD_REQUEST)
-    
-    if ("goalId" in request.data):
-        goalInstance = goal.objects.filter(goalId=request.data["goalId"])[0]
-        if (goalInstance):
-            serializer = goalSerializer(goalInstance, data=request.data)
-            if (serializer.is_valid()):
-                serializer.save()
-                return Response({"success": "goal updated successfully"}, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response({"failure": "serializer failed"}, status=status.HTTP_400_BAD_REQUEST)
+    # if all of the field are contained, try to find and modify the desired goal
+    goalInstance = goal.objects.filter(goalId=request.data["goalId"])[0]
+    # if the goal does not exist, return a failed response, otherise serialize the data and update the goal
+    if (goalInstance):
+        serializer = goalSerializer(goalInstance, data=request.data)
+        if (serializer.is_valid()):
+            serializer.save()
+            return Response({"success": "goal updated successfully"}, status=status.HTTP_201_CREATED)
         else:
-            return Response({"failure": "goal not found"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-    '''
-    # get all valid field names in given model
-    fields = [f.name for f in goal._meta.get_fields() if (f.name in request.data and f.name != "goalId")]
-    # check if there was a goal specified in the request
-    if ("goalId" not in request.data):
-        return Response({"failure": "no goal specified"}, status=status.HTTP_400_BAD_REQUEST)
-    # get the goal associated with provided goal id
-    targetGoal = goal.objects.filter(goalId=request.data["goalId"])
-    # for each field which is both a valid field and within the response, attempt to modify the field of 
-    for field in fields:
-        try:
-            targetGoal[field] = request.data[field]
-        except TypeError:
-            return Response({"failure": f"there was a type error in the {field} field"}, status=status.HTTP_404_NOT_FOUND)
-    
-    targetGoal.save()
-    return Response({"success": "item successfully updated"}, status=status.HTTP_202_ACCEPTED)
-    '''
+            return Response({"failure": "serializer failed"}, status=status.HTTP_400_BAD_REQUEST)
 
 
    
