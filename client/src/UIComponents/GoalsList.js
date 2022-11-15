@@ -22,18 +22,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 
-function createData(id, title, sdate, edate, status, manager, description) {
-  return {
-    id,
-    title,
-    sdate,
-    edate,
-    status,
-    manager,
-    description
-  };
-}
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -58,8 +46,8 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
-          <DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/>
-          <EditGoal id={row.id} 
+          <DeleteGoal id={row.goalId} goals={props.goals} setGoals={props.setGoals}/>
+          <EditGoal id={row.goalId} 
             title={row.title} 
             sdate={row.sdate} 
             edate={row.edate} 
@@ -104,11 +92,7 @@ Row.propTypes = {
 };
 
 const userGoals = data.users[0].goals;
-const rows = [
-  // createData(userGoals[0].goalid, userGoals[0].goalName, new Date(userGoals[0].goalStartDate).toDateString(), new Date(userGoals[0].goalEndDate).toDateString(), userGoals[0].status, userGoals[0].manager),
-  // createData(userGoals[1].goalid, userGoals[1].goalName, new Date(userGoals[1].goalStartDate).toDateString(), new Date(userGoals[1].goalEndDate).toDateString(), userGoals[1].status, userGoals[1].manager),
-  // createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
-];
+const rows = [];
 
 export default function CollapsibleTable(props) {
   const [goals, setGoals] = useState(rows);

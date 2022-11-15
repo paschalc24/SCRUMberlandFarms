@@ -18,13 +18,14 @@ export default function DeleteGoal(props) {
     const handleShow = () => setShow(true);
 
     const deleteRow = () => {
-        const newList = props.goals.filter((item) => item.id !== props.id);
-        // axios
-        //     .delete("http://127.0.0.1:8000/goals/delete/", {
-        //         data: {goalId: props.id}
-        //     })
-        //     .then(res => console.log(res))//props.setGoals({ newList: res.data }))
-        //     .catch(err => console.log(err));
+        let data = JSON.parse(sessionStorage.getItem("employee"));
+        const newList = props.goals.filter((item) => item.goalId !== props.id);
+        axios
+            .delete("http://127.0.0.1:8000/goals/delete/", {
+                data: {goalId: props.id}
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
 
         props.setGoals(newList);
     };
