@@ -1,34 +1,14 @@
-.main-view {
-    height: 100%;
-    background-color: white;
-    font-family: "Varela Round";
-    font-weight: 400;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    box-shadow: 5px 5px 5px #003133;
-    list-style: none;
-    padding-left: 0;
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+.MuiPaper-root{
+    border-radius: 10px !important;
+    height: 98.5%;
 }
 
-.goal-item {
-    height: 16%;
+.css-1nbmkk3-MuiPaper-root-MuiTableContainer-root {
+    box-shadow: 5px 5px 5px #003133 !important;
 }
 
-.goal-item:hover {
-    width: 100%;
-    background-color: #F5F5F5;
-    border: inset;
-}
-
-.goal-name {
-    float: left;
-    margin-left: 2rem;
-    color: #005151;
-}
-
-.goal-due-date {
-    float: right;
-    margin-right: 2rem;
-    color: #005151;
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+    box-shadow: 5px 5px 5px #003133 !important;
 }

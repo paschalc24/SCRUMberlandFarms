@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -28,11 +28,16 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
+        let data = JSON.parse(sessionStorage.getItem("employee"));
         setShowError(false);
+        console.log(data["employeeId"],
+        data["companyName"], 
+        data["managerId"], )
+        
         addGoal(
-         "testempid",
-         "UKG", 
-         "testmanid", 
+         data["employeeId"],
+         data["companyName"], 
+         data["managerId"], 
          goalName, 
          "testCategory", 
          moment(startDate).format('YYYY-MM-DD'), 
@@ -66,7 +71,7 @@ export default function CreateGoal(props) {
 
     const addGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
         props.goals.push(
-            createData(4, goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
+            createData(Math.floor(Math.random() * 1000), goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
         );
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
@@ -102,7 +107,7 @@ export default function CreateGoal(props) {
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Goal Name</Form.Label>
+                            <Form.Label>Goal Title</Form.Label>
                             <Form.Control value={goalName} onChange={e => setGoalName(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" id="dates" controlId="exampleForm.ControlTextarea1">

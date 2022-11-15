@@ -10,15 +10,15 @@ export default function DeleteGoal(props) {
     const [show, setShow] = useState(false);
 
     const handleCloseYes = () => {
-        deleteRow(props.id);
+        deleteRow();
         setShow(false);
     };
     const handleCloseNo = () => setShow(false);
 
     const handleShow = () => setShow(true);
 
-    const deleteRow = (id) => {
-        const newList = props.goals.filter((item) => item.id !== id);
+    const deleteRow = () => {
+        const newList = props.goals.filter((item) => item.id !== props.id);
         // axios
         //     .delete("http://127.0.0.1:8000/goals/delete/", {
         //         data: {goalId: props.id}

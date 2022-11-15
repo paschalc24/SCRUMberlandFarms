@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import '../CSSComponents/createGoal.css';
+import { VscAdd } from 'react-icons/vsc';
+import '../CSSComponents/CreateManagerGoal.css';
 import moment from 'moment'
-import { MdOutlineModeEditOutline } from 'react-icons/md';
-import '../CSSComponents/editGoal.css';
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios'; 
 
-export default function EditGoal(props) {
+export default function CreateManagerGoal(props) {
+
     const [show, setShow] = useState(false);
 
     const [goalName, setGoalName] = useState('');
@@ -29,7 +29,7 @@ export default function EditGoal(props) {
 
     const handleCloseYes = () => {
         setShowError(false);
-        updateGoal(
+        addGoal(
          "testempid",
          "UKG", 
          "testmanid", 
@@ -47,58 +47,62 @@ export default function EditGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    // function createData(id, title, sdate, edate, status, manager, description) {
-    //     return {
-    //       id,
-    //       title,
-    //       sdate,
-    //       edate,
-    //       status,
-    //       manager,
-    //       description
-    //     };
-    // }
+    function createData(id, title, sdate, edate, status, manager, description) {
+        return {
+          id,
+          title,
+          sdate,
+          edate,
+          status,
+          manager,
+          description
+        };
+    }
 
     const convertDate = (date) => {
         const [year, month, day] = date.split('-');
         return new Date([month, day, year].join('/')).toDateString();
     }
 
-    const updateGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
-        const findGoal = props.goals.findIndex((item) => item.id === props.id);
-        const goalToUpdate = props.goals[findGoal];
-        console.log("goaltoupdate: ", goalToUpdate);
-
-        goalToUpdate.title = title;
-        goalToUpdate.sdate = convertDate(startDate);
-        goalToUpdate.edate = convertDate(endDate);
-        goalToUpdate.status = status;
-        goalToUpdate.manager = manager;
-        goalToUpdate.description = textField;
-
+    const addGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
+        props.goals.push(
+            createData(Math.floor(Math.random() * 1000), goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
+        );
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
 
-        // axios
-        // create put request
+        axios
+            .post("http://127.0.0.1:8000/goals/post/", {
+                employeeId: employeeId,
+                companyName: companyName,
+                managerId: managerId,
+                title: title,
+                category: category,
+                startDate: startDate,
+                endDate: endDate,
+                status: status,
+                textField: textField,
+            })
+            .then(res => console.log((res.data)))//props.setGoals({ newList: res.data }))
+            .catch(err => console.log(err));
 
         props.setGoals(newList);
     }
 
     return (
         <>
-            <button size="sm" className="edit" onClick={handleShow}>
-                <MdOutlineModeEditOutline size={18}/>
+            <button size="sm" className="add-goal-button" onClick={handleShow}>
+                <VscAdd className='addIcon' size={20}/>
             </button>
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton> 
-                <Modal.Title id="headerTitle">Update Goal</Modal.Title>
+                <Modal.Title id="headerTitle">Create Goal</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Goal Title</Form.Label>
+                            <Form.Label>Goal Name</Form.Label>
                             <Form.Control value={goalName} onChange={e => setGoalName(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" id="dates" controlId="exampleForm.ControlTextarea1">
@@ -119,8 +123,14 @@ export default function EditGoal(props) {
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Manager</Form.Label>
-                            <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
+                            <Form.Label>Employees</Form.Label>
+                            <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
+                                <option value="eNone">None</option>
+                                <option value="eJason">Jason</option>
+                                <option value="eMeng">Meng</option>
+                                <option value="ePaschal">Paschal</option>
+                                <option value="eAll">All</option>
+                            </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>

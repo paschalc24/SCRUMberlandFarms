@@ -1,0 +1,9 @@
+.yesButton {
+    background-color: #005151;
+    border-color: #005151;
+}
+
+.yesButton:hover {
+    background-color: #004343;
+    border-color: #004343;
+}
