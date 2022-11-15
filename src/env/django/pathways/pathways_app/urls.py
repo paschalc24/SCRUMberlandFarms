@@ -10,8 +10,12 @@ urlpatterns = [
     path('goals/delete/', views.deleteGoal),
     path('goals/post/', views.postGoal),
     path('goals/get/', views.getGoal),
+<<<<<<< HEAD
+    path('goals/update/', views.updateGoal)
+=======
     path('comments/post/', views.postComment),
     path('comments/get/', views.getComments),
     path('comments/delete/', views.deleteComments),
     path('comments/update/', views.updateComment)
+>>>>>>> main
 ]
