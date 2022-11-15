@@ -91,6 +91,8 @@ def getGoal(request):
     if goalInstances:
         serializer = goalSerializer(goalInstances, many = True)
         return Response(serializer.data)
+    else:
+        return Response([], status=status.HTTP_404_NOT_FOUND)
 
 @api_view(["POST"])
 def postComment(request):
@@ -103,11 +105,15 @@ def postComment(request):
 
 @api_view(["GET"])
 def getComments(request):
-    commentInstances = goal.objects.filter(goalId=request.data['goalId']).values()
+    commentInstances = goal.objects.filter(goalId=request.data['goalId'],
+                                           companyName=request.data['companyName']).values()
     # sort the returned comments?
     if commentInstances:
         serializer = commentSerializer(commentInstances, many = True)
         return Response(serializer.data)
+    else:
+        return Response([], status=status.HTTP_404_NOT_FOUND)
+        
 
 @api_view(["DELETE"])
 def deleteComments(request):
@@ -116,10 +122,12 @@ def deleteComments(request):
     if commentInstances:
         serializer = commentSerializer(commentInstances, many = True)
         return Response(serializer.data)
+    else:
+        return Response(serializer.errors)
 
 @api_view(["UPDATE"])
 def updateComment(request):
-    commentInstance = goal.objects.filter(goalId=request.data['goalId'])[0]
+    commentInstance = goal.objects.filter(goalId=request.data['commentId'])[0]
     serializer = commentSerializer(commentInstance, data=request.data)
     if serializer.is_valid():
         serializer.save()
