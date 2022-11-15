@@ -12,9 +12,15 @@ import axios from 'axios';
 
 export default function CreateGoal(props) {
 
+    const convertDate = (date) => {
+        const [year, month, day] = date.split('-');
+        return new Date([month, day, year].join('/')).toDateString();
+    }
+
     const [show, setShow] = useState(false);
 
     const [goalName, setGoalName] = useState('');
+    const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [status, setStatus] = useState('In-Progress');
@@ -52,10 +58,11 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(id, title, sdate, edate, status, manager, description) {
+    function createData(id, title, cdate, sdate, edate, status, manager, description) {
         return {
           id,
           title,
+          cdate,
           sdate,
           edate,
           status,
@@ -64,14 +71,9 @@ export default function CreateGoal(props) {
         };
     }
 
-    const convertDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return new Date([month, day, year].join('/')).toDateString();
-    }
-
     const addGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
         props.goals.push(
-            createData(Math.floor(Math.random() * 1000), goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
+            createData(employeeId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
         );
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);

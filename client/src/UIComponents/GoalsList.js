@@ -52,6 +52,7 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{row.title}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.cdate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.sdate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
@@ -123,6 +124,7 @@ export default function CollapsibleTable(props) {
           <TableRow >
             <TableCell />
             <TableCell sx={{fontFamily: "Varela Round"}}>Goal</TableCell>
+            <TableCell sx={{fontFamily: "Varela Round"}} align="right">Date Created</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Start Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>
