@@ -58,9 +58,9 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(id, title, cdate, sdate, edate, status, manager, description) {
+    function createData(goalId, title, cdate, sdate, edate, status, manager, description) {
         return {
-          id,
+          goalId,
           title,
           cdate,
           sdate,
@@ -72,12 +72,6 @@ export default function CreateGoal(props) {
     }
 
     const addGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
-        props.goals.push(
-            createData(employeeId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
-        );
-        //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
-        const newList = props.goals.map(i => i);
-
         axios
             .post("http://127.0.0.1:8000/goals/post/", {
                 employeeId: employeeId,
@@ -90,10 +84,16 @@ export default function CreateGoal(props) {
                 status: status,
                 textField: textField,
             })
-            .then(res => console.log((res.data)))//props.setGoals({ newList: res.data }))
+            .then(res => {
+                console.log((res.data));
+                props.goals.push(
+                    createData(res.data.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
+                );
+                //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
+                const newList = props.goals.map(i => i);
+                props.setGoals(newList);
+            })
             .catch(err => console.log(err));
-
-        props.setGoals(newList);
     }
 
     return (
