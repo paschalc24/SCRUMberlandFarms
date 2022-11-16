@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import Header from "./UIComponents/Header.js";
-import Cal from "./UIComponents/Calendar.js";
 
 import 'react-calendar/dist/Calendar.css';
 import './CSSComponents/Grid.css';
@@ -13,10 +12,9 @@ import Col from 'react-bootstrap/Col';
 
 import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
 import CollapsibleTable from "./UIComponents/GoalsList.js";
-import CardContainer from './UIComponents/CardContainer.js';
 import TestApi from "./UIComponents/TestAPI.js";
 
-const managerView = true;
+const managerView = false;
 
 function App() {
   const [value, setValue] = useState(new Date());
@@ -30,15 +28,7 @@ function App() {
         <Container fluid> 
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
-            <Col sm={9}>
               <ManagerGoalsList view={managerView}/>
-            </Col>
-            <Col sm={3}>
-              <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
-              {/* <Row className="descRow"><GoalDescription/></Row> */}
-              {/* <Row className="descRow"><GoalsCalendarList value={value}/></Row> */}
-              <Row className="cardRow"><CardContainer value={value}/></Row>
-            </Col>
           </Row>
         </Container>
       </div>
@@ -50,15 +40,7 @@ function App() {
         <Container fluid> 
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
-            <Col sm={9}>
-              <CollapsibleTable view={managerView}/>
-            </Col>
-            <Col sm={3}>
-              <Row className="calRow"><Cal value={value} setValue={setValue}/></Row>
-              {/* <Row className="descRow"><GoalDescription/></Row> */}
-              {/* <Row className="descRow"><GoalsCalendarList value={value}/></Row> */}
-              <Row className="cardRow"><CardContainer value={value}/></Row>
-            </Col>
+            <Col><CollapsibleTable view={managerView}/></Col>
           </Row>
         </Container>
       </div>

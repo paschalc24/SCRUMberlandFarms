@@ -96,7 +96,7 @@ export default function CreateGoal(props) {
 
     return (
         <>
-            <button size="sm" className="add-goal-button" onClick={handleShow}>
+            <button className="create-button" size="sm" onClick={handleShow}>
                 <VscAdd className='addIcon' size={20}/>
             </button>
             
