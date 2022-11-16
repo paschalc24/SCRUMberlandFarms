@@ -85,3 +85,13 @@
 .employees-button:hover {
     background-color: #004343 !important;
 }
+
+.add-calendar {
+    all: unset;
+    cursor: pointer;
+    color: grey;
+    margin: 3%;
+    margin-left: auto; 
+    margin-right: 1%;
+    padding: 0.5%;
+}
