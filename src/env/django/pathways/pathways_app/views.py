@@ -6,6 +6,21 @@ from rest_framework import status
 from .serializers import employeeSerializer, goalSerializer, commentSerializer
 from .models import employee, goal, comment
 
+@api_view(["GET"])
+def getManager(request):
+    try:
+        managerIdReceived = request.GET.get('managerId', None)
+        if managerIdReceived == None or len(managerIdReceived) == 0:
+            return Response({"status": "invalid"}, status=status.HTTP_400_BAD_REQUEST)
+        employeeInstance = employee.objects.filter(employeeId=managerIdReceived).values()[0]
+        if employeeInstance:
+            serializer = employeeSerializer(employeeInstance);
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": "invalid"}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({"status": "invalid"}, status=status.HTTP_400_BAD_REQUEST)
+
 #adds a new employee to the database
 @api_view(["POST"])
 def postEmployee(request):
@@ -14,7 +29,7 @@ def postEmployee(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"status": "invalid"}, status=status.HTTP_400_BAD_REQUEST)
         
 # given list of employee return a dictionary of employee and goal
 def parseEmployeeInfo(employeeInfos):
