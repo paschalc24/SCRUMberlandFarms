@@ -10,9 +10,10 @@ urlpatterns = [
     path('goals/delete/', views.deleteGoal),
     path('goals/post/', views.postGoal),
     path('goals/get/', views.getGoal),
+    path('goals/update/', views.updateGoal),
     path('comments/post/', views.postComment),
     path('comments/get/', views.getComments),
     path('comments/delete/', views.deleteComments),
     path('comments/update/', views.updateComment),
-    path('manager/get/', views.getManager)
+    path('manager/get/', views.getManager),
 ]
