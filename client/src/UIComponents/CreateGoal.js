@@ -28,16 +28,11 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
-        let data = JSON.parse(sessionStorage.getItem("employee"));
         setShowError(false);
-        console.log(data["employeeId"],
-        data["companyName"], 
-        data["managerId"], )
-        
         addGoal(
-         data["employeeId"],
-         data["companyName"], 
-         data["managerId"], 
+         1,
+         "test", 
+         2, 
          goalName, 
          "testCategory", 
          moment(startDate).format('YYYY-MM-DD'), 

@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 
 import DeleteGoal from "./DeleteGoal.js";
 import EditGoal from "./EditGoal.js";
-
-import data from '../tempStorage.json';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -22,20 +20,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 
-function createData(id, title, sdate, edate, status, manager, description) {
-  return {
-    id,
-    title,
-    sdate,
-    edate,
-    status,
-    manager,
-    description
-  };
-}
-
 function Row(props) {
-  const { row } = props;
+  const goal = props.goal;
   const [open, setOpen] = React.useState(false);
   return (
     <React.Fragment >
@@ -51,20 +37,20 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{row.title}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.sdate}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{goal.title}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.sdate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.edate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.status}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.manager}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
-          <DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/>
-          <EditGoal id={row.id} 
-            title={row.title} 
-            sdate={row.sdate} 
-            edate={row.edate} 
-            status={row.status} 
-            manager={row.manager} 
-            description={row.description} 
+          <DeleteGoal id={goal.id} goals={props.goals} setGoals={props.setGoals}/>
+          <EditGoal id={goal.id} 
+            title={goal.title} 
+            sdate={goal.sdate} 
+            edate={goal.edate} 
+            status={goal.status} 
+            manager={goal.manager} 
+            description={goal.description} 
             goals={props.goals} 
             setGoals={props.setGoals}
           />
@@ -77,13 +63,9 @@ function Row(props) {
               <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
                 Description
               </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
-                    {row.description}
-                  </Typography>
-                </TableHead>
-              </Table>
+              <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
+                {goal.description}
+              </Typography>
             </Box>
           </Collapse>
         </TableCell>
@@ -93,24 +75,19 @@ function Row(props) {
 }
 
 Row.propTypes = {
-  row: PropTypes.shape({
+  goal: PropTypes.shape({
     sdate: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     edate: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     manager: PropTypes.string.isRequired,
   }).isRequired,
+  goals: PropTypes.array.isRequired,
+  setGoals: PropTypes.func.isRequired
 };
 
-const userGoals = data.users[0].goals;
-const rows = [
-  // createData(userGoals[0].goalid, userGoals[0].goalName, new Date(userGoals[0].goalStartDate).toDateString(), new Date(userGoals[0].goalEndDate).toDateString(), userGoals[0].status, userGoals[0].manager),
-  // createData(userGoals[1].goalid, userGoals[1].goalName, new Date(userGoals[1].goalStartDate).toDateString(), new Date(userGoals[1].goalEndDate).toDateString(), userGoals[1].status, userGoals[1].manager),
-  // createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
-];
-
 export default function CollapsibleTable(props) {
-  const [goals, setGoals] = useState(rows);
+  const [goals, setGoals] = useState(props.goals);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
       '.MuiTable-root': {
@@ -131,9 +108,9 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody >
-          {goals.map((row) => {
-            return(<Row key={row.title} row={row} goals={goals} setGoals={setGoals}/>)
-          })}
+            {goals.map((goal) => {
+              return(<Row key={goal.id} goal={goal} goals={goals} setGoals={setGoals}/>)
+            })}
         </TableBody>
       </Table>
     </TableContainer>
