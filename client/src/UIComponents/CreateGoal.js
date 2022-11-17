@@ -34,16 +34,11 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
-        let data = JSON.parse(sessionStorage.getItem("employee"));
         setShowError(false);
-        console.log(data["employeeId"],
-        data["companyName"], 
-        data["managerId"], )
-        
         addGoal(
-         data["employeeId"],
-         data["companyName"], 
-         data["managerId"], 
+         1,
+         "test", 
+         2, 
          goalName, 
          "testCategory", 
          moment(startDate).format('YYYY-MM-DD'), 
@@ -98,7 +93,7 @@ export default function CreateGoal(props) {
 
     return (
         <>
-            <button size="sm" className="add-goal-button" onClick={handleShow}>
+            <button className="create-button" size="sm" onClick={handleShow}>
                 <VscAdd className='addIcon' size={20}/>
             </button>
             
