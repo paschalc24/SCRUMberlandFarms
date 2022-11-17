@@ -21,7 +21,7 @@ import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 
 function Row(props) {
-  const goal = props.goal;
+  const { goal } = props;
   const [open, setOpen] = React.useState(false);
   return (
     <React.Fragment >
@@ -75,6 +75,17 @@ function Row(props) {
   );
 }
 
+// Row.propTypes = {
+//   goal: PropTypes.shape({
+//     sdate: PropTypes.string.isRequired,
+//     status: PropTypes.string.isRequired,
+//     edate: PropTypes.string.isRequired,
+//     title: PropTypes.string.isRequired,
+//     manager: PropTypes.string.isRequired,
+//   }).isRequired,
+//   // goals: PropTypes.array.isRequired,
+//   // setGoals: PropTypes.func.isRequired
+// };
 Row.propTypes = {
   goal: PropTypes.shape({
     sdate: PropTypes.string.isRequired,
@@ -83,22 +94,19 @@ Row.propTypes = {
     title: PropTypes.string.isRequired,
     manager: PropTypes.string.isRequired,
   }).isRequired,
-  goals: PropTypes.array.isRequired,
-  setGoals: PropTypes.func.isRequired
 };
 
-const userGoals = data.users[0].goals;
 const rows = [];
 
 export default function CollapsibleTable(props) {
-  const [goals, setGoals] = useState(props.goals);
+  const [goals, setGoals] = useState(rows);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
       '.MuiTable-root': {
         fontFamily: "Varela Round"
       },
     }}>
-      <GoalsHeader view={props.view} transition={props.transition} goals={goals} setGoals={setGoals}/>
+      <GoalsHeader view={props.view} transition={props.transition} goals={goals} setGoals={setGoals} value={props.value} setValue={props.setValue}/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >
@@ -113,9 +121,9 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody >
-            {goals.map((goal) => {
-              return(<Row key={goal.id} goal={goal} goals={goals} setGoals={setGoals}/>)
-            })}
+          {goals.map((row) => {
+            return(<Row key={row.goalId} goal={row} goals={goals} setGoals={setGoals}/>)
+          })}
         </TableBody>
       </Table>
     </TableContainer>

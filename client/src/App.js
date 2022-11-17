@@ -15,23 +15,6 @@ import CollapsibleTable from "./UIComponents/GoalsList.js";
 import TestApi from "./UIComponents/TestAPI.js";
 import data from "./tempStorage.json";
 
-function createData(id, title, sdate, edate, status, manager, description) {
-  return {
-    id,
-    title,
-    sdate,
-    edate,
-    status,
-    manager,
-    description
-  };
-}
-
-const userGoals = data.users[0].goals;
-const goals = [];
-for (let i = 0; i < userGoals.length; ++i) {
-  goals.push(createData(userGoals[i].goalid, userGoals[i].goalName, new Date(userGoals[i].goalStartDate).toDateString(), new Date(userGoals[i].goalEndDate).toDateString(), userGoals[i].status, userGoals[i].manager));
-}
 const managerView = false;
 
 function App() {
@@ -58,7 +41,7 @@ function App() {
         <Container fluid> 
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
-            <Col><CollapsibleTable goals={goals} view={managerView}/></Col>
+            <Col><CollapsibleTable view={managerView} value={value} setValue={setValue}/></Col>
           </Row>
         </Container>
       </div>

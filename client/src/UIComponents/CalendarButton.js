@@ -31,7 +31,7 @@ export default function CalendarButton(props) {
             </button>
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
-                <Modal.Body><Cal/></Modal.Body>
+                <Modal.Body><Cal value={props.value} setValue={props.setValue}/></Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel

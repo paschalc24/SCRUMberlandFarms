@@ -37,7 +37,7 @@ function GoalsHeader(props) {
                     <Button size='sm' className="search-button"><BiSearchAlt2 className="magGlass" size={20}/></Button>
                 </InputGroup>
                 <div className="add-calendar">
-                    <CalendarButton goals={props.goals} setGoals={props.setGoals}/>
+                    <CalendarButton value={props.value} setValue={props.setValue}/>
                     <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
                 </div>
                 <Button size='sm' className="employees-button" onClick={props.transition}>
@@ -69,7 +69,7 @@ function GoalsHeader(props) {
                     <Button size='sm' className="search-button"><BiSearchAlt2 className="magGlass" size={20}/></Button>
                 </InputGroup>
                 <div className="add-calendar">
-                    <CalendarButton goals={props.goals} setGoals={props.setGoals}/>
+                    <CalendarButton goals={props.goals} setGoals={props.setGoals} value={props.value} setValue={props.setValue}/>
                     <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
                 </div>
             </div>
