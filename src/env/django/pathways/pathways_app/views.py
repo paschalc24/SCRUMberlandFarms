@@ -66,9 +66,9 @@ def getEmployee(request):
                 employeesToManage = employeeSerializer(employee.objects.filter(managerId=employeeInstances[0]['employeeId']).values(), many = True).data
                 managedEmployees = parseEmployeeInfo(employeesToManage)
             employeeJson = [{"employeeProfile": parseEmployeeInfo(employeeInstances)[0], "employeesToManage": managedEmployees}] 
-            return Response(employeeJson, status=status.HTTP_200_OK)
+            return Response({"success": employeeJson}, status=status.HTTP_200_OK)
         else:
-            return Response([], status=status.HTTP_400_BAD_REQUEST)
+            return Response({"failure": "error"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
