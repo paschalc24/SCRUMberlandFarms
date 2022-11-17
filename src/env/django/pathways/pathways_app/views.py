@@ -31,7 +31,7 @@ def postEmployee(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response({"status": "invalid"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"status": "invalid", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"status": "invalid request"}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -51,9 +51,15 @@ def parseEmployeeInfo(employeeInfos):
 @api_view(["GET"])
 def getEmployee(request):
     try:
-        emailReceived = request.GET.get('email', None)
-        passwordReceived = request.GET.get('password', None)
+        # emailReceived = request.GET.get('email', None)
+        emailReceived = request.data['email'] if 'email' in request.data else None
+        # passwordReceived = request.GET.get('password', None)
+        passwordReceived = request.data['password'] if 'password' in request.data else None
+        if emailReceived is None or passwordReceived is None:
+            return Response({"failure": "missing email or password"}, status=status.HTTP_400_BAD_REQUEST)
         employeeInstances = employee.objects.filter(email=emailReceived).filter(password=passwordReceived).values()
+        if not employeeInstances:
+            return Response({"failure": "no employee with provided email and password"}, status=status.HTTP_400_BAD_REQUEST)
         if employeeInstances:
             managedEmployees = []
             if employeeInstances[0]['isManager']:
