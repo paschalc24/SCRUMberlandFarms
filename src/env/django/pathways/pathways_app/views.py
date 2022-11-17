@@ -31,7 +31,7 @@ def postEmployee(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response({"status": "invalid"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"status": "invalid", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"status": "invalid request"}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -51,18 +51,24 @@ def parseEmployeeInfo(employeeInfos):
 @api_view(["GET"])
 def getEmployee(request):
     try:
-        emailReceived = request.GET.get('email', None)
-        passwordReceived = request.GET.get('password', None)
+        # emailReceived = request.GET.get('email', None)
+        emailReceived = request.data['email'] if 'email' in request.data else None
+        # passwordReceived = request.GET.get('password', None)
+        passwordReceived = request.data['password'] if 'password' in request.data else None
+        if emailReceived is None or passwordReceived is None:
+            return Response({"failure": "missing email or password"}, status=status.HTTP_400_BAD_REQUEST)
         employeeInstances = employee.objects.filter(email=emailReceived).filter(password=passwordReceived).values()
+        if not employeeInstances:
+            return Response({"failure": "no employee with provided email and password"}, status=status.HTTP_400_BAD_REQUEST)
         if employeeInstances:
             managedEmployees = []
             if employeeInstances[0]['isManager']:
                 employeesToManage = employeeSerializer(employee.objects.filter(managerId=employeeInstances[0]['employeeId']).values(), many = True).data
                 managedEmployees = parseEmployeeInfo(employeesToManage)
             employeeJson = [{"employeeProfile": parseEmployeeInfo(employeeInstances)[0], "employeesToManage": managedEmployees}] 
-            return Response(employeeJson, status=status.HTTP_200_OK)
+            return Response({"success": employeeJson}, status=status.HTTP_200_OK)
         else:
-            return Response([], status=status.HTTP_400_BAD_REQUEST)
+            return Response({"failure": "error"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
@@ -163,32 +169,43 @@ def postComment(request):
     serializer = commentSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response({"success": "comment posted succesfully"}, status=status.HTTP_201_CREATED)
     else:
-        return Response(serializer.errors)
+        return Response({"failure": "serializer failed"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["GET"])
 def getComments(request):
+    if 'goalId' not in request.data:
+        return Response({"failure": "missing goalId"}, status=status.HTTP_400_BAD_REQUEST)
     commentInstances = goal.objects.filter(goalId=request.data['goalId']).values()
     # sort the returned comments?
     if commentInstances:
         serializer = commentSerializer(commentInstances, many = True)
-        return Response(serializer.data)
+        return Response({"success": serializer.data}, status=status.HTTP_200_OK)
+    else:
+        return Response({"failure": "no comments associated with "}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["DELETE"])
 def deleteComments(request):
-    comment.objects.filter(commentId=request.data['commentId']).delete()
-    commentInstances = comment.objects.all()
-    if commentInstances:
-        serializer = commentSerializer(commentInstances, many = True)
-        return Response(serializer.data)
+    if 'commentId' not in request.data:
+        return Response({"failure": "no commentId provided"}, status=status.HTTP_400_BAD_REQUEST)
+    if len(comment.objects.filter(commentId=request.data['commentId'])) == 0:
+        return Response({"failure": "no comment with that id"}, status=status.HTTP_400_BAD_REQUEST)
+    response = comment.objects.filter(commentId=request.data['commentId']).delete()
+    if response[0]:
+        return Response({"success": "comment deleted"}, status=status.HTTP_200_OK)
+    else:
+        return Response({"failure": "deletion failed"}, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(["UPDATE"])
+@api_view(["PUT"])
 def updateComment(request):
-    commentInstance = goal.objects.filter(goalId=request.data['goalId'])[0]
+    fields = [f.name for f in comment._meta.get_fields()]
+    if len([field for field in fields if field not in request.data]) > 0:
+        return Response({"failure": "incomplete comment"}, status=status.HTTP_400_BAD_REQUEST)
+    commentInstance = comment.objects.filter(commentId=request.data['commentId'])[0]
     serializer = commentSerializer(commentInstance, data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
+        return Response({"success": "comment updated"}, status=status.HTTP_200_OK)
     else:
-        return Response(serializer.errors)
+        return Response({"failure": "update failed"}, status=status.HTTP_400_BAD_REQUEST)
