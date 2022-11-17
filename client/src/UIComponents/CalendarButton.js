@@ -6,6 +6,9 @@ import { BsCalendarEvent } from "react-icons/bs";
 import "react-datepicker/dist/react-datepicker.css";
 import '../CSSComponents/CalendarButton.css';
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 export default function CalendarButton(props) {
 
     const [show, setShow] = useState(false);
@@ -26,9 +29,20 @@ export default function CalendarButton(props) {
 
     return (
         <>
-            <button className="cal-button" size="sm" onClick={handleShow}>
-                <BsCalendarEvent className='AiOutlineCalendar' size={20}/>
-            </button>
+            <OverlayTrigger
+                trigger='hover'
+                key={'bottom'}
+                placement={'bottom'}
+                overlay = {
+                    <Tooltip id={'calendar-tooltip'}>
+                        View Calendar
+                    </Tooltip>
+                }
+            >
+                <button className="cal-button" size="sm" onClick={handleShow}>
+                    <BsCalendarEvent className='AiOutlineCalendar' size={20}/>
+                </button>
+            </OverlayTrigger>
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Body><Cal value={props.value} setValue={props.setValue}/></Modal.Body>

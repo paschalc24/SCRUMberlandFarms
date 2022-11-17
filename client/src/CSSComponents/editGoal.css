@@ -7,3 +7,11 @@
 .edit:hover {
     color: black;
 }
+
+#edit-goal-tooltip > .tooltip-arrow::before {
+    border-bottom-color :#004343
+}
+
+#edit-goal-tooltip > .tooltip-inner {
+    background-color:#004343
+}

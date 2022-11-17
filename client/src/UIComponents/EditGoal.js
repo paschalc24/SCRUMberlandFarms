@@ -11,6 +11,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios'; 
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 export default function EditGoal(props) {
     const [show, setShow] = useState(false);
 
@@ -87,9 +90,21 @@ export default function EditGoal(props) {
 
     return (
         <>
-            <button size="sm" className="edit" onClick={handleShow}>
-                <MdOutlineModeEditOutline size={18}/>
-            </button>
+        
+            <OverlayTrigger
+                trigger='hover'
+                key={'bottom'}
+                placement={'bottom'}
+                overlay = {
+                    <Tooltip id={'edit-goal-tooltip'}>
+                        Edit
+                    </Tooltip>
+                }
+            >
+                <button size="sm" className="edit" onClick={handleShow}>
+                    <MdOutlineModeEditOutline size={18}/>
+                </button>
+            </OverlayTrigger>
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton> 

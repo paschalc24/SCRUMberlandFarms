@@ -10,6 +10,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios'; 
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 export default function CreateGoal(props) {
 
     const convertDate = (date) => {
@@ -93,9 +96,20 @@ export default function CreateGoal(props) {
 
     return (
         <>
-            <button className="create-button" size="sm" onClick={handleShow}>
-                <VscAdd className='addIcon' size={20}/>
-            </button>
+            <OverlayTrigger
+                trigger='hover'
+                key={'bottom'}
+                placement={'bottom'}
+                overlay = {
+                    <Tooltip id={'create-goal-tooltip'}>
+                        New Goal
+                    </Tooltip>
+                }
+            >
+                <button className="create-button" size="sm" onClick={handleShow}>
+                    <VscAdd className='addIcon' size={20}/>
+                </button>
+            </OverlayTrigger>
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton> 

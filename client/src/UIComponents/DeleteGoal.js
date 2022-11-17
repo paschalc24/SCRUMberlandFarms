@@ -5,6 +5,9 @@ import { CgTrash } from 'react-icons/cg';
 import '../CSSComponents/deleteGoal.css';
 import axios from 'axios'; 
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 export default function DeleteGoal(props) {
 
     const [show, setShow] = useState(false);
@@ -31,9 +34,20 @@ export default function DeleteGoal(props) {
 
     return (
         <>
-            <button className="delete" onClick={handleShow}>
-                <CgTrash size={18}/>
-            </button>
+            <OverlayTrigger
+                trigger='hover'
+                key={'bottom'}
+                placement={'bottom'}
+                overlay = {
+                    <Tooltip id={'delete-goal-tooltip'}>
+                        Delete
+                    </Tooltip>
+                }
+            >
+                <button className="delete" onClick={handleShow}>
+                    <CgTrash size={18}/>
+                </button>
+            </OverlayTrigger>
 
             <Modal show={show} onHide={handleCloseNo}>
             <Modal.Header closeButton>
