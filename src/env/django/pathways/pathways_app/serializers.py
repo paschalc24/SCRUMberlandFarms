@@ -36,7 +36,7 @@ class commentSerializer(serializers.ModelSerializer):
     companyName = serializers.CharField()
     goalId = serializers.CharField() 
     employeeId = serializers.CharField() 
-    timstamp = serializers.CharField() 
+    timestamp = serializers.CharField() 
     textField = serializers.CharField()
     class Meta:
         model = comment
