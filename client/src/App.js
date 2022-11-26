@@ -15,7 +15,7 @@ import CollapsibleTable from "./UIComponents/GoalsList.js";
 import TestApi from "./UIComponents/TestAPI.js";
 import data from "./tempStorage.json";
 
-const managerView = false;
+const managerView = true;
 
 function App() {
   const [value, setValue] = useState(new Date());

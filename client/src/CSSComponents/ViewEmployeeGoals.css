@@ -1,0 +1,17 @@
+#view-employee-goals-tooltip > .tooltip-arrow::before {
+    border-bottom-color :#004343
+}
+
+#view-employee-goals-tooltip > .tooltip-inner {
+    background-color:#004343
+}
+
+.view-goals {
+    all: unset;
+    cursor: pointer;
+    color: grey;
+}
+
+.view-goals:hover {
+    color: black;
+}
