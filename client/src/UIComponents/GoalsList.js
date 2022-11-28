@@ -44,7 +44,7 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.manager}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
-          <DeleteGoal id={goal.goalId} goals={props.goals} setGoals={props.setGoals}/>
+          <DeleteGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals}/>
           <EditGoal id={goal.goalId} 
             title={goal.title} 
             sdate={goal.sdate} 

@@ -27,6 +27,10 @@ export default function CalendarButton(props) {
 
     const handleShow = () => setShow(true);
 
+    const filterByDate = () => {
+
+    }
+    
     return (
         <>
             <OverlayTrigger

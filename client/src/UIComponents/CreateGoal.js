@@ -40,10 +40,10 @@ export default function CreateGoal(props) {
         setShowError(false);
         addGoal(
          1,
-         "test", 
+         "UKG", 
          2, 
          goalName, 
-         "testCategory", 
+         "goal", 
          moment(startDate).format('YYYY-MM-DD'), 
          moment(endDate).format('YYYY-MM-DD'),
          status,
@@ -83,7 +83,7 @@ export default function CreateGoal(props) {
                 textField: textField,
             })
             .then(res => {
-                console.log((res.data));
+                console.log("data: ", (res.data));
                 props.goals.push(
                     createData(res.data.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
                 );

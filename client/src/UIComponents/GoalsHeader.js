@@ -25,8 +25,8 @@ function GoalsHeader(props) {
                 <ToggleButtonGroup type="radio" defaultValue={["all"]} name="status-filter-buttons" className="status-filters">
                     <ToggleButton size='sm' id="filter-all" value={"all"} className="filter-button">All</ToggleButton>
                     <ToggleButton size='sm' id="filter-completed" value={"completed"} className="filter-button">Completed</ToggleButton>
-                    <ToggleButton size='sm' id="filter-ongoing" value={"ongoing"} className="filter-button">Ongoing</ToggleButton>
-                    <ToggleButton size='sm' id="filter-incomplete" value={"incomplete"} className="filter-button">Incomplete</ToggleButton>
+                    <ToggleButton size='sm' id="filter-ongoing" value={"ongoing"} className="filter-button">In-Progress</ToggleButton>
+                    {/* <ToggleButton size='sm' id="filter-incomplete" value={"incomplete"} className="filter-button">Incomplete</ToggleButton> */}
                 </ToggleButtonGroup>
                 <InputGroup className="search">
                     <Form.Control
@@ -57,8 +57,8 @@ function GoalsHeader(props) {
                 <ToggleButtonGroup type="radio" defaultValue={["all"]} name="status-filter-buttons" className="status-filters">
                     <ToggleButton size='sm' id="filter-all" value={"all"} className="filter-button">All</ToggleButton>
                     <ToggleButton size='sm' id="filter-completed" value={"completed"} className="filter-button">Completed</ToggleButton>
-                    <ToggleButton size='sm' id="filter-ongoing" value={"ongoing"} className="filter-button">Ongoing</ToggleButton>
-                    <ToggleButton size='sm' id="filter-incomplete" value={"incomplete"} className="filter-button">Incomplete</ToggleButton>
+                    <ToggleButton size='sm' id="filter-ongoing" value={"ongoing"} className="filter-button">In-Progress</ToggleButton>
+                    {/* <ToggleButton size='sm' id="filter-incomplete" value={"incomplete"} className="filter-button">Incomplete</ToggleButton> */}
                 </ToggleButtonGroup>
                 <InputGroup className="search">
                     <Form.Control

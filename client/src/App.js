@@ -18,7 +18,7 @@ import data from "./tempStorage.json";
 const managerView = false;
 
 function App() {
-  const [value, setValue] = useState(new Date());
+  const [value, setValue] = useState();
   const [goalData, setGoalData] = useState();
 
   const viewTitle = managerView ? "Manager Name": "Employee Name";

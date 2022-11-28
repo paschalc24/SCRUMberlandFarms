@@ -9,7 +9,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function DeleteGoal(props) {
-
     const [show, setShow] = useState(false);
 
     const handleCloseYes = () => {
@@ -21,12 +20,12 @@ export default function DeleteGoal(props) {
     const handleShow = () => setShow(true);
 
     const deleteRow = () => {
-        const newList = props.goals.filter((item) => item.goalId !== props.id);
+        const newList = props.goals.filter((item) => item.goalId !== props.goalId);
         axios
             .delete("http://127.0.0.1:8000/goals/delete/", {
-                data: {goalId: props.id}
+                data: {goalId: props.goalId}
             })
-            .then(res => console.log(res))
+            .then(res => console.log("data: ", res))
             .catch(err => console.log(err));
 
         props.setGoals(newList);
