@@ -24,6 +24,7 @@ class goal(models.Model):
     startDate = models.DateField() # data for frontend
     endDate = models.DateField() # data for frontend
     status = models.CharField(max_length = 200) # data for frontend to identify if goal is complete
+    creationDate = models.DateField(auto_now=True, editable=False)
     textField = models.CharField(max_length = 5000) # description of goal
 
 class comment(models.Model):
@@ -31,5 +32,5 @@ class comment(models.Model):
     companyName = models.CharField(max_length = 500) # could be used as an identifier 
     goalId = models.CharField(max_length = 500) # could be used along with company name as composite key to identify which goal comment belong to
     employeeId = models.CharField(max_length = 500) # id of the employee who wrote the comment
-    timstamp = models.CharField(max_length = 500) # unix time of when comment is created, so it can be sorted either in backend or frontend
+    timestamp = models.CharField(max_length = 500) # unix time of when comment is created, so it can be sorted either in backend or frontend
     textField = models.CharField(max_length = 5000) # the description of the comment
