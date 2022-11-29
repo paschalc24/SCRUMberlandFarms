@@ -99,7 +99,7 @@ export default function CreateGoal(props) {
     return (
         <>
             <OverlayTrigger
-                // trigger='hover'
+                trigger='hover'
                 key={'bottom'}
                 placement={'bottom'}
                 overlay = {
