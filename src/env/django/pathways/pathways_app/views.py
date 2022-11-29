@@ -6,18 +6,23 @@ from rest_framework import status
 from .serializers import employeeSerializer, goalSerializer, commentSerializer
 from .models import employee, goal, comment
 
+#given a managerId return the employee
 @api_view(["GET"])
 def getManager(request):
     try:
+        #retreives the managerId from the params
         managerIdReceived = request.GET.get('managerId', None)
+        #check if the managerId is valid
         if managerIdReceived == None or len(managerIdReceived) == 0:
             return Response({"failure": "missing managerId or no input"}, status=status.HTTP_400_BAD_REQUEST)
         employeeInstance = employee.objects.filter(employeeId=managerIdReceived).values()[0]
+        #if employee exists then pass it back to frontend
         if employeeInstance:
             serializer = employeeSerializer(employeeInstance);
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({"failure": "no matching manager found"}, status=status.HTTP_400_BAD_REQUEST)
+    #catch any execeptions
     except:
         return Response({"status": "invalid request"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -25,12 +30,16 @@ def getManager(request):
 @api_view(["POST"])
 def postEmployee(request):
     try:
+        #check if all required fields are passed in
         serializer = employeeSerializer(data=request.data)
+        #if valid create the employee
         if serializer.is_valid():
             serializer.save()
             return Response({"success": "employee posted successfully"}, status=status.HTTP_200_OK)
+        #otherwise return the missing fields
         else:
             return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    #catch any exceptions
     except:
         return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -50,12 +59,14 @@ def parseEmployeeInfo(employeeInfos):
 @api_view(["GET"])
 def getEmployee(request):
     try:
+        #get the email from the params
         emailReceived = request.GET.get('email', None)
-        # emailReceived = request.data['email'] if 'email' in request.data else None
+        #get the password from the params
         passwordReceived = request.GET.get('password', None)
-        # passwordReceived = request.data['password'] if 'password' in request.data else None
+        #check if email or password is not passed in
         if emailReceived is None or passwordReceived is None:
             return Response({"failure": "missing email or password"}, status=status.HTTP_400_BAD_REQUEST)
+        #find the employee given password and email
         employeeInstances = employee.objects.filter(email=emailReceived).filter(password=passwordReceived).values()
         if employeeInstances:
             managedEmployees = []
@@ -68,16 +79,19 @@ def getEmployee(request):
             return Response({"failure": "no employee with provided email and password"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"failure": "invalid input or missing fields"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+#update employee given required fields
 @api_view(["PUT"])
 def updateEmployee(request):
     try:
         fields = [f.name for f in employee._meta.get_fields()]
         missingFields = [field for field in fields if field not in request.data]
+        #check if any fields are missing
         if (len(missingFields) > 0):
             return Response({"failure": "incomplete employee", "missing fields": missingFields}, status=status.HTTP_400_BAD_REQUEST)
         employeeInstance = employee.objects.filter(employeeId=request.data['employeeId'])[0]
         serializer = employeeSerializer(employeeInstance, data=request.data)
+        #verify all required fileds are passed in
         if serializer.is_valid():
             serializer.save()
             return Response({"success": "employee updated"}, status=status.HTTP_200_OK)
@@ -85,7 +99,8 @@ def updateEmployee(request):
             return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"failure": "update failed"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+#delete employee given a employeeId
 @api_view(["DELETE"])
 def deleteEmployee(request):
     try:
@@ -111,7 +126,7 @@ def getGoal(request):
     employeeIdReceived = request.GET.get('employeeId', None)
     if employeeIdReceived == None or len(employeeIdReceived) == 0:
         return Response({"failure": "invalid employeeId or no employeeId provided"}, status=status.HTTP_400_BAD_REQUEST)
-    goalInstances = goal.objects.filter(employeeId=request.data['employeeId']).values()
+    goalInstances = goal.objects.filter(employeeId=employeeIdReceived).values()
     # if there are no goals, return a failed response, otherwise return the serialized data (no need to check success as data is retrieved from database)
     if goalInstances:
         serializer = goalSerializer(goalInstances, many=True)
@@ -187,7 +202,7 @@ def getComments(request):
     goalIdReceived = request.GET.get('goalId', None)
     if goalIdReceived == None or len(goalIdReceived) == 0:
         return Response({"failure": "no goalId received or invalid goalId"})
-    commentInstances = goal.objects.filter(goalId=request.data['goalId']).values()
+    commentInstances = goal.objects.filter(goalId=goalIdReceived).values()
     # sort the returned comments?
     if commentInstances:
         serializer = commentSerializer(commentInstances, many=True)
