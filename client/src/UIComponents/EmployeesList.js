@@ -26,9 +26,6 @@ const initialEmployees = [{firstName: "Meng", lastName: "Chau", startDate: "11/2
 {firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
 {firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
 {firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
 {firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"}];
 
 function EmployeeRow(props) {
