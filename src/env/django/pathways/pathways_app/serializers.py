@@ -32,7 +32,6 @@ class goalSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class commentSerializer(serializers.ModelSerializer):
-    commentId = serializers.UUIDField()
     companyName = serializers.CharField()
     goalId = serializers.CharField() 
     employeeId = serializers.CharField() 
