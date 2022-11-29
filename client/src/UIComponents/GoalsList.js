@@ -20,6 +20,20 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 
+
+function createData(goalId, title, cdate, sdate, edate, status, manager, description) {
+  return {
+    goalId,
+    title,
+    cdate,
+    sdate,
+    edate,
+    status,
+    manager,
+    description
+  };
+}
+
 function Row(props) {
   const { goal } = props;
   const [open, setOpen] = React.useState(false);
@@ -45,7 +59,7 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.manager}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
           <DeleteGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals}/>
-          <EditGoal id={goal.goalId} 
+          <EditGoal goalId={goal.goalId} 
             title={goal.title} 
             sdate={goal.sdate} 
             edate={goal.edate} 
@@ -96,7 +110,17 @@ Row.propTypes = {
   }).isRequired,
 };
 
+const convertDate = (date) => {
+  const [year, month, day] = date.split('-');
+  return new Date([month, day, year].join('/')).toDateString();
+}
+
 const rows = [];
+let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["goals"];
+console.log(JSON.parse(sessionStorage.getItem("employeeProfile")))
+for(let i = 0; i < data.length; i++) {
+  rows.push(createData(data[i].goal.goalId, data[i].goal.title, convertDate(data[i].goal.creationDate), convertDate(data[i].goal.startDate), convertDate(data[i].goal.endDate), data[i].goal.status, data[i].goal.managerId, data[i].goal.textField))
+}
 
 export default function CollapsibleTable(props) {
   const [goals, setGoals] = useState(rows);

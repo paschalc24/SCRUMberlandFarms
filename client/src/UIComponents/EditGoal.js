@@ -31,11 +31,12 @@ export default function EditGoal(props) {
     }
 
     const handleCloseYes = () => {
+        let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
         updateGoal(
-         "testempid",
-         "UKG", 
-         "testmanid", 
+         data["employeeId"],
+         data["companyName"], 
+         data["managerId"], 
          goalName, 
          "testCategory", 
          moment(startDate).format('YYYY-MM-DD'), 
@@ -50,40 +51,56 @@ export default function EditGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    // function createData(id, title, sdate, edate, status, manager, description) {
-    //     return {
-    //       id,
-    //       title,
-    //       sdate,
-    //       edate,
-    //       status,
-    //       manager,
-    //       description
-    //     };
-    // }
-
     const convertDate = (date) => {
         const [year, month, day] = date.split('-');
         return new Date([month, day, year].join('/')).toDateString();
     }
 
     const updateGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
-        const findGoal = props.goals.findIndex((item) => item.id === props.id);
-        const goalToUpdate = props.goals[findGoal];
+        const findGoal = props.goals.filter((item) => item.goalId === props.goalId);
+        const goalToUpdate = findGoal[0];
         console.log("goaltoupdate: ", goalToUpdate);
-
         goalToUpdate.title = title;
         goalToUpdate.sdate = convertDate(startDate);
         goalToUpdate.edate = convertDate(endDate);
         goalToUpdate.status = status;
         goalToUpdate.manager = manager;
         goalToUpdate.description = textField;
-
+        console.log("goaltoupdate1: ", goalToUpdate);
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
 
-        // axios
-        // create put request
+        var qs = require('qs');
+        var data = qs.stringify({
+            goalId: goalToUpdate.goalId,
+            employeeId: employeeId,
+            companyName: companyName,
+            managerId: managerId,
+            title: title,
+            category: category,
+            startDate: startDate,
+            endDate: endDate,
+            status: goalToUpdate.status,
+            textField: goalToUpdate.description,
+            creationDate: moment(goalToUpdate.cdate, "ddd MMM DD YYYY").format('YYYY-MM-DD')
+        });
+        var config = {
+          method: 'put',
+          url: 'http://127.0.0.1:8000/goals/update/',
+          headers: { 
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
 
         props.setGoals(newList);
     }
@@ -92,7 +109,7 @@ export default function EditGoal(props) {
         <>
         
             <OverlayTrigger
-                trigger='hover'
+                // trigger='hover'
                 key={'bottom'}
                 placement={'bottom'}
                 overlay = {

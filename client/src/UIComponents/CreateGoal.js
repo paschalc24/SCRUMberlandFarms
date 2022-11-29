@@ -15,6 +15,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function CreateGoal(props) {
 
+    
     const convertDate = (date) => {
         const [year, month, day] = date.split('-');
         return new Date([month, day, year].join('/')).toDateString();
@@ -37,17 +38,18 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
+        let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
         addGoal(
-         1,
-         "UKG", 
-         2, 
-         goalName, 
-         "goal", 
-         moment(startDate).format('YYYY-MM-DD'), 
-         moment(endDate).format('YYYY-MM-DD'),
-         status,
-         description
+            data["employeeId"],
+            data["companyName"], 
+            data["managerId"], 
+            goalName, 
+            "testCategory", 
+            moment(startDate).format('YYYY-MM-DD'), 
+            moment(endDate).format('YYYY-MM-DD'),
+            status,
+            description
         );
 
         setShow(false);
@@ -97,7 +99,7 @@ export default function CreateGoal(props) {
     return (
         <>
             <OverlayTrigger
-                trigger='hover'
+                // trigger='hover'
                 key={'bottom'}
                 placement={'bottom'}
                 overlay = {

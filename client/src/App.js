@@ -38,6 +38,7 @@ function App() {
   else {
     return (
       <div className="App">
+        <TestApi/>
         <Container fluid> 
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">

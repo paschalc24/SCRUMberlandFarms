@@ -13,9 +13,9 @@ def getManager(request):
         managerIdReceived = request.GET.get('managerId', None)
         if managerIdReceived == None or len(managerIdReceived) == 0:
             return Response({"failure": "missing managerId or no input"}, status=status.HTTP_400_BAD_REQUEST)
-        employeeInstance = employee.objects.filter(employeeId=managerIdReceived).values()[0]
+        employeeInstance = employee.objects.filter(managerId=managerIdReceived).values()[0]
         if employeeInstance:
-            serializer = employeeSerializer(employeeInstance);
+            serializer = employeeSerializer(employeeInstance)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({"failure": "no matching manager found"}, status=status.HTTP_400_BAD_REQUEST)
@@ -51,10 +51,10 @@ def parseEmployeeInfo(employeeInfos):
 @api_view(["GET"])
 def getEmployee(request):
     try:
-        # emailReceived = request.GET.get('email', None)
-        emailReceived = request.data['email'] if 'email' in request.data else None
-        # passwordReceived = request.GET.get('password', None)
-        passwordReceived = request.data['password'] if 'password' in request.data else None
+        emailReceived = request.GET.get('email', None)
+        # emailReceived = request.data['email'] if 'email' in request.data else None
+        passwordReceived = request.GET.get('password', None)
+        # passwordReceived = request.data['password'] if 'password' in request.data else None
         if emailReceived is None or passwordReceived is None:
             return Response({"failure": "missing email or password"}, status=status.HTTP_400_BAD_REQUEST)
         employeeInstances = employee.objects.filter(email=emailReceived).filter(password=passwordReceived).values()
