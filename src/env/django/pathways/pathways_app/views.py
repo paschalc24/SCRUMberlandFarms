@@ -83,25 +83,27 @@ def updateEmployee(request):
         serializer = employeeSerializer(employeeInstance, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response({"success": "employee updated"}, status=status.HTTP_200_OK)
         else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     except:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response({"failure": "update failed"}, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(["DELETE"])
 def deleteEmployee(request):
     try:
         if "employeeId" in request.data:
+            if len(employee.objects.filter(employeeId=request.data['employeeId'])) == 0:
+                return Response({"failure": "unknown employeeId"}, status=status.HTTP_400_BAD_REQUEST)
             employee.objects.filter(employeeId=request.data['employeeId']).delete()
             if len(employee.objects.filter(employeeId=request.data['employeeId'])) == 0:
-                return Response({"status": "employee profile deleted"}, status=status.HTTP_200_OK)
+                return Response({"success": "employee profile deleted"}, status=status.HTTP_200_OK)
             else:
-                return Response({"status": "employee could not be deleted"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"failure": "employee could not be deleted"}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"status": "no employeeId provided"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"failure": "no employeeId provided"}, status=status.HTTP_400_BAD_REQUEST)
     except:
-        return Response({"status": "error invalid request"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"failure": "error invalid request"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["GET"])
 def getGoal(request, *args, **kwargs):
