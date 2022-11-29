@@ -1,0 +1,21 @@
+.view {
+    width: 100%;
+    height: 90%;
+    margin: 0;
+}
+
+.employees {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: auto;
+
+    height: 100%;
+}
+
+.employee-goals {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: auto;
+
+    height: 100%;
+}
