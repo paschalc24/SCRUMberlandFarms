@@ -3,12 +3,11 @@ name: Django Testing
 on:
   push:
     branches:
-      -main
-      -backend_testing
+      -'*'
 
   pull_request:
     branches:
-      -main
+      -'*'
 
 jobs:
   build:
