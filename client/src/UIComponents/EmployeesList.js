@@ -19,14 +19,16 @@ import '../CSSComponents/EmployeesList.css';
 import PropTypes from 'prop-types';
 
 
+
+
 const initialEmployees = [{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"}];
+{firstName: "Meng", lastName: "Chau1", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
+{firstName: "Meng", lastName: "Chau2", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
+{firstName: "Meng", lastName: "Chau3", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
+{firstName: "Meng", lastName: "Chau4", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
+{firstName: "Meng", lastName: "Chau5", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
+{firstName: "Meng", lastName: "Chau6", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
+{firstName: "Meng", lastName: "Chau7", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"}];
 
 function EmployeeRow(props) {
 
@@ -49,16 +51,6 @@ function EmployeeRow(props) {
     );
 }
 
-
-Row.propTypes = {
-    employee: PropTypes.shape({
-        firstName: PropTypes.string.isRequired,
-        lastName: PropTypes.string.isRequired, 
-        startDate: PropTypes.string.isRequired,
-        email: PropTypes.string.isRequired,
-        positionTitle: PropTypes.string.isRequired
-    }).isRequired
-};
 
 
 function EmployeesList(props) {
@@ -86,7 +78,7 @@ function EmployeesList(props) {
                             </TableHead>
                             <TableBody>
                                 {employees.map((employee) => {
-                                    return(<EmployeeRow employee={employee}/>)
+                                    return(<EmployeeRow key={employee.lastName} employee={employee}/>)
                                 })}
                             </TableBody>
                         </Table>
