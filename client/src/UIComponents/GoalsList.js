@@ -19,7 +19,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
-
+import TestApi from "./TestAPI.js";
 
 function createData(goalId, title, cdate, sdate, edate, status, manager, description) {
   return {
@@ -116,11 +116,12 @@ const convertDate = (date) => {
 }
 
 const rows = [];
-let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["goals"];
+
+// let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["goals"];
 console.log(JSON.parse(sessionStorage.getItem("employeeProfile")))
-for(let i = 0; i < data.length; i++) {
-  rows.push(createData(data[i].goal.goalId, data[i].goal.title, convertDate(data[i].goal.creationDate), convertDate(data[i].goal.startDate), convertDate(data[i].goal.endDate), data[i].goal.status, data[i].goal.managerId, data[i].goal.textField))
-}
+// for(let i = 0; i < data.length; i++) {
+//   rows.push(createData(data[i].goal.goalId, data[i].goal.title, convertDate(data[i].goal.creationDate), convertDate(data[i].goal.startDate), convertDate(data[i].goal.endDate), data[i].goal.status, data[i].goal.managerId, data[i].goal.textField))
+// }
 
 export default function CollapsibleTable(props) {
   const [goals, setGoals] = useState(rows);
@@ -148,6 +149,7 @@ export default function CollapsibleTable(props) {
           {goals.map((row) => {
             return(<Row key={row.goalId} goal={row} goals={goals} setGoals={setGoals}/>)
           })}
+          <TestApi goals={goals} setGoals={setGoals}/>
         </TableBody>
       </Table>
     </TableContainer>

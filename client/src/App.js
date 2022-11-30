@@ -25,7 +25,7 @@ function App() {
   if (managerView) {
     return (
       <div className="App">
-        <TestApi/>
+        {/* <TestApi/> */}
         <Container fluid> 
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
@@ -38,10 +38,10 @@ function App() {
   else {
     return (
       <div className="App">
-        <TestApi/>
         <Container fluid> 
           <Row><Header view={managerView} vTitle={viewTitle}/></Row>
           <Row className="mainRow">
+            {/* <TestApi/> */}
             <Col><CollapsibleTable view={managerView} value={value} setValue={setValue}/></Col>
           </Row>
         </Container>
