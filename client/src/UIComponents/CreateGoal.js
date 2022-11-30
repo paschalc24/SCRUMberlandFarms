@@ -29,7 +29,7 @@ export default function CreateGoal(props) {
     const [endDate, setEndDate] = useState(new Date());
     const [status, setStatus] = useState('In-Progress');
     const [manager, setManager] = useState('');
-    const [description, setDescription] = useState('');
+    const [textField, setTextField] = useState('');
     
     const [showError, setShowError] = React.useState(false)
 
@@ -49,7 +49,7 @@ export default function CreateGoal(props) {
             moment(startDate).format('YYYY-MM-DD'), 
             moment(endDate).format('YYYY-MM-DD'),
             status,
-            description
+            textField
         );
 
         setShow(false);
@@ -58,7 +58,7 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(goalId, title, cdate, sdate, edate, status, manager, description) {
+    function createData(goalId, title, cdate, sdate, edate, status, manager, textField) {
         return {
           goalId,
           title,
@@ -67,7 +67,7 @@ export default function CreateGoal(props) {
           edate,
           status,
           manager,
-          description
+          textField
         };
     }
 
@@ -99,7 +99,7 @@ export default function CreateGoal(props) {
     return (
         <>
             <OverlayTrigger
-                trigger='hover'
+                trigger={["hover", "hover"]}
                 key={'bottom'}
                 placement={'bottom'}
                 overlay = {
@@ -146,7 +146,7 @@ export default function CreateGoal(props) {
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control value={description} onChange={e => setDescription(e.target.value)} as="textarea" rows={2} required/>
+                            <Form.Control value={textField} onChange={e => setTextField(e.target.value)} as="textarea" rows={2} required/>
                         </Form.Group>
                     </Form>
                     <div>
@@ -157,7 +157,7 @@ export default function CreateGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || description !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

@@ -13,7 +13,7 @@ function ViewEmployeeGoals() {
     return (
     <>
         <OverlayTrigger
-            trigger='hover'
+            trigger={["hover", "hover"]}
             key={'bottom'}
             placement={'bottom'}
             overlay = {
