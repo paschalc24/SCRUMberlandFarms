@@ -8,3 +8,11 @@
 .css-1nbmkk3-MuiPaper-root-MuiTableContainer-root {
     box-shadow: 5px 5px 5px #003133 !important;
 }
+
+#border1{
+    width: 35px;
+    height: 0px;
+    border-bottom: 1px solid #ced4da;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}

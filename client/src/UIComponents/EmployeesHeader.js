@@ -10,10 +10,6 @@ import { BiChevronsLeft } from 'react-icons/bi';
 function EmployeesHeader(props) {
     return(
         <div className="employees-header">
-            <div className="add-calendar">
-                <Col><CalendarButton/></Col>
-                <Col><CreateManagerGoal goals={props.goals} setGoals={props.setGoals}/></Col>
-            </div>
             <Button size='sm' className="goals-button" onClick={props.transition}>
                 Goals
                 <BiChevronsLeft size={30}/>
