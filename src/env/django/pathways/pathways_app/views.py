@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from .serializers import employeeSerializer, goalSerializer, commentSerializer
 from .models import employee, goal, comment
+import json
 
 #given a managerId return the employee
 @api_view(["GET"])
@@ -30,8 +31,16 @@ def getManager(request):
 @api_view(["POST"])
 def postEmployee(request):
     try:
+        #create a mutable copy of the body input
+        jsonReceived = request.POST.copy()
+        #change the email to lowercase
+        jsonReceived['email'] = jsonReceived['email'].lower()
+        #check if the email exists in the database and if it does return an error
+        employeeInstance = employee.objects.filter(email=jsonReceived['email']).filter(password=jsonReceived['password']).values()
+        if len(employeeInstance) > 0:
+            return Response({"failure": "email already exist"}, status=status.HTTP_400_BAD_REQUEST)
         #check if all required fields are passed in
-        serializer = employeeSerializer(data=request.data)
+        serializer = employeeSerializer(data=jsonReceived)
         #if valid create the employee
         if serializer.is_valid():
             serializer.save()
@@ -41,7 +50,7 @@ def postEmployee(request):
             return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     #catch any exceptions
     except:
-        return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"failure": "invalid Request"}, status=status.HTTP_400_BAD_REQUEST)
         
 # given list of employee return a dictionary of employee and goal
 def parseEmployeeInfo(employeeInfos):
@@ -67,7 +76,7 @@ def getEmployee(request):
         if emailReceived is None or passwordReceived is None:
             return Response({"failure": "missing email or password"}, status=status.HTTP_400_BAD_REQUEST)
         #find the employee given password and email
-        employeeInstances = employee.objects.filter(email=emailReceived).filter(password=passwordReceived).values()
+        employeeInstances = employee.objects.filter(email=emailReceived.lower()).filter(password=passwordReceived).values()
         if employeeInstances:
             managedEmployees = []
             if employeeInstances[0]['isManager']:
@@ -90,7 +99,11 @@ def updateEmployee(request):
         if (len(missingFields) > 0):
             return Response({"failure": "incomplete employee", "missing fields": missingFields}, status=status.HTTP_400_BAD_REQUEST)
         employeeInstance = employee.objects.filter(employeeId=request.data['employeeId'])[0]
-        serializer = employeeSerializer(employeeInstance, data=request.data)
+        #create a mutable copy of the body input
+        jsonReceived = request.POST.copy()
+        #change the email to lowercase
+        jsonReceived['email'] = jsonReceived['email'].lower()
+        serializer = employeeSerializer(employeeInstance, data=jsonReceived)
         #verify all required fileds are passed in
         if serializer.is_valid():
             serializer.save()
@@ -133,7 +146,7 @@ def getGoal(request):
         if serializer.is_valid():
             return Response({"success": serializer.data}, status=status.HTTP_200_OK)
         else:
-            return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"failure": "there are no goals associated with given employee"}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({"failure": "there are no goals associated with given employee"}, status=status.HTTP_400_BAD_REQUEST)
 
