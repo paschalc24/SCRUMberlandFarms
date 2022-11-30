@@ -1,1 +1,30 @@
+name: Django Testing
 
+on:
+  push:
+    branches:
+      -main
+      -backend_testing
+
+  pull_request:
+    branches:
+      -main
+
+jobs:
+  build:
+    runs-on: ubuntu-lastest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.10.2
+      uses: actions/setup-python@v2
+      with: 
+        python-version: 3.10.2
+    - name: Install dependencies
+      run:
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Django testing
+      run:
+        cd src/env/django/pathways && python3 manage.py test
+        
