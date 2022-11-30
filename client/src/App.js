@@ -12,22 +12,19 @@ import Col from 'react-bootstrap/Col';
 
 import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
 import CollapsibleTable from "./UIComponents/GoalsList.js";
-import TestApi from "./UIComponents/TestAPI.js";
-import data from "./tempStorage.json";
 
-const managerView = true;
+
+const employeeInfo = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
+const managerView = employeeInfo.isManager;
+const employeeName = employeeInfo.firstName + " " + employeeInfo.lastName;
 
 function App() {
   const [value, setValue] = useState();
-  const [goalData, setGoalData] = useState();
-
-  const viewTitle = managerView ? "Manager Name": "Employee Name";
   if (managerView) {
     return (
       <div className="App">
-        <TestApi/>
         <Container fluid> 
-          <Row><Header view={managerView} vTitle={viewTitle}/></Row>
+          <Row><Header view={managerView} vTitle={employeeName}/></Row>
           <Row className="mainRow">
               <ManagerGoalsList view={managerView}/>
           </Row>
@@ -38,9 +35,8 @@ function App() {
   else {
     return (
       <div className="App">
-        <TestApi/>
         <Container fluid> 
-          <Row><Header view={managerView} vTitle={viewTitle}/></Row>
+          <Row><Header view={managerView} vTitle={employeeName}/></Row>
           <Row className="mainRow">
             <Col><CollapsibleTable view={managerView} value={value} setValue={setValue}/></Col>
           </Row>
