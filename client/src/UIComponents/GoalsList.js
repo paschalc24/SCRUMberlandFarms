@@ -22,24 +22,6 @@ import GoalsHeader from "./GoalsHeader";
 import TestApi from "./TestAPI.js";
 import CommentsList from "../UIComponents/CommentsList";
 
-
-function createData(employeeId, companyName, managerId, title, category, cdate, sdate, edate, status, textField, goalId, comments) {
-  return {
-    employeeId,
-    companyName,
-    managerId,
-    title,
-    category,
-    cdate,
-    sdate,
-    edate,
-    status,
-    textField,
-    goalId,
-    comments
-  };
-}
-
 function Row(props) {
   const { goal } = props;
   const [open, setOpen] = React.useState(false);
@@ -134,20 +116,20 @@ const rows = [];
 
 // let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["goals"];
 console.log(JSON.parse(sessionStorage.getItem("employeeProfile")))
-for(let i = 0; i < data.length; i++) {
-  rows.push(createData(data[i].goal.employeeId, 
-                       data[i].goal.companyName,
-                       data[i].goal.managerId,  
-                       data[i].goal.title, 
-                       data[i].goal.category, 
-                       convertDate(data[i].goal.creationDate), 
-                       convertDate(data[i].goal.startDate), 
-                       convertDate(data[i].goal.endDate), 
-                       data[i].goal.status,
-                       data[i].goal.textField,
-                       data[i].goal.goalId, 
-                       data[i].comments))
-}
+// for(let i = 0; i < data.length; i++) {
+//   rows.push(createData(data[i].goal.employeeId, 
+//                        data[i].goal.companyName,
+//                        data[i].goal.managerId,  
+//                        data[i].goal.title, 
+//                        data[i].goal.category, 
+//                        convertDate(data[i].goal.creationDate), 
+//                        convertDate(data[i].goal.startDate), 
+//                        convertDate(data[i].goal.endDate), 
+//                        data[i].goal.status,
+//                        data[i].goal.textField,
+//                        data[i].goal.goalId, 
+//                        data[i].comments))
+// }
 
 export default function CollapsibleTable(props) {
   const [goals, setGoals] = useState(rows);

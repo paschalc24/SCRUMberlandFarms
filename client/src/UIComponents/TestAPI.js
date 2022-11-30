@@ -5,16 +5,20 @@ import axios from 'axios';
 var qs = require('qs');
 var FormData = require('form-data');
 
-function createData(goalId, title, cdate, sdate, edate, status, manager, description) {
+function createData(employeeId, companyName, managerId, title, category, cdate, sdate, edate, status, textField, goalId, comments) {
   return {
-    goalId,
+    employeeId,
+    companyName,
+    managerId,
     title,
+    category,
     cdate,
     sdate,
     edate,
     status,
-    manager,
-    description
+    textField,
+    goalId,
+    comments
   };
 }
 
@@ -44,8 +48,22 @@ let loadData = (props) => {
 
     let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["goals"];
     for(let i = 0; i < data.length; i++) {
-      props.goals.push(createData(data[i].goal.goalId, data[i].goal.title, convertDate(data[i].goal.creationDate), convertDate(data[i].goal.startDate), convertDate(data[i].goal.endDate), data[i].goal.status, data[i].goal.managerId, data[i].goal.textField))
+      props.goals.push(createData(data[i].goal.employeeId, 
+                           data[i].goal.companyName,
+                           data[i].goal.managerId,  
+                           data[i].goal.title, 
+                           data[i].goal.category, 
+                           convertDate(data[i].goal.creationDate), 
+                           convertDate(data[i].goal.startDate), 
+                           convertDate(data[i].goal.endDate), 
+                           data[i].goal.status,
+                           data[i].goal.textField,
+                           data[i].goal.goalId, 
+                           data[i].comments))
     }
+    // for(let i = 0; i < data.length; i++) {
+    //   props.goals.push(createData(data[i].goal.goalId, data[i].goal.title, convertDate(data[i].goal.creationDate), convertDate(data[i].goal.startDate), convertDate(data[i].goal.endDate), data[i].goal.status, data[i].goal.managerId, data[i].goal.textField))
+    // }
     const newList = props.goals.map(i => i);
     props.setGoals(newList);
   })

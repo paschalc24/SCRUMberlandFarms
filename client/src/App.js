@@ -38,7 +38,6 @@ function App() {
         <Container fluid> 
           <Row><Header view={managerView} vTitle={employeeName}/></Row>
           <Row className="mainRow">
-            {/* <TestApi/> */}
             <Col><CollapsibleTable view={managerView} value={value} setValue={setValue}/></Col>
           </Row>
         </Container>
