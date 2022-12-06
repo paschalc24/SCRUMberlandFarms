@@ -27,7 +27,8 @@ export default function CreateGoal(props) {
     const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [status, setStatus] = useState('In-Progress');
+    // const [status, setStatus] = useState('In-Progress');
+    const status = "In-Progress";
     const [manager, setManager] = useState('');
     const [textField, setTextField] = useState('');
     
@@ -133,13 +134,13 @@ export default function CreateGoal(props) {
                                 <DatePicker className="endDate" selected={endDate} onChange={(date) => setEndDate(date)}/>
                             </div>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Status</Form.Label>
                             <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
                                 <option value="In-Progress">In-Progress</option>
                                 <option value="Completed">Completed</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Manager</Form.Label>
                             <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>

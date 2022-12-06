@@ -11,13 +11,10 @@ export default function MarkGoal(props) {
     const findGoal = props.goals.filter((item) => item.goalId === props.goalId);
     const [checked, setChecked] = React.useState(JSON.parse(sessionStorage.getItem(props.goalId)) || false);
     
-    console.log(findGoal[0], JSON.parse(sessionStorage.getItem(props.goalId)))
-
     const handleChange = () => {
         setChecked(!checked);
         let status = !checked == false ? "In-Progress" : "Completed";
         updateStatus(status);
-        console.log("   CHECKED ", !checked)
         sessionStorage.setItem(props.goalId, !checked)
 
     };
@@ -27,6 +24,8 @@ export default function MarkGoal(props) {
         goalToUpdate.status = status;
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
+
+
         var qs = require('qs');
         var data = qs.stringify({
             goalId: goalToUpdate.goalId,

@@ -20,7 +20,8 @@ export default function EditGoal(props) {
     const [goalName, setGoalName] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [status, setStatus] = useState('In-Progress');
+    // const [status, setStatus] = useState('In-Progress');
+    const status = "In-Progress";
     const [manager, setManager] = useState('');
     const [textField, setTextField] = useState('');
     
@@ -69,6 +70,8 @@ export default function EditGoal(props) {
         console.log("goaltoupdate1: ", goalToUpdate);
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
+
+        
         var qs = require('qs');
         var data = qs.stringify({
             goalId: goalToUpdate.goalId,
@@ -141,13 +144,13 @@ export default function EditGoal(props) {
                                 <DatePicker className="endDate" selected={endDate} onChange={(date) => setEndDate(date)}/>
                             </div>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Status</Form.Label>
                             <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
                                 <option value="In-Progress">In-Progress</option>
                                 <option value="Completed">Completed</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Manager</Form.Label>
                             <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
