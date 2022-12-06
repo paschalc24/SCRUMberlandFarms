@@ -69,7 +69,6 @@ export default function EditGoal(props) {
         console.log("goaltoupdate1: ", goalToUpdate);
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
-
         var qs = require('qs');
         var data = qs.stringify({
             goalId: goalToUpdate.goalId,
