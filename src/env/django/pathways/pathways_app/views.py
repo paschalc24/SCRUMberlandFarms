@@ -166,7 +166,7 @@ def deleteGoal(request):
         relevant_comment.delete()
     # return response from the delete
     if (response[0]==1):
-        return Response({"success": "the item was successfully deleted"}, status=status.HTTP_200_ACCEPTED)
+        return Response({"success": "the item was successfully deleted"}, status=status.HTTP_200_OK)
     else:
         return Response({"failure": "there was an error with the deletion"}, status=status.HTTP_400_BAD_REQUEST)
 

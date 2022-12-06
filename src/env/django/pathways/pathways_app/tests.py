@@ -45,3 +45,18 @@ class EmployeeModelTest(APITestCase):
                 "managerId": "1234", "positionTitle": "SWE", "startDate": "2023-11-29", "isManager": True, "password": "1234", "employeeId": employeeId}
         response = self.client.put('/employee/update/', updatedData)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
+class GoalModelTest(APITestCase):
+    testGoalData = {"employeeId": "1234", "companyName": "UKG", "managerId": "2345", "title": "SWE",
+                            "category": "personal", "startDate": "2022-12-06", "endDate": "2022-12-10", "status": "in-progress",
+                                "textField": "hello test"}
+    
+    def test_create_goal(self):
+        response = self.client.post('/goals/post/', self.testGoalData)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+    
+    def test_get_goal(self):
+        response = self.client.post('/goals/post/', self.testGoalData)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response = self.client.get('/goals/get/?employeeId=1234')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
