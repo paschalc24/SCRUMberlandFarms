@@ -1,5 +1,6 @@
 import '../CSSComponents/GoalsHeader.css';
 import CreateGoal from "./CreateGoal.js";
+import CalendarButton from "./CalendarButton.js"
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -35,7 +36,10 @@ function GoalsHeader(props) {
                     />
                     <Button size='sm' className="search-button"><BiSearchAlt2 className="magGlass" size={20}/></Button>
                 </InputGroup>
-                <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
+                <div className="add-calendar">
+                    <CalendarButton value={props.value} setValue={props.setValue}/>
+                    <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
+                </div>
                 <Button size='sm' className="employees-button" onClick={props.transition}>
                     Employees
                     <BiChevronsRight size={30}/>
@@ -64,7 +68,10 @@ function GoalsHeader(props) {
                     />
                     <Button size='sm' className="search-button"><BiSearchAlt2 className="magGlass" size={20}/></Button>
                 </InputGroup>
-                <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
+                <div className="add-calendar">
+                    <CalendarButton goals={props.goals} setGoals={props.setGoals} value={props.value} setValue={props.setValue}/>
+                    <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
+                </div>
             </div>
         );
     }

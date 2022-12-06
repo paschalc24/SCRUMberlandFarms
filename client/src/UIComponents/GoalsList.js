@@ -1,10 +1,9 @@
 // import * as React from 'react';
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios'; 
 import DeleteGoal from "./DeleteGoal.js";
 import EditGoal from "./EditGoal.js";
-
-import data from '../tempStorage.json';
+import MarkGoal from "./MarkGoal.js";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -21,21 +20,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
-
-function createData(id, title, sdate, edate, status, manager, description) {
-  return {
-    id,
-    title,
-    sdate,
-    edate,
-    status,
-    manager,
-    description
-  };
-}
+import GetUser from "./GetUser.js";
+import CommentsList from "../UIComponents/CommentsList";
 
 function Row(props) {
-  const { row } = props;
+  const { goal } = props;
   const [open, setOpen] = React.useState(false);
   return (
     <React.Fragment >
@@ -51,23 +40,25 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{row.title}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.sdate}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.edate}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.status}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{row.manager}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{goal.title}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.cdate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.sdate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.edate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.status}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.managerId}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
-          <DeleteGoal id={row.id} goals={props.goals} setGoals={props.setGoals}/>
-          <EditGoal id={row.id} 
-            title={row.title} 
-            sdate={row.sdate} 
-            edate={row.edate} 
-            status={row.status} 
-            manager={row.manager} 
-            description={row.description} 
+          <DeleteGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals}/>
+          <EditGoal goalId={goal.goalId} 
+            title={goal.title} 
+            sdate={goal.sdate} 
+            edate={goal.edate} 
+            status={goal.status} 
+            managerId={goal.managerId} 
+            textField={goal.textField} 
             goals={props.goals} 
             setGoals={props.setGoals}
           />
+          <MarkGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals} status={goal.status}/>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -77,13 +68,14 @@ function Row(props) {
               <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
                 Description
               </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
-                    {row.description}
-                  </Typography>
-                </TableHead>
-              </Table>
+              <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
+                {goal.textField}
+              </Typography>
+              <div id="border1"></div>
+              <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
+                Comments
+              </Typography>
+              <CommentsList goal={goal}/>
             </Box>
           </Collapse>
         </TableCell>
@@ -92,22 +84,12 @@ function Row(props) {
   );
 }
 
-Row.propTypes = {
-  row: PropTypes.shape({
-    sdate: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    edate: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    manager: PropTypes.string.isRequired,
-  }).isRequired,
-};
+const convertDate = (date) => {
+  const [year, month, day] = date.split('-');
+  return new Date([month, day, year].join('/')).toDateString();
+}
 
-const userGoals = data.users[0].goals;
-const rows = [
-  // createData(userGoals[0].goalid, userGoals[0].goalName, new Date(userGoals[0].goalStartDate).toDateString(), new Date(userGoals[0].goalEndDate).toDateString(), userGoals[0].status, userGoals[0].manager),
-  // createData(userGoals[1].goalid, userGoals[1].goalName, new Date(userGoals[1].goalStartDate).toDateString(), new Date(userGoals[1].goalEndDate).toDateString(), userGoals[1].status, userGoals[1].manager),
-  // createData(userGoals[2].goalid, userGoals[2].goalName, new Date(userGoals[2].goalStartDate).toDateString(), new Date(userGoals[2].goalEndDate).toDateString(), userGoals[2].status, userGoals[2].manager),
-];
+const rows = [];
 
 export default function CollapsibleTable(props) {
   const [goals, setGoals] = useState(rows);
@@ -117,12 +99,13 @@ export default function CollapsibleTable(props) {
         fontFamily: "Varela Round"
       },
     }}>
-      <GoalsHeader view={props.view} transition={props.transition} goals={goals} setGoals={setGoals}/>
+      <GoalsHeader view={props.view} transition={props.transition} goals={goals} setGoals={setGoals} value={props.value} setValue={props.setValue}/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >
             <TableCell />
             <TableCell sx={{fontFamily: "Varela Round"}}>Goal</TableCell>
+            <TableCell sx={{fontFamily: "Varela Round"}} align="right">Date Created</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Start Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>
@@ -132,8 +115,9 @@ export default function CollapsibleTable(props) {
         </TableHead>
         <TableBody >
           {goals.map((row) => {
-            return(<Row key={row.title} row={row} goals={goals} setGoals={setGoals}/>)
+            return(<Row key={row.goalId} goal={row} goals={goals} setGoals={setGoals}/>)
           })}
+          <GetUser goals={goals} setGoals={setGoals}/>
         </TableBody>
       </Table>
     </TableContainer>

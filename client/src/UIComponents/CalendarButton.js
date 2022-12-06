@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { CgTrash } from 'react-icons/cg';
-import '../CSSComponents/deleteGoal.css';
-import axios from 'axios'; 
+import Cal from "../UIComponents/Calendar.js";
+import { BsCalendarEvent } from "react-icons/bs";
+import "react-datepicker/dist/react-datepicker.css";
+import '../CSSComponents/CalendarButton.css';
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-export default function DeleteGoal(props) {
+export default function CalendarButton(props) {
+
     const [show, setShow] = useState(false);
+    
+    const [showError, setShowError] = React.useState(false)
+
+    const handleRequired = () => {
+        setShowError(true);
+    }
 
     const handleCloseYes = () => {
-        deleteRow();
+
         setShow(false);
-    };
+    }
     const handleCloseNo = () => setShow(false);
 
     const handleShow = () => setShow(true);
 
-    const deleteRow = () => {
-        const newList = props.goals.filter((item) => item.goalId !== props.goalId);
-        axios
-            .delete("http://127.0.0.1:8000/goals/delete/", {
-                data: {goalId: props.goalId}
-            })
-            .then(res => console.log("data: ", res))
-            .catch(err => console.log(err));
+    const filterByDate = () => {
 
-        props.setGoals(newList);
-    };
-
+    }
+    
     return (
         <>
             <OverlayTrigger
@@ -38,27 +38,24 @@ export default function DeleteGoal(props) {
                 key={'bottom'}
                 placement={'bottom'}
                 overlay = {
-                    <Tooltip id={'delete-goal-tooltip'}>
-                        Delete
+                    <Tooltip id={'calendar-tooltip'}>
+                        View Calendar
                     </Tooltip>
                 }
             >
-                <button className="delete" onClick={handleShow}>
-                    <CgTrash size={18}/>
+                <button className="cal-button" size="sm" onClick={handleShow}>
+                    <BsCalendarEvent className='AiOutlineCalendar' size={20}/>
                 </button>
             </OverlayTrigger>
-
-            <Modal show={show} onHide={handleCloseNo}>
-            <Modal.Header closeButton>
-                <Modal.Title>Delete Goal</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Are you sure you want to delete this goal?</Modal.Body>
+            
+            <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Body><Cal value={props.value} setValue={props.setValue}/></Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseNo}>
-                        No
+                        Cancel
                     </Button>
                     <Button className="yesButton" variant="primary" onClick={handleCloseYes}>
-                        Yes
+                        Confirm
                     </Button>
                 </Modal.Footer>
             </Modal>

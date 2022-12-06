@@ -2,6 +2,11 @@
     all: unset;
     cursor: pointer;
     color: grey;
+    float:right;
+}
+
+.edit{
+    float:right;
 }
 
 .delete:hover {
@@ -16,12 +21,4 @@
 .yesButton:hover {
     background-color: #004343;
     border-color: #004343;
-}
-
-#delete-goal-tooltip > .tooltip-arrow::before {
-    border-bottom-color :#004343
-}
-
-#delete-goal-tooltip > .tooltip-inner {
-    background-color:#004343
 }

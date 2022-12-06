@@ -33,3 +33,15 @@
     background-color: #004343;
     border-color: #004343;
 }
+
+.create-button{
+    border:none;
+}
+
+#create-goal-tooltip > .tooltip-arrow::before {
+    border-bottom-color :#004343
+}
+
+#create-goal-tooltip > .tooltip-inner {
+    background-color:#004343
+}

@@ -19,7 +19,7 @@ def getManager(request):
         employeeInstance = employee.objects.filter(employeeId=managerIdReceived).values()[0]
         #if employee exists then pass it back to frontend
         if employeeInstance:
-            serializer = employeeSerializer(employeeInstance);
+            serializer = employeeSerializer(employeeInstance)
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({"failure": "no matching manager found"}, status=status.HTTP_400_BAD_REQUEST)

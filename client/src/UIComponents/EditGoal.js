@@ -11,15 +11,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios'; 
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 export default function EditGoal(props) {
     const [show, setShow] = useState(false);
 
     const [goalName, setGoalName] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [status, setStatus] = useState('In-Progress');
+    // const [status, setStatus] = useState('In-Progress');
+    const status = "In-Progress";
     const [manager, setManager] = useState('');
-    const [description, setDescription] = useState('');
+    const [textField, setTextField] = useState('');
     
     const [showError, setShowError] = React.useState(false)
 
@@ -28,17 +32,18 @@ export default function EditGoal(props) {
     }
 
     const handleCloseYes = () => {
+        let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
         updateGoal(
-         "testempid",
-         "UKG", 
-         "testmanid", 
+         data["employeeId"],
+         data["companyName"], 
+         data["managerId"], 
          goalName, 
          "testCategory", 
          moment(startDate).format('YYYY-MM-DD'), 
          moment(endDate).format('YYYY-MM-DD'),
          status,
-         description
+         textField
         );
 
         setShow(false);
@@ -47,49 +52,77 @@ export default function EditGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    // function createData(id, title, sdate, edate, status, manager, description) {
-    //     return {
-    //       id,
-    //       title,
-    //       sdate,
-    //       edate,
-    //       status,
-    //       manager,
-    //       description
-    //     };
-    // }
-
     const convertDate = (date) => {
         const [year, month, day] = date.split('-');
         return new Date([month, day, year].join('/')).toDateString();
     }
 
     const updateGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
-        const findGoal = props.goals.findIndex((item) => item.id === props.id);
-        const goalToUpdate = props.goals[findGoal];
+        const findGoal = props.goals.filter((item) => item.goalId === props.goalId);
+        const goalToUpdate = findGoal[0];
         console.log("goaltoupdate: ", goalToUpdate);
-
         goalToUpdate.title = title;
         goalToUpdate.sdate = convertDate(startDate);
         goalToUpdate.edate = convertDate(endDate);
         goalToUpdate.status = status;
         goalToUpdate.manager = manager;
-        goalToUpdate.description = textField;
-
+        goalToUpdate.textField = textField;
+        console.log("goaltoupdate1: ", goalToUpdate);
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
 
-        // axios
-        // create put request
+        
+        var qs = require('qs');
+        var data = qs.stringify({
+            goalId: goalToUpdate.goalId,
+            employeeId: employeeId,
+            companyName: companyName,
+            managerId: managerId,
+            title: title,
+            category: category,
+            startDate: startDate,
+            endDate: endDate,
+            status: goalToUpdate.status,
+            textField: goalToUpdate.textField,
+            creationDate: moment(goalToUpdate.cdate, "ddd MMM DD YYYY").format('YYYY-MM-DD')
+        });
+        var config = {
+          method: 'put',
+          url: 'http://127.0.0.1:8000/goals/update/',
+          headers: { 
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data : data
+        };
+        
+        axios(config)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        
 
         props.setGoals(newList);
     }
 
     return (
         <>
-            <button size="sm" className="edit" onClick={handleShow}>
-                <MdOutlineModeEditOutline size={18}/>
-            </button>
+            <OverlayTrigger
+                trigger={["hover", "hover"]}
+                key={'bottom'}
+                placement={'bottom'}
+                overlay = {
+                    <Tooltip id={'edit-goal-tooltip'}>
+                        Edit
+                    </Tooltip>
+                }
+            >
+                <button size="sm" className="edit" onClick={handleShow}>
+                    <MdOutlineModeEditOutline size={18}/>
+                </button>
+            </OverlayTrigger>
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton> 
@@ -111,20 +144,20 @@ export default function EditGoal(props) {
                                 <DatePicker className="endDate" selected={endDate} onChange={(date) => setEndDate(date)}/>
                             </div>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Status</Form.Label>
                             <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
                                 <option value="In-Progress">In-Progress</option>
                                 <option value="Completed">Completed</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Manager</Form.Label>
                             <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control value={description} onChange={e => setDescription(e.target.value)} as="textarea" rows={2} required/>
+                            <Form.Control value={textField} onChange={e => setTextField(e.target.value)} as="textarea" rows={2} required/>
                         </Form.Group>
                     </Form>
                     <div>
@@ -135,7 +168,7 @@ export default function EditGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || description !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

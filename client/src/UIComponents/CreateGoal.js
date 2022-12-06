@@ -10,16 +10,27 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios'; 
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
 export default function CreateGoal(props) {
+
+    
+    const convertDate = (date) => {
+        const [year, month, day] = date.split('-');
+        return new Date([month, day, year].join('/')).toDateString();
+    }
 
     const [show, setShow] = useState(false);
 
     const [goalName, setGoalName] = useState('');
+    const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [status, setStatus] = useState('In-Progress');
+    // const [status, setStatus] = useState('In-Progress');
+    const status = "In-Progress";
     const [manager, setManager] = useState('');
-    const [description, setDescription] = useState('');
+    const [textField, setTextField] = useState('');
     
     const [showError, setShowError] = React.useState(false)
 
@@ -28,22 +39,18 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
-        let data = JSON.parse(sessionStorage.getItem("employee"));
+        let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
-        console.log(data["employeeId"],
-        data["companyName"], 
-        data["managerId"], )
-        
         addGoal(
-         data["employeeId"],
-         data["companyName"], 
-         data["managerId"], 
-         goalName, 
-         "testCategory", 
-         moment(startDate).format('YYYY-MM-DD'), 
-         moment(endDate).format('YYYY-MM-DD'),
-         status,
-         description
+            data["employeeId"],
+            data["companyName"], 
+            data["managerId"], 
+            goalName, 
+            "testCategory", 
+            moment(startDate).format('YYYY-MM-DD'), 
+            moment(endDate).format('YYYY-MM-DD'),
+            status,
+            textField
         );
 
         setShow(false);
@@ -52,30 +59,20 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(id, title, sdate, edate, status, manager, description) {
+    function createData(goalId, title, cdate, sdate, edate, status, manager, textField) {
         return {
-          id,
+          goalId,
           title,
+          cdate,
           sdate,
           edate,
           status,
           manager,
-          description
+          textField
         };
     }
 
-    const convertDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return new Date([month, day, year].join('/')).toDateString();
-    }
-
     const addGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
-        props.goals.push(
-            createData(Math.floor(Math.random() * 1000), goalName, convertDate(startDate), convertDate(endDate), status, manager, textField)
-        );
-        //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
-        const newList = props.goals.map(i => i);
-
         axios
             .post("http://127.0.0.1:8000/goals/post/", {
                 employeeId: employeeId,
@@ -88,17 +85,34 @@ export default function CreateGoal(props) {
                 status: status,
                 textField: textField,
             })
-            .then(res => console.log((res.data)))//props.setGoals({ newList: res.data }))
+            .then(res => {
+                console.log("data: ", (res.data));
+                props.goals.push(
+                    createData(res.data.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
+                );
+                //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
+                const newList = props.goals.map(i => i);
+                props.setGoals(newList);
+            })
             .catch(err => console.log(err));
-
-        props.setGoals(newList);
     }
 
     return (
         <>
-            <button size="sm" className="add-goal-button" onClick={handleShow}>
-                <VscAdd className='addIcon' size={20}/>
-            </button>
+            <OverlayTrigger
+                trigger={["hover", "hover"]}
+                key={'bottom'}
+                placement={'bottom'}
+                overlay = {
+                    <Tooltip id={'create-goal-tooltip'}>
+                        New Goal
+                    </Tooltip>
+                }
+            >
+                <button className="create-button" size="sm" onClick={handleShow}>
+                    <VscAdd className='addIcon' size={20}/>
+                </button>
+            </OverlayTrigger>
             
             <Modal className="formModal" show={show} onHide={handleCloseNo} aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton> 
@@ -120,20 +134,20 @@ export default function CreateGoal(props) {
                                 <DatePicker className="endDate" selected={endDate} onChange={(date) => setEndDate(date)}/>
                             </div>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Status</Form.Label>
                             <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
                                 <option value="In-Progress">In-Progress</option>
                                 <option value="Completed">Completed</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Manager</Form.Label>
                             <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control value={description} onChange={e => setDescription(e.target.value)} as="textarea" rows={2} required/>
+                            <Form.Control value={textField} onChange={e => setTextField(e.target.value)} as="textarea" rows={2} required/>
                         </Form.Group>
                     </Form>
                     <div>
@@ -144,7 +158,7 @@ export default function CreateGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || description !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
