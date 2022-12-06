@@ -89,31 +89,6 @@ const convertDate = (date) => {
   return new Date([month, day, year].join('/')).toDateString();
 }
 
-const setSessionStorage = () => { 
-  var config = {
-  method: 'get',
-  url: 'http://127.0.0.1:8000/employee/get/',
-  headers: { 
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  params: {
-    'email': 'Gerald_Cunningham@fluffybunnyconsulting.com',
-    'password': 'cunninghamge' 
-  }
-  };
-  axios(config)
-  .then(function (response) {
-    console.log(response.data)
-    sessionStorage.setItem("employeeProfile", JSON.stringify(response.data["success"][0]["employeeProfile"]));
-    // console.log(JSON.parse(sessionStorage.getItem("employee")))
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-
-setSessionStorage();
-
 const rows = [];
 
 export default function CollapsibleTable(props) {
