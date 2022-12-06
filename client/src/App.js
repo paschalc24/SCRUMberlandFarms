@@ -9,14 +9,43 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import axios from "axios";
 import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
 import CollapsibleTable from "./UIComponents/GoalsList.js";
 
 
-const employeeInfo = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
-const managerView = employeeInfo.isManager;
-const employeeName = employeeInfo.firstName + " " + employeeInfo.lastName;
+const employeeInfo = "";
+const managerView = "";
+const employeeName = "";
+
+const setSessionStorage = () => { 
+  var config = {
+  method: 'get',
+  url: 'http://127.0.0.1:8000/employee/get/',
+  headers: { 
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  params: {
+    'email': 'Gerald_Cunningham@fluffybunnyconsulting.com',
+    'password': 'cunninghamge' 
+  }
+  };
+  axios(config)
+  .then(function (response) {
+    console.log(response.data)
+    sessionStorage.setItem("employeeProfile", JSON.stringify(response.data["success"][0]["employeeProfile"]));
+    // console.log(JSON.parse(sessionStorage.getItem("employee")))
+    employeeInfo = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
+    managerView = employeeInfo.isManager;
+    employeeName = employeeInfo.firstName + " " + employeeInfo.lastName;
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+setSessionStorage();
+
 
 function App() {
   const [value, setValue] = useState();
