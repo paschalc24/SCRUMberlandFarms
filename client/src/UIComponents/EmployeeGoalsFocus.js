@@ -16,9 +16,6 @@ import TableRow from '@mui/material/TableRow';
 import { SlSpeech } from "react-icons/sl";
 
 
-const thisEmployeesGoals = [{name: "learn Node.js", deadline: "12/20/22"}, {name: "complete training modules", deadline: "12/24/22"}, {name: "learn backend stuff to help learn backend stuff to help learn backend stuff to help", deadline: "12/30/22"},
-                            {name: "learn Node.js", deadline: "12/20/22"}, {name: "complete training modules", deadline: "12/24/22"}, {name: "learn backend stuff to help", deadline: "12/30/22"}];
-
 EmployeeGoalItem.propTypes = {
     goal: PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -27,7 +24,10 @@ EmployeeGoalItem.propTypes = {
 };
 
 
-function ViewEmployeeGoals() {
+function CommentEmployeeGoals(props) {
+
+    const { goal } = props;
+
     return (
     <>
         <OverlayTrigger
@@ -58,7 +58,7 @@ function EmployeeGoalItem(props) {
             <ul className="individual-goal">
                 <li className="goal-header">
                     Due {goal.deadline}
-                    <ViewEmployeeGoals/>
+                    <CommentEmployeeGoals goal={goal}/>
                 </li>
                 <li className="goal-body">{goal.name}</li>
             </ul>
@@ -67,10 +67,10 @@ function EmployeeGoalItem(props) {
 }
 
 
-function EmployeeGoalsFocus() {
+function EmployeeGoalsFocus(props) {
 
-    const [goals, setEmployeeGoals] = useState(thisEmployeesGoals);
-    const [header, setHeader] = useState("No Goals Displayed");
+    const { goals } = props;
+    const { header } = props;
 
     return(
         <React.Fragment>
