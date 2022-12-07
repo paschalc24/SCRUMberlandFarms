@@ -19,14 +19,7 @@ import '../CSSComponents/EmployeesList.css';
 import PropTypes from 'prop-types';
 
 
-const initialEmployees = [{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"}];
+const initialEmployees = [{firstName: "Meng", lastName: "Chau", startDate: "12/7/22", email: "mengchau@umass.edu", positionTitle: "software engineer"}];
 
 function EmployeeRow(props) {
 
@@ -50,7 +43,7 @@ function EmployeeRow(props) {
 }
 
 
-Row.propTypes = {
+EmployeeRow.propTypes = {
     employee: PropTypes.shape({
         firstName: PropTypes.string.isRequired,
         lastName: PropTypes.string.isRequired, 
