@@ -36,7 +36,7 @@ def postEmployee(request):
         #change the email to lowercase
         jsonReceived['email'] = jsonReceived['email'].lower()
         #check if the email exists in the database and if it does return an error
-        employeeInstance = employee.objects.filter(email=jsonReceived['email']).filter(password=jsonReceived['password']).values()
+        employeeInstance = employee.objects.filter(email__iexact=jsonReceived['email']).filter(password=jsonReceived['password']).values()
         if len(employeeInstance) > 0:
             return Response({"failure": "email already exist"}, status=status.HTTP_400_BAD_REQUEST)
         #check if all required fields are passed in
@@ -76,7 +76,9 @@ def getEmployee(request):
         if emailReceived is None or passwordReceived is None:
             return Response({"failure": "missing email or password"}, status=status.HTTP_400_BAD_REQUEST)
         #find the employee given password and email
-        employeeInstances = employee.objects.filter(email=emailReceived.lower()).filter(password=passwordReceived).values()
+        #lowercase the email might break the current datebase
+        #todo filter employee object by lower case
+        employeeInstances = employee.objects.filter(email__iexact=emailReceived.lower()).filter(password=passwordReceived).values()
         if employeeInstances:
             managedEmployees = []
             if employeeInstances[0]['isManager']:
@@ -132,9 +134,6 @@ def deleteEmployee(request):
 
 @api_view(["GET"])
 def getGoal(request):
-    # if there is no employee id specified, return a failed response
-    if ('employeeId' not in request.data):
-        return Response({"failure": "employeeId not provided"}, status=status.HTTP_400_BAD_REQUEST)
     # get goal by employee id
     employeeIdReceived = request.GET.get('employeeId', None)
     if employeeIdReceived == None or len(employeeIdReceived) == 0:
@@ -143,10 +142,7 @@ def getGoal(request):
     # if there are no goals, return a failed response, otherwise return the serialized data (no need to check success as data is retrieved from database)
     if goalInstances:
         serializer = goalSerializer(goalInstances, many=True)
-        if serializer.is_valid():
-            return Response({"success": serializer.data}, status=status.HTTP_200_OK)
-        else:
-            return Response({"failure": "there are no goals associated with given employee"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"success": serializer.data}, status=status.HTTP_200_OK)
     else:
         return Response({"failure": "there are no goals associated with given employee"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -166,7 +162,7 @@ def deleteGoal(request):
         relevant_comment.delete()
     # return response from the delete
     if (response[0]==1):
-        return Response({"success": "the item was successfully deleted"}, status=status.HTTP_200_ACCEPTED)
+        return Response({"success": "the item was successfully deleted"}, status=status.HTTP_200_OK)
     else:
         return Response({"failure": "there was an error with the deletion"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -210,19 +206,14 @@ def postComment(request):
 
 @api_view(["GET"])
 def getComments(request):
-    if 'goalId' not in request.data:
-        return Response({"failure": "missing goalId"}, status=status.HTTP_400_BAD_REQUEST)
     goalIdReceived = request.GET.get('goalId', None)
     if goalIdReceived == None or len(goalIdReceived) == 0:
         return Response({"failure": "no goalId received or invalid goalId"})
-    commentInstances = goal.objects.filter(goalId=goalIdReceived).values()
+    commentInstances = comment.objects.filter(goalId=goalIdReceived).values()
     # sort the returned comments?
     if commentInstances:
         serializer = commentSerializer(commentInstances, many=True)
-        if serializer.is_valid():
-            return Response({"success": serializer.data}, status=status.HTTP_200_OK)
-        else:
-            return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"success": serializer.data}, status=status.HTTP_200_OK)
     else:
         return Response({"failure": "no comments associated with given id"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -245,9 +236,10 @@ def updateComment(request):
     if (len(missingFields) > 0):
         return Response({"failure": "incomplete comment", "missing fields": missingFields}, status=status.HTTP_400_BAD_REQUEST)
     commentInstance = comment.objects.filter(commentId=request.data['commentId'])[0]
-    serializer = commentSerializer(commentInstance, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"success": "comment updated"}, status=status.HTTP_200_OK)
-    else:
-        return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    if commentInstance:
+        serializer = commentSerializer(commentInstance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": "comment updated"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
