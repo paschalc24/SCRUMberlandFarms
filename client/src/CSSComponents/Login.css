@@ -1,8 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
+body {
+  background: #087C79;
+  background: linear-gradient(135deg, #087C79 0%,#003133 100%);
+  /* background: linear-gradient(-45deg, #087C79, #003133, #087C79, #003133); */
+}
+
 html{
   font-size: 100%;
 }
+
+html,body{
+  height:100%;
+  min-height:100%; 
+}
+  
 
 #loginform{
   max-width: 500px;
@@ -10,7 +22,7 @@ html{
   max-height: 700px;
   width: 30%;
   height: 60%;
-  margin: 100px auto;
+  margin: 10% auto;
   background-color: #FFFFFF;
   border-radius: 25px;
 }
