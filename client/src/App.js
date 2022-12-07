@@ -14,9 +14,9 @@ import ManagerGoalsList from "./UIComponents/ManagerGoalsList.js";
 import CollapsibleTable from "./UIComponents/GoalsList.js";
 
 
-const employeeInfo = "";
-const managerView = "";
-const employeeName = "";
+let employeeInfo = "";
+let managerView = "";
+let employeeName = "";
 
 const setSessionStorage = () => { 
   var config = {
@@ -34,7 +34,6 @@ const setSessionStorage = () => {
   .then(function (response) {
     console.log(response.data)
     sessionStorage.setItem("employeeProfile", JSON.stringify(response.data["success"][0]["employeeProfile"]));
-    // console.log(JSON.parse(sessionStorage.getItem("employee")))
     employeeInfo = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
     managerView = employeeInfo.isManager;
     employeeName = employeeInfo.firstName + " " + employeeInfo.lastName;
@@ -45,7 +44,6 @@ const setSessionStorage = () => {
 }
 
 setSessionStorage();
-
 
 function App() {
   const [value, setValue] = useState();
@@ -67,7 +65,7 @@ function App() {
         <Container fluid> 
           <Row><Header view={managerView} vTitle={employeeName}/></Row>
           <Row className="mainRow">
-            <Col><CollapsibleTable view={managerView} value={value} setValue={setValue}/></Col>
+            <Col className="mainColumn"><CollapsibleTable view={managerView} value={value} setValue={setValue}/></Col>
           </Row>
         </Container>
       </div>

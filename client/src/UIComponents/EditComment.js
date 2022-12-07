@@ -18,7 +18,11 @@ export default function EditComment(props) {
     const [showError, setShowError] = React.useState(false);
     const comments = props.comments;
     const setComments = props.setComments;
-
+    const convertDate3 = (date) => {
+        const [year, month, day] = date.split('-');
+        return new Date([month, day, year].join('/')).toDateString();
+    }
+    const createdDate = convertDate3(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
     const handleRequired = () => {
         setShowError(true);
     }
@@ -67,8 +71,9 @@ export default function EditComment(props) {
             })
             .then(res => {
                 console.log("data: ", (res.data));
+                comments.splice(comments.findIndex((comment) => comment.commentId === commentId), 1);
                 comments.push(
-                    createData(res.data.commentId, res.data.companyName, res.data.goalId, res.data.employeeId, res.data.timestamp, res.data.textField)
+                    createData(commentId, props.goal.companyName, props.goal.goalId, props.goal.employeeId, createdDate, textField)
                 );
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = comments.map(i => i);
