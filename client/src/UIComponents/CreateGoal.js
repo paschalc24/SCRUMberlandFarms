@@ -39,7 +39,7 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
-        let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
+        let data = JSON.parse(localStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
         addGoal(
             data["employeeId"],

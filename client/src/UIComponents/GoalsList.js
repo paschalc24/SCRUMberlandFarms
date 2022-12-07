@@ -4,7 +4,6 @@ import axios from 'axios';
 import DeleteGoal from "./DeleteGoal.js";
 import EditGoal from "./EditGoal.js";
 import MarkGoal from "./MarkGoal.js";
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -20,8 +19,24 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
-import GetUser from "./GetUser.js";
 import CommentsList from "../UIComponents/CommentsList";
+
+function createData(employeeId, companyName, managerId, title, category, cdate, sdate, edate, status, textField, goalId, comments) {
+  return {
+    employeeId,
+    companyName,
+    managerId,
+    title,
+    category,
+    cdate,
+    sdate,
+    edate,
+    status,
+    textField,
+    goalId,
+    comments
+  };
+}
 
 function Row(props) {
   const { goal } = props;
@@ -92,6 +107,21 @@ const convertDate = (date) => {
 const rows = [];
 
 export default function CollapsibleTable(props) {
+  let data = JSON.parse(localStorage.getItem("employeeProfile"))["goals"];
+  for(let i = 0; i < data.length; i++) {
+    rows.push(createData(data[i].goal.employeeId, 
+                        data[i].goal.companyName,
+                        data[i].goal.managerId,  
+                        data[i].goal.title, 
+                        data[i].goal.category, 
+                        convertDate(data[i].goal.creationDate), 
+                        convertDate(data[i].goal.startDate), 
+                        convertDate(data[i].goal.endDate), 
+                        data[i].goal.status,
+                        data[i].goal.textField,
+                        data[i].goal.goalId, 
+                        data[i].comments))
+  }
   const [goals, setGoals] = useState(rows);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
@@ -117,7 +147,6 @@ export default function CollapsibleTable(props) {
           {goals.map((row) => {
             return(<Row key={row.goalId} goal={row} goals={goals} setGoals={setGoals}/>)
           })}
-          <GetUser goals={goals} setGoals={setGoals}/>
         </TableBody>
       </Table>
     </TableContainer>

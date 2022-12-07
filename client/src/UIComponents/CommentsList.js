@@ -6,7 +6,7 @@ import DeleteComment from "./DeleteComment.js";
 import "../CSSComponents/CommentsList.css";
 import "../CSSComponents/deleteGoal.css";
 
-let data = JSON.parse(sessionStorage.getItem("employeeProfile"));
+let data = JSON.parse(localStorage.getItem("employeeProfile"));
 
 function CommentsList(props) {
     const [comments, setComments] = useState(props.goal.comments);

@@ -11,7 +11,7 @@ export default function MarkGoal(props) {
     const findGoal = props.goals.filter((item) => item.goalId === props.goalId);
     const goalToUpdate = findGoal[0];
     const curStatus = goalToUpdate.status == "Completed" ? true : false
-    const [checked, setChecked] = React.useState(curStatus);
+    const [checked, setChecked] = useState(curStatus);
     
     const handleChange = () => {
         setChecked(!checked);
