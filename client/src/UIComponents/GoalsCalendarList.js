@@ -41,7 +41,7 @@ function GoalsCalendarList({value}) {
                         {goal.goalDesc} <br></br>
                         Start Date: {new Date(goal.goalStartDate).toDateString()}. <br></br>
                         Due Date: {new Date(goal.goalEndDate).toDateString()}. <br></br>
-                        Manager: {goal.manager}.
+                        Manager: {goal.managerId}.
                         </Card.Text>
                     </Card.Body>
                     </Card>

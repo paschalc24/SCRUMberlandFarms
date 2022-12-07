@@ -20,9 +20,10 @@ export default function EditGoal(props) {
     const [goalName, setGoalName] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [status, setStatus] = useState('In-Progress');
+    // const [status, setStatus] = useState('In-Progress');
+    const status = "In-Progress";
     const [manager, setManager] = useState('');
-    const [description, setDescription] = useState('');
+    const [textField, setTextField] = useState('');
     
     const [showError, setShowError] = React.useState(false)
 
@@ -31,7 +32,7 @@ export default function EditGoal(props) {
     }
 
     const handleCloseYes = () => {
-        let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
+        let data = JSON.parse(localStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
         updateGoal(
          data["employeeId"],
@@ -42,7 +43,7 @@ export default function EditGoal(props) {
          moment(startDate).format('YYYY-MM-DD'), 
          moment(endDate).format('YYYY-MM-DD'),
          status,
-         description
+         textField
         );
 
         setShow(false);
@@ -65,11 +66,12 @@ export default function EditGoal(props) {
         goalToUpdate.edate = convertDate(endDate);
         goalToUpdate.status = status;
         goalToUpdate.manager = manager;
-        goalToUpdate.description = textField;
+        goalToUpdate.textField = textField;
         console.log("goaltoupdate1: ", goalToUpdate);
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
 
+        
         var qs = require('qs');
         var data = qs.stringify({
             goalId: goalToUpdate.goalId,
@@ -81,7 +83,7 @@ export default function EditGoal(props) {
             startDate: startDate,
             endDate: endDate,
             status: goalToUpdate.status,
-            textField: goalToUpdate.description,
+            textField: goalToUpdate.textField,
             creationDate: moment(goalToUpdate.cdate, "ddd MMM DD YYYY").format('YYYY-MM-DD')
         });
         var config = {
@@ -108,7 +110,7 @@ export default function EditGoal(props) {
     return (
         <>
             <OverlayTrigger
-                trigger='hover'
+                trigger={["hover", "hover"]}
                 key={'bottom'}
                 placement={'bottom'}
                 overlay = {
@@ -142,20 +144,20 @@ export default function EditGoal(props) {
                                 <DatePicker className="endDate" selected={endDate} onChange={(date) => setEndDate(date)}/>
                             </div>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Status</Form.Label>
                             <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
                                 <option value="In-Progress">In-Progress</option>
                                 <option value="Completed">Completed</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Manager</Form.Label>
                             <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control value={description} onChange={e => setDescription(e.target.value)} as="textarea" rows={2} required/>
+                            <Form.Control value={textField} onChange={e => setTextField(e.target.value)} as="textarea" rows={2} required/>
                         </Form.Group>
                     </Form>
                     <div>
@@ -166,7 +168,7 @@ export default function EditGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || description !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

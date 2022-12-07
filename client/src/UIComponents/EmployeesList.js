@@ -44,15 +44,14 @@ function EmployeeRow(props) {
 }
 
 
-EmployeeRow.propTypes = {
+Row.propTypes = {
     employee: PropTypes.shape({
         firstName: PropTypes.string.isRequired,
         lastName: PropTypes.string.isRequired, 
         startDate: PropTypes.string.isRequired,
         email: PropTypes.string.isRequired,
         positionTitle: PropTypes.string.isRequired
-    }).isRequired,
-    setGoals: PropTypes.func.isRequired
+    }).isRequired
 };
 
 
@@ -87,7 +86,7 @@ function EmployeesList(props) {
                             </TableHead>
                             <TableBody>
                                 {employees.map((employee) => {
-                                    return(<EmployeeRow employee={employee} setViewedGoals={setViewedGoals}/>)
+                                    return(<EmployeeRow employee={employee}/>)
                                 })}
                             </TableBody>
                         </Table>

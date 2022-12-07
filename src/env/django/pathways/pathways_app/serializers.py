@@ -1,4 +1,3 @@
-from email.policy import default
 from rest_framework import serializers
 
 from .models import employee, goal, comment
@@ -32,7 +31,6 @@ class goalSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class commentSerializer(serializers.ModelSerializer):
-    commentId = serializers.UUIDField()
     companyName = serializers.CharField()
     goalId = serializers.CharField() 
     employeeId = serializers.CharField() 

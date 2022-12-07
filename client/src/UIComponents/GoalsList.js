@@ -1,9 +1,9 @@
 // import * as React from 'react';
 import React, { useState, useEffect } from 'react';
-
+import axios from 'axios'; 
 import DeleteGoal from "./DeleteGoal.js";
 import EditGoal from "./EditGoal.js";
-import PropTypes from 'prop-types';
+import MarkGoal from "./MarkGoal.js";
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -19,18 +19,22 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
+import CommentsList from "../UIComponents/CommentsList";
 
-
-function createData(goalId, title, cdate, sdate, edate, status, manager, description) {
+function createData(employeeId, companyName, managerId, title, category, cdate, sdate, edate, status, textField, goalId, comments) {
   return {
-    goalId,
+    employeeId,
+    companyName,
+    managerId,
     title,
+    category,
     cdate,
     sdate,
     edate,
     status,
-    manager,
-    description
+    textField,
+    goalId,
+    comments
   };
 }
 
@@ -56,7 +60,7 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.sdate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.status}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.manager}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.managerId}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
           <DeleteGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals}/>
           <EditGoal goalId={goal.goalId} 
@@ -64,11 +68,12 @@ function Row(props) {
             sdate={goal.sdate} 
             edate={goal.edate} 
             status={goal.status} 
-            manager={goal.manager} 
-            description={goal.description} 
+            managerId={goal.managerId} 
+            textField={goal.textField} 
             goals={props.goals} 
             setGoals={props.setGoals}
           />
+          <MarkGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals} status={goal.status}/>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -79,8 +84,13 @@ function Row(props) {
                 Description
               </Typography>
               <Typography sx={{fontFamily: "Varela Round"}} variant="h10" gutterBottom component="div">
-                {goal.description}
+                {goal.textField}
               </Typography>
+              <div id="border1"></div>
+              <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
+                Comments
+              </Typography>
+              <CommentsList goal={goal}/>
             </Box>
           </Collapse>
         </TableCell>
@@ -89,40 +99,29 @@ function Row(props) {
   );
 }
 
-// Row.propTypes = {
-//   goal: PropTypes.shape({
-//     sdate: PropTypes.string.isRequired,
-//     status: PropTypes.string.isRequired,
-//     edate: PropTypes.string.isRequired,
-//     title: PropTypes.string.isRequired,
-//     manager: PropTypes.string.isRequired,
-//   }).isRequired,
-//   // goals: PropTypes.array.isRequired,
-//   // setGoals: PropTypes.func.isRequired
-// };
-Row.propTypes = {
-  goal: PropTypes.shape({
-    sdate: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    edate: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    manager: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
 const convertDate = (date) => {
   const [year, month, day] = date.split('-');
   return new Date([month, day, year].join('/')).toDateString();
 }
 
 const rows = [];
-let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["goals"];
-console.log(JSON.parse(sessionStorage.getItem("employeeProfile")))
-for(let i = 0; i < data.length; i++) {
-  rows.push(createData(data[i].goal.goalId, data[i].goal.title, convertDate(data[i].goal.creationDate), convertDate(data[i].goal.startDate), convertDate(data[i].goal.endDate), data[i].goal.status, data[i].goal.managerId, data[i].goal.textField))
-}
 
 export default function CollapsibleTable(props) {
+  let data = JSON.parse(localStorage.getItem("employeeProfile"))["goals"];
+  for(let i = 0; i < data.length; i++) {
+    rows.push(createData(data[i].goal.employeeId, 
+                        data[i].goal.companyName,
+                        data[i].goal.managerId,  
+                        data[i].goal.title, 
+                        data[i].goal.category, 
+                        convertDate(data[i].goal.creationDate), 
+                        convertDate(data[i].goal.startDate), 
+                        convertDate(data[i].goal.endDate), 
+                        data[i].goal.status,
+                        data[i].goal.textField,
+                        data[i].goal.goalId, 
+                        data[i].comments))
+  }
   const [goals, setGoals] = useState(rows);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{

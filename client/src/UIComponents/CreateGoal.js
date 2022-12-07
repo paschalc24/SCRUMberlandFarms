@@ -27,9 +27,10 @@ export default function CreateGoal(props) {
     const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    const [status, setStatus] = useState('In-Progress');
+    // const [status, setStatus] = useState('In-Progress');
+    const status = "In-Progress";
     const [manager, setManager] = useState('');
-    const [description, setDescription] = useState('');
+    const [textField, setTextField] = useState('');
     
     const [showError, setShowError] = React.useState(false)
 
@@ -38,7 +39,7 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
-        let data = JSON.parse(sessionStorage.getItem("employeeProfile"))["employee"];
+        let data = JSON.parse(localStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
         addGoal(
             data["employeeId"],
@@ -49,7 +50,7 @@ export default function CreateGoal(props) {
             moment(startDate).format('YYYY-MM-DD'), 
             moment(endDate).format('YYYY-MM-DD'),
             status,
-            description
+            textField
         );
 
         setShow(false);
@@ -58,7 +59,7 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(goalId, title, cdate, sdate, edate, status, manager, description) {
+    function createData(goalId, title, cdate, sdate, edate, status, manager, textField) {
         return {
           goalId,
           title,
@@ -67,7 +68,7 @@ export default function CreateGoal(props) {
           edate,
           status,
           manager,
-          description
+          textField
         };
     }
 
@@ -99,7 +100,7 @@ export default function CreateGoal(props) {
     return (
         <>
             <OverlayTrigger
-                trigger='hover'
+                trigger={["hover", "hover"]}
                 key={'bottom'}
                 placement={'bottom'}
                 overlay = {
@@ -133,20 +134,20 @@ export default function CreateGoal(props) {
                                 <DatePicker className="endDate" selected={endDate} onChange={(date) => setEndDate(date)}/>
                             </div>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Status</Form.Label>
                             <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
                                 <option value="In-Progress">In-Progress</option>
                                 <option value="Completed">Completed</option>
                             </Form.Select>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Manager</Form.Label>
                             <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control value={description} onChange={e => setDescription(e.target.value)} as="textarea" rows={2} required/>
+                            <Form.Control value={textField} onChange={e => setTextField(e.target.value)} as="textarea" rows={2} required/>
                         </Form.Group>
                     </Form>
                     <div>
@@ -157,7 +158,7 @@ export default function CreateGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || description !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
