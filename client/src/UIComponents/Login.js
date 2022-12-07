@@ -13,6 +13,7 @@ export default function Login() {
     const [employeeName, getEmployeeName] = useState('');
 
     const [isLoading, setLoading] = useState(false);
+    const [isError, setError] = useState(false);
 
     function handleChangeEmail(event) {
         setEmail(event.target.value);
@@ -47,10 +48,12 @@ export default function Login() {
         
             setLoading(false);
             setIsShown(current => !current);
+            setError(false);
           })
           .catch(function (error) {
             console.log(error);
             setLoading(false);
+            setError(true);
           });
     }
 
@@ -76,13 +79,15 @@ export default function Login() {
                         {
                             isLoading ? <ClipLoader color="#087C79" /> : ""
                         }
+                        {
+                            isError ? <p style={{color: "red"}}>Invalid email or password</p> : ""
+                        }
                     </div>
                 </div>
             }
         </div>
         )
     } else {
-        console.log(isShown)
         return (<MainPage employeeInfo={employeeInfo} managerView={managerView} employeeName={employeeName}/>)
     }
 }
