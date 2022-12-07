@@ -23,3 +23,7 @@ body {
 .card-header{
   background-color:whitesmoke;
 }
+
+.mainColumn{
+  max-height: 100%;
+}
