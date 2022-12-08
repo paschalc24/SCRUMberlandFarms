@@ -88,7 +88,7 @@ export default function CreateGoal(props) {
             .then(res => {
                 console.log("data: ", (res.data));
                 props.goals.push(
-                    createData(res.data.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
+                    createData(res.data.success.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
                 );
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = props.goals.map(i => i);
@@ -158,7 +158,7 @@ export default function CreateGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' || manager !== '' || textField !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' && manager !== '' && textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
