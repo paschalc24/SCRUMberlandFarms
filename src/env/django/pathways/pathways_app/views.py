@@ -173,7 +173,7 @@ def postGoal(request):
     # if the attempt is successful, save the data and return success, otherwise return a failed response
     if serializedData.is_valid():
         serializedData.save()
-        return Response({"success": "comment posted succesfully"}, status=status.HTTP_200_OK)
+        return Response({"success": serializedData.data}, status=status.HTTP_200_OK)
     else:
         return Response({"failure": serializedData.errors}, status=status.HTTP_400_BAD_REQUEST)
 
