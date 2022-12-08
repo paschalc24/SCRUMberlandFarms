@@ -19,20 +19,12 @@ import '../CSSComponents/EmployeesList.css';
 import PropTypes from 'prop-types';
 
 
-
-
-const initialEmployees = [{firstName: "Meng", lastName: "Chau", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau1", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau2", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau3", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau4", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau5", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau6", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"},
-{firstName: "Meng", lastName: "Chau7", startDate: "11/23/22", email: "mengchau@umass.edu", positionTitle: "software engineer"}];
+const initialEmployees = [];
 
 function EmployeeRow(props) {
 
-    const { employee } = props;
+    const { employee } = props; //the employee associated with this managed-employees table entry
+    const { setViewedGoals } = props;
 
     return (
         <React.Fragment >
@@ -44,7 +36,7 @@ function EmployeeRow(props) {
                 <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.email}</TableCell>
                 <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.positionTitle}</TableCell>
                 <TableCell sx={{fontFamily: "Varela Round"}} align="right">
-                    <ViewEmployeeGoals />
+                    <ViewEmployeeGoals employee={employee} setViewedGoals={setViewedGoals} />
                 </TableCell>
             </TableRow>
         </React.Fragment>
@@ -52,11 +44,27 @@ function EmployeeRow(props) {
 }
 
 
+Row.propTypes = {
+    employee: PropTypes.shape({
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired, 
+        startDate: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        positionTitle: PropTypes.string.isRequired
+    }).isRequired
+};
+
 
 function EmployeesList(props) {
 
-    const [employees, setEmployees] = useState(initialEmployees);
-    const [showEmployeeGoals, setVisible] = useState(false);
+    const [employees, setEmployees] = useState(initialEmployees); //the employees displayed in the managed-employees list
+    const [goals, setEmployeeGoals] = useState([]); //these are the goals that should be displayed in the left view component
+    const [header, setHeader] = useState("No Goals Displayed"); //the header of the left view component that tells the user who's goals they are viewing
+
+    function setViewedGoals(employee, currentGoals) {
+        setHeader(employee.firstName + " " + employee.lastName + "'s goals");
+        setEmployeeGoals(currentGoals);
+    }
 
     return(
         <React.Fragment>
@@ -78,13 +86,13 @@ function EmployeesList(props) {
                             </TableHead>
                             <TableBody>
                                 {employees.map((employee) => {
-                                    return(<EmployeeRow key={employee.lastName} employee={employee}/>)
+                                    return(<EmployeeRow key={employee.lastName} employee={employee} setViewedGoals={setViewedGoals}/>)
                                 })}
                             </TableBody>
                         </Table>
                     </Col>
                     <Col sm={4} className="employee-goals">
-                        <EmployeeGoalsFocus/>
+                        <EmployeeGoalsFocus goals={goals} header={header}/>
                     </Col>
                 </Row>
             </TableContainer>

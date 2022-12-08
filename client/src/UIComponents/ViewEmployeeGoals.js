@@ -9,7 +9,11 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { GiBullseye } from "react-icons/gi";
 
 
-function ViewEmployeeGoals() {
+function ViewEmployeeGoals(props) {
+
+    const { setViewedGoals } = props;
+    const { employee } = props; //the employee associated with this managed-employees table entry associated with this button
+
     return (
     <>
         <OverlayTrigger
@@ -22,7 +26,7 @@ function ViewEmployeeGoals() {
                 </Tooltip>
             }
         >
-            <button size="sm" className="view-goals">
+            <button size="sm" className="view-goals" onClick={() => setViewedGoals(employee, [])}>
                 <GiBullseye size={20}/>
             </button>
         </OverlayTrigger>
