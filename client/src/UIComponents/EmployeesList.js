@@ -86,7 +86,7 @@ function EmployeesList(props) {
                             </TableHead>
                             <TableBody>
                                 {employees.map((employee) => {
-                                    return(<EmployeeRow employee={employee}/>)
+                                    return(<EmployeeRow key={employee.lastName} employee={employee} setViewedGoals={setViewedGoals}/>)
                                 })}
                             </TableBody>
                         </Table>
