@@ -43,7 +43,7 @@ function EmployeeRow(props) {
     );
 }
 
-
+/*
 Row.propTypes = {
     employee: PropTypes.shape({
         firstName: PropTypes.string.isRequired,
@@ -53,7 +53,7 @@ Row.propTypes = {
         positionTitle: PropTypes.string.isRequired
     }).isRequired
 };
-
+*/
 
 function EmployeesList(props) {
 
