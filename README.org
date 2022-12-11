@@ -3,7 +3,7 @@
 * Getting started
 ** Pulling from github
 #+begin_src bash
-  git clone 
+  git clone https://github.com/paschalc24/SCRUMberlandFarms.git
 #+end_src
 ** Installing prerequisite
 *** frontend
@@ -39,4 +39,13 @@ python3 manage.py runserver
 
 *API Documentation
 -https://docs.google.com/document/d/1qgwNsiARfFwsfgtevtwyBBSMOgKt6LmCH0oQcQaaVzI/edit?usp=sharing
+
+*Testing
+The backend django test suite can be run using the following commands:
+
+#+begin_src bash
+cd src/env/django/pathways &
+python3 manage.py test
+# the tests will also automatically run on push and merge to main
+#+end_src
 
