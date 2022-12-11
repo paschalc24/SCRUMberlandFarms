@@ -37,10 +37,10 @@ python3 manage.py runserver
 #+end_src
 
 
-*API Documentation
+* API Documentation
 -https://docs.google.com/document/d/1qgwNsiARfFwsfgtevtwyBBSMOgKt6LmCH0oQcQaaVzI/edit?usp=sharing
 
-*Testing
+* Testing
 The backend django test suite can be run using the following commands:
 
 #+begin_src bash
