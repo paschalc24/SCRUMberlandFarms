@@ -17,8 +17,6 @@ npm install
 *** Backend
 Backend requires python3.10, psycopg2-binary, django, djangorestframework, django-cors-headers. Installation may differ between operating systems.
 
-Getting Started with env/django/pathways_app
-
 ** Running the website
 *** frontend
 To run frontend, you only need to run the below command.
@@ -39,19 +37,6 @@ python3 manage.py runserver
 #+end_src
 
 
+*API Documentation
+-https://docs.google.com/document/d/1qgwNsiARfFwsfgtevtwyBBSMOgKt6LmCH0oQcQaaVzI/edit?usp=sharing
 
-
-
-
-
-
-
-
-
-
-
-# API Documentation
-
-## Goals API
-
-- 
