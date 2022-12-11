@@ -1,4 +1,7 @@
 # SCRUMberlandFarms
+* Project Pathways
+
+* Description
 
 * Getting started
 ** Pulling from github
