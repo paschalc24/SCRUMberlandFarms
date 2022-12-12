@@ -7,7 +7,7 @@ import "../CSSComponents/CommentsList.css";
 import "../CSSComponents/deleteGoal.css";
 
 function CommentsList(props) {
-    const [comments, setComments] = useState(props.goal.comments);
+    const [comments, setComments] = useState(props.comments);
     if (comments.length === 0) { 
         return (
             <React.Fragment key={comments.commentid}>

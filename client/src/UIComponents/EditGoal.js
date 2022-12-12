@@ -16,16 +16,12 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function EditGoal(props) {
     const [show, setShow] = useState(false);
-
     const [goalName, setGoalName] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    // const [status, setStatus] = useState('In-Progress');
     const status = "In-Progress";
-    const [manager, setManager] = useState('');
     const [category, setCategory] = useState('');
     const [textField, setTextField] = useState('');
-    
     const [showError, setShowError] = React.useState(false)
 
     const handleRequired = () => {
@@ -53,17 +49,12 @@ export default function EditGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    const convertDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return new Date([month, day, year].join('/')).toDateString();
-    }
-
     const updateGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
-        const findGoal = props.goals.filter((item) => item.goalId === props.goalId);
-        const goalToUpdate = findGoal[0];
+        const findGoal = props.goals.filter((item) => item.goal.goalId === props.goalId);
+        const goalToUpdate = findGoal[0].goal;
         goalToUpdate.title = title;
-        goalToUpdate.sdate = convertDate(startDate);
-        goalToUpdate.edate = convertDate(endDate);
+        goalToUpdate.startDate = startDate;
+        goalToUpdate.endDate = endDate;
         goalToUpdate.status = status;
         goalToUpdate.category = category;
         goalToUpdate.textField = textField;
@@ -83,7 +74,7 @@ export default function EditGoal(props) {
             endDate: endDate,
             status: goalToUpdate.status,
             textField: goalToUpdate.textField,
-            creationDate: moment(goalToUpdate.cdate, "ddd MMM DD YYYY").format('YYYY-MM-DD')
+            creationDate: moment(goalToUpdate.creationDate, "ddd MMM DD YYYY").format('YYYY-MM-DD')
         });
         var config = {
           method: 'put',

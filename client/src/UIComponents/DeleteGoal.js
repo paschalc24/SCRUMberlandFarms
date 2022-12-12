@@ -20,7 +20,7 @@ export default function DeleteGoal(props) {
     const handleShow = () => setShow(true);
 
     const deleteRow = () => {
-        const newList = props.goals.filter((item) => item.goalId !== props.goalId);
+        const newList = props.goals.filter((item) => item.goal.goalId !== props.goalId);
         axios
             .delete("http://127.0.0.1:8000/goals/delete/", {
                 data: {goalId: props.goalId}

@@ -54,7 +54,7 @@ export default function CreateComment(props) {
           textField,
         };
     }
-    const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
+    const creationDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
 
     const postComment = (commentId, companyName, goalId, employeeId, timestamp, textField) => {
         axios
@@ -69,7 +69,7 @@ export default function CreateComment(props) {
             .then(res => {
                 console.log("data: ", (res.data));
                 comments.push(
-                    createData(commentId, props.goal.companyName, props.goal.goalId, props.goal.employeeId, createdDate, textField)
+                    createData(commentId, props.goal.companyName, props.goal.goalId, props.goal.employeeId, creationDate, textField)
                 );
                 console.log(comments)
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason

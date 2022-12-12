@@ -9,10 +9,10 @@ export default function Login() {
     const [isShown, setIsShown] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [employeeInfo, getEmployeeInfo] = useState('');
     const [managerView, getManagerView] = useState('');
     const [employeeName, getEmployeeName] = useState('');
-
+    const [employeeProfile, getEmployeeProfile] = useState('');
+    const [employeesToManage, getEmployeesToManage] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [isError, setError] = useState(false);
 
@@ -42,11 +42,13 @@ export default function Login() {
           .then(function (response) {
             console.log(response.data)
             localStorage.setItem("employeeProfile", JSON.stringify(response.data["success"][0]["employeeProfile"]));
-            const empInfo = JSON.parse(localStorage.getItem("employeeProfile"))["employee"];
-            getEmployeeInfo(empInfo);
-            getManagerView(empInfo.isManager);
-            getEmployeeName(empInfo.firstName + " " + empInfo.lastName);
-        
+            localStorage.setItem("employeesToManage", JSON.stringify(response.data["success"][0]["employeesToManage"]));
+            const empProfile = JSON.parse(localStorage.getItem("employeeProfile"))
+            const empToManage = JSON.parse(localStorage.getItem("employeesToManage"))
+            getEmployeesToManage(empToManage);
+            getEmployeeProfile(empProfile);
+            getManagerView(empProfile.employee.isManager);
+            getEmployeeName(empProfile.employee.firstName + " " + empProfile.employee.lastName);
             setLoading(false);
             setIsShown(current => !current);
             setError(false);
@@ -95,7 +97,7 @@ export default function Login() {
         </div>
         )
     } else {
-        return (<MainPage employeeInfo={employeeInfo} managerView={managerView} employeeName={employeeName}/>)
+        return (<MainPage employeeProfile={employeeProfile} employeesToManage={employeesToManage} managerView={managerView} employeeName={employeeName}/>)
     }
 }
 

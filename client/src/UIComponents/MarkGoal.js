@@ -8,14 +8,14 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import '../CSSComponents/MarkGoal.css';
 
 export default function MarkGoal(props) {
-    const findGoal = props.goals.filter((item) => item.goalId === props.goalId);
-    const goalToUpdate = findGoal[0];
-    const curStatus = goalToUpdate.status == "Completed" ? true : false
+    const findGoal = props.goals.filter((item) => item.goal.goalId === props.goalId);
+    const goalToUpdate = findGoal[0].goal;
+    const curStatus = goalToUpdate.status === "Completed" ? true : false
     const [checked, setChecked] = useState(curStatus);
     
     const handleChange = () => {
         setChecked(!checked);
-        let status = !checked == false ? "In-Progress" : "Completed";
+        let status = !checked === false ? "In-Progress" : "Completed";
         updateStatus(status);
     };
 
@@ -33,11 +33,11 @@ export default function MarkGoal(props) {
             managerId: goalToUpdate.managerId,
             title: goalToUpdate.title,
             category: goalToUpdate.category,
-            startDate: moment(goalToUpdate.sdate, "ddd MMM DD YYYY").format('YYYY-MM-DD'),
-            endDate: moment(goalToUpdate.edate, "ddd MMM DD YYYY").format('YYYY-MM-DD'),
+            startDate: moment(goalToUpdate.startDate, "ddd MMM DD YYYY").format('YYYY-MM-DD'),
+            endDate: moment(goalToUpdate.endDate, "ddd MMM DD YYYY").format('YYYY-MM-DD'),
             status: status,
             textField: goalToUpdate.textField,
-            creationDate: moment(goalToUpdate.cdate, "ddd MMM DD YYYY").format('YYYY-MM-DD'),
+            creationDate: moment(goalToUpdate.creationDate, "ddd MMM DD YYYY").format('YYYY-MM-DD'),
         });
         var config = {
           method: 'put',

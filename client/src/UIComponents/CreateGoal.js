@@ -15,19 +15,11 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function CreateGoal(props) {
 
-    
-    const convertDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return new Date([month, day, year].join('/')).toDateString();
-    }
-
     const [show, setShow] = useState(false);
-
-    const [goalName, setGoalName] = useState('');
-    const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
+    const [goalTitle, setGoalTitle] = useState('');
+    const creationDate = moment((new Date(Date.now()))).format('YYYY-MM-DD');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-    // const [status, setStatus] = useState('In-Progress');
     const status = "In-Progress";
     const [category, setCategory] = useState('');
     const [textField, setTextField] = useState('');
@@ -39,13 +31,12 @@ export default function CreateGoal(props) {
     }
 
     const handleCloseYes = () => {
-        let data = JSON.parse(localStorage.getItem("employeeProfile"))["employee"];
         setShowError(false);
         addGoal(
-            data["employeeId"],
-            data["companyName"], 
-            data["managerId"], 
-            goalName, 
+            props.employeeProfile.employee.employeeId,
+            props.employeeProfile.employee.companyName, 
+            props.employeeProfile.employee.managerId, 
+            goalTitle, 
             category, 
             moment(startDate).format('YYYY-MM-DD'), 
             moment(endDate).format('YYYY-MM-DD'),
@@ -59,20 +50,22 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(employeeId, category, cdate, comments, companyName, edate, goalId, managerId, sdate, status, textField, title) {
+    function createData(employeeId, category, creationDate, companyName, endDate, goalId, managerId, startDate, status, textField, title) {
         return {
+            goal: { 
             employeeId,
             category,
-            cdate,
-            comments,
+            creationDate,
             companyName,
-            edate,
+            endDate,
             goalId,
             managerId,
-            sdate,
+            startDate,
             status,
             textField,
             title
+            },
+            comments: []
         };
     }
 
@@ -91,9 +84,9 @@ export default function CreateGoal(props) {
             })
             .then(res => {
                 console.log("data: ", (res.data));
-                const employeeInfo = res.data.success;
+                const employeeInfo = props.employeeProfile.employee;
                 props.goals.push(
-                    createData(employeeInfo.employeeId, employeeInfo.category, createdDate, [], employeeInfo.companyName, convertDate(endDate), employeeInfo.goalId, manager, convertDate(startDate), status, textField, title)
+                    createData(employeeInfo.employeeId, category, creationDate, employeeInfo.companyName, endDate, res.data.success.goalId, employeeInfo.managerId, startDate, status, textField, title)
                 );
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = props.goals.map(i => i);
@@ -127,7 +120,7 @@ export default function CreateGoal(props) {
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Goal Title</Form.Label>
-                            <Form.Control value={goalName} onChange={e => setGoalName(e.target.value)} type="text" required/>
+                            <Form.Control value={goalTitle} onChange={e => setGoalTitle(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" id="dates" controlId="exampleForm.ControlTextarea1">
                             <div id="startDateTitle">
@@ -163,7 +156,7 @@ export default function CreateGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' && category !== '' && textField !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalTitle !== '' && category !== '' && textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

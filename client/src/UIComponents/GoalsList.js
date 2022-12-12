@@ -1,6 +1,5 @@
 // import * as React from 'react';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import React, { useState } from 'react';
 import DeleteGoal from "./DeleteGoal.js";
 import EditGoal from "./EditGoal.js";
 import MarkGoal from "./MarkGoal.js";
@@ -21,23 +20,6 @@ import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 import CommentsList from "../UIComponents/CommentsList";
 
-function createData(employeeId, companyName, managerId, title, category, cdate, sdate, edate, status, textField, goalId, comments) {
-  return {
-    employeeId,
-    companyName,
-    managerId,
-    title,
-    category,
-    cdate,
-    sdate,
-    edate,
-    status,
-    textField,
-    goalId,
-    comments
-  };
-}
-
 function Row(props) {
   const { goal } = props;
   const [open, setOpen] = React.useState(false);
@@ -56,17 +38,18 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} component="th" scope="row" >{goal.title}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.cdate}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.sdate}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.edate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.creationDate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.startDate}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.endDate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.status}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.category}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
           <DeleteGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals}/>
           <EditGoal goalId={goal.goalId} 
             title={goal.title} 
-            sdate={goal.sdate} 
-            edate={goal.edate} 
+            employeeId={goal.employeeId}
+            sdate={goal.startDate} 
+            edate={goal.endDate} 
             status={goal.status} 
             managerId={goal.managerId} 
             textField={goal.textField} 
@@ -90,7 +73,7 @@ function Row(props) {
               <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
                 Comments
               </Typography>
-              <CommentsList goal={goal}/>
+              <CommentsList goal={goal} comments={props.comments}/>
             </Box>
           </Collapse>
         </TableCell>
@@ -99,37 +82,15 @@ function Row(props) {
   );
 }
 
-const convertDate = (date) => {
-  const [year, month, day] = date.split('-');
-  return new Date([month, day, year].join('/')).toDateString();
-}
-
-const rows = [];
-
 export default function CollapsibleTable(props) {
-  let data = JSON.parse(localStorage.getItem("employeeProfile"))["goals"];
-  for(let i = 0; i < data.length; i++) {
-    rows.push(createData(data[i].goal.employeeId, 
-                        data[i].goal.companyName,
-                        data[i].goal.managerId,  
-                        data[i].goal.title, 
-                        data[i].goal.category, 
-                        convertDate(data[i].goal.creationDate), 
-                        convertDate(data[i].goal.startDate), 
-                        convertDate(data[i].goal.endDate), 
-                        data[i].goal.status,
-                        data[i].goal.textField,
-                        data[i].goal.goalId, 
-                        data[i].comments))
-  }
-  const [goals, setGoals] = useState(rows);
+  const [goals, setGoals] = useState(props.employeeProfile.goals);
   return (
     <TableContainer className="tableCont" style={{ maxHeight: '100%' }} component={Paper}sx={{
       '.MuiTable-root': {
         fontFamily: "Varela Round"
       },
     }}>
-      <GoalsHeader view={props.view} transition={props.transition} goals={goals} setGoals={setGoals} value={props.value} setValue={props.setValue}/>
+      <GoalsHeader employeeProfile={props.employeeProfile} view={props.view} transition={props.transition} goals={goals} setGoals={setGoals} value={props.value} setValue={props.setValue}/>
       <Table stickyHeader aria-label="collapsible table">
         <TableHead >
           <TableRow >
@@ -144,8 +105,9 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody >
-          {goals.map((row) => {
-            return(<Row key={row.goalId} goal={row} goals={goals} setGoals={setGoals}/>)
+          {console.log(goals)}
+          {goals.map((item) => {
+            return(<Row key={item.goal.goalId} comments={item.comments} goal={item.goal} goals={goals} setGoals={setGoals}/>)
           })}
         </TableBody>
       </Table>

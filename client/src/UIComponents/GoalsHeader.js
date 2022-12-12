@@ -5,14 +5,9 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-
 import { BiSearchAlt2, BiChevronsRight } from 'react-icons/bi';
-
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-
-import { transition } from "./ManagerGoalsList.js";
-
 
 function GoalsHeader(props) {
     if(props.view) {
@@ -38,7 +33,7 @@ function GoalsHeader(props) {
                 </InputGroup>
                 <div className="add-calendar">
                     <CalendarButton value={props.value} setValue={props.setValue}/>
-                    <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
+                    <CreateGoal employeeProfile={props.employeeProfile} goals={props.goals} setGoals={props.setGoals}/>
                 </div>
                 <Button size='sm' className="employees-button" onClick={props.transition}>
                     Employees
