@@ -15,6 +15,7 @@ Frontend dependencies requires only Nodejs, npm. After installing both, we can i
 #+begin_src bash
 cd client &
 npm install
+npm install --save react-spinners
 #+end_src
 
 *** Backend
