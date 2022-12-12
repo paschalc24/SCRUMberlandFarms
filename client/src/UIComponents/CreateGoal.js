@@ -29,7 +29,7 @@ export default function CreateGoal(props) {
     const [endDate, setEndDate] = useState(new Date());
     // const [status, setStatus] = useState('In-Progress');
     const status = "In-Progress";
-    const [manager, setManager] = useState('');
+    const [category, setCategory] = useState('');
     const [textField, setTextField] = useState('');
     
     const [showError, setShowError] = React.useState(false)
@@ -46,7 +46,7 @@ export default function CreateGoal(props) {
             data["companyName"], 
             data["managerId"], 
             goalName, 
-            "testCategory", 
+            category, 
             moment(startDate).format('YYYY-MM-DD'), 
             moment(endDate).format('YYYY-MM-DD'),
             status,
@@ -59,7 +59,7 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(goalId, title, cdate, sdate, edate, status, manager, textField) {
+    function createData(goalId, title, cdate, sdate, edate, status, category, textField) {
         return {
           goalId,
           title,
@@ -67,7 +67,7 @@ export default function CreateGoal(props) {
           sdate,
           edate,
           status,
-          manager,
+          category,
           textField
         };
     }
@@ -86,9 +86,8 @@ export default function CreateGoal(props) {
                 textField: textField,
             })
             .then(res => {
-                console.log("data: ", (res.data));
                 props.goals.push(
-                    createData(res.data.success.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, manager /**get manager using manager id */, textField)
+                    createData(res.data.success.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, category, textField)
                 );
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = props.goals.map(i => i);
@@ -142,8 +141,8 @@ export default function CreateGoal(props) {
                             </Form.Select>
                         </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Manager</Form.Label>
-                            <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
+                            <Form.Label>Category</Form.Label>
+                            <Form.Control value={category} onChange={e => setCategory(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>
@@ -158,7 +157,7 @@ export default function CreateGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' && manager !== '' && textField !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' && category !== '' && textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

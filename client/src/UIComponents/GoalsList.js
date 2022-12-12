@@ -60,7 +60,7 @@ function Row(props) {
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.sdate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.edate}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.status}</TableCell>
-        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.managerId}</TableCell>
+        <TableCell sx={{fontFamily: "Varela Round"}} align="right">{goal.category}</TableCell>
         <TableCell sx={{fontFamily: "Varela Round"}} align="right">
           <DeleteGoal goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals}/>
           <EditGoal goalId={goal.goalId} 
@@ -139,7 +139,7 @@ export default function CollapsibleTable(props) {
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Start Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">End Date</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right">Status</TableCell>
-            <TableCell sx={{fontFamily: "Varela Round"}} align="right">Manager</TableCell>
+            <TableCell sx={{fontFamily: "Varela Round"}} align="right">Category</TableCell>
             <TableCell sx={{fontFamily: "Varela Round"}} align="right"></TableCell>
           </TableRow>
         </TableHead>

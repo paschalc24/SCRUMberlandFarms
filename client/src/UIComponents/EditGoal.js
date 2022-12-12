@@ -23,6 +23,7 @@ export default function EditGoal(props) {
     // const [status, setStatus] = useState('In-Progress');
     const status = "In-Progress";
     const [manager, setManager] = useState('');
+    const [category, setCategory] = useState('');
     const [textField, setTextField] = useState('');
     
     const [showError, setShowError] = React.useState(false)
@@ -39,7 +40,7 @@ export default function EditGoal(props) {
          data["companyName"], 
          data["managerId"], 
          goalName, 
-         "testCategory", 
+         category,
          moment(startDate).format('YYYY-MM-DD'), 
          moment(endDate).format('YYYY-MM-DD'),
          status,
@@ -60,14 +61,12 @@ export default function EditGoal(props) {
     const updateGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
         const findGoal = props.goals.filter((item) => item.goalId === props.goalId);
         const goalToUpdate = findGoal[0];
-        console.log("goaltoupdate: ", goalToUpdate);
         goalToUpdate.title = title;
         goalToUpdate.sdate = convertDate(startDate);
         goalToUpdate.edate = convertDate(endDate);
         goalToUpdate.status = status;
-        goalToUpdate.manager = manager;
+        goalToUpdate.category = category;
         goalToUpdate.textField = textField;
-        console.log("goaltoupdate1: ", goalToUpdate);
         //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
         const newList = props.goals.map(i => i);
 
@@ -152,8 +151,8 @@ export default function EditGoal(props) {
                             </Form.Select>
                         </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Manager</Form.Label>
-                            <Form.Control value={manager} onChange={e => setManager(e.target.value)} type="text" required/>
+                            <Form.Label>Category</Form.Label>
+                            <Form.Control value={category} onChange={e => setCategory(e.target.value)} type="text" required/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Description</Form.Label>
@@ -168,7 +167,7 @@ export default function EditGoal(props) {
                     <Button variant="secondary" onClick={handleCloseNo}>
                         Cancel
                     </Button>
-                    <Button className="yesButton" variant="primary" onClick={goalName !== '' && manager !== '' && textField !== '' ? handleCloseYes : handleRequired}>
+                    <Button className="yesButton" variant="primary" onClick={goalName !== '' && category !== '' && textField !== '' ? handleCloseYes : handleRequired}>
                         Save Changes
                     </Button>
                 </Modal.Footer>
