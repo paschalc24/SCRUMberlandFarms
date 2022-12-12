@@ -60,8 +60,10 @@ function EmployeesList(props) {
     const [employees, setEmployees] = useState(initialEmployees); //the employees displayed in the managed-employees list
     const [goals, setEmployeeGoals] = useState([]); //these are the goals that should be displayed in the left view component
     const [header, setHeader] = useState("No Goals Displayed"); //the header of the left view component that tells the user who's goals they are viewing
+    const [associatedEmployeeName, setAssociatedEmployeeName] = useState(""); //the employee name that is associated with the goals that are displayed in the left view component
 
     function setViewedGoals(employee, currentGoals) {
+        setAssociatedEmployeeName(employee.firstName + " " + employee.lastName);
         setHeader(employee.firstName + " " + employee.lastName + "'s goals");
         setEmployeeGoals(currentGoals);
     }
@@ -92,7 +94,7 @@ function EmployeesList(props) {
                         </Table>
                     </Col>
                     <Col sm={4} className="employee-goals">
-                        <EmployeeGoalsFocus goals={goals} header={header}/>
+                        <EmployeeGoalsFocus goals={goals} header={header} associatedEmployeeName={associatedEmployeeName}/>
                     </Col>
                 </Row>
             </TableContainer>

@@ -24,10 +24,7 @@
     flex-direction: column;
     justify-content: center;
     
-    border-left: transparent;
-    border-right: transparent;
-    border-top: transparent;
-    border-bottom: solid 1px rgba(224, 224, 224, 1);   
+    border: transparent;
     
     background-color: rgb(235, 235, 235);
 
@@ -47,7 +44,7 @@
     height: 30%;
     
     background-color: rgb(160, 160, 160);
-    color: #004343;
+    color: black;
 
     font-family: 'Varela Round';
     font-weight: bold;
@@ -63,7 +60,7 @@
 .comment-button {
     cursor: pointer;
     
-    color: #005151;
+    color: black;
     background-color: rgb(160, 160, 160);
     
     border: none;
@@ -84,4 +81,10 @@
 
 #comment-on-employee-goal-tooltip > .tooltip-inner {
     background-color:#004343
+}
+
+.employee-name,
+.goal-description,
+.goal-due-date {
+    font-weight: 700;
 }
