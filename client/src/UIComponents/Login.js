@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import MainPage from "./MainPage.js";
 import axios from 'axios'; 
 import ClipLoader from "react-spinners/ClipLoader";
-
+import Logo from '../Images/ukg-logo-white.png'
+import Row from 'react-bootstrap/Row';
 export default function Login() {
     const [isShown, setIsShown] = useState(false);
     const [email, setEmail] = useState('');
@@ -63,6 +64,11 @@ export default function Login() {
 
     if(!isShown) {
         return (
+            <div id="loginContainer">
+            <div id="logoContainer">
+                <Row className="row justify-content-center"><img src={Logo} id="logo-image" alt=""/></Row>
+                <Row className="row justify-content-center" id="logo-text">Goal Manager</Row>
+            </div>
             <div id="loginform">
             {<FormHeader title="Login" /> &&        
                 <div>
@@ -85,6 +91,7 @@ export default function Login() {
                     </div>
                 </div>
             }
+        </div>
         </div>
         )
     } else {

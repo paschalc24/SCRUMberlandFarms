@@ -20,9 +20,10 @@ html,body{
   max-width: 500px;
   min-width: 300px;
   max-height: 700px;
-  width: 30%;
-  height: 60%;
+  width: 50%;
+  height: 70%;
   margin: 10% auto;
+  margin-top: 2.5%;
   background-color: #FFFFFF;
   border-radius: 25px;
 }
@@ -48,7 +49,7 @@ html,body{
   width: 80%;
   box-sizing: border-box;
 	border: none;
-  font-size: 1.3rem;
+  font-size: 1rem;
   padding-left: 1.5rem;
   padding-bottom: 1rem;
   box-shadow: inset 0px -3px 0px 0px rgba(187,187,187,0.2);
@@ -105,5 +106,23 @@ html,body{
 
 #buttonLogin{
   padding-bottom: 1.5rem;
+}
+
+#loginContainer{
+  color:white;
+  align-items: center;
+  font-weight: 400;
+  font-family: "Varela Round";
+  padding-top:10vh;
+}
+
+
+#logo-text{
+  font-size: x-large;
+  font-weight: 525;
+}
+
+#logo-image{
+  width: 20% !important;;
 }
 
