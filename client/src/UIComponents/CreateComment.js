@@ -8,7 +8,7 @@ import { MdOutlineModeEditOutline } from 'react-icons/md';
 import '../CSSComponents/editGoal.css';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios'; 
-
+import { v4 as uuidv4 } from 'uuid';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -26,7 +26,7 @@ export default function CreateComment(props) {
     const handleCloseYes = () => {
         setShowError(false);
         postComment(
-            Math.floor(Math.random() * 1000),
+            uuidv4(),
             props.goal.companyName, 
             props.goal.goalId,
             props.goal.employeeId,
@@ -54,6 +54,7 @@ export default function CreateComment(props) {
           textField,
         };
     }
+    const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
 
     const postComment = (commentId, companyName, goalId, employeeId, timestamp, textField) => {
         axios
@@ -68,8 +69,9 @@ export default function CreateComment(props) {
             .then(res => {
                 console.log("data: ", (res.data));
                 comments.push(
-                    createData(res.data.commentId, res.data.companyName, res.data.goalId, res.data.employeeId, res.data.timestamp, res.data.textField)
+                    createData(commentId, props.goal.companyName, props.goal.goalId, props.goal.employeeId, createdDate, textField)
                 );
+                console.log(comments)
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = comments.map(i => i);
                 setComments(newList);

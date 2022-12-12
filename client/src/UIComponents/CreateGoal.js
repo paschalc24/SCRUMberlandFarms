@@ -59,16 +59,20 @@ export default function CreateGoal(props) {
 
     const handleShow = () => setShow(true);
 
-    function createData(goalId, title, cdate, sdate, edate, status, category, textField) {
+    function createData(employeeId, category, cdate, comments, companyName, edate, goalId, managerId, sdate, status, textField, title) {
         return {
-          goalId,
-          title,
-          cdate,
-          sdate,
-          edate,
-          status,
-          category,
-          textField
+            employeeId,
+            category,
+            cdate,
+            comments,
+            companyName,
+            edate,
+            goalId,
+            managerId,
+            sdate,
+            status,
+            textField,
+            title
         };
     }
 
@@ -86,8 +90,10 @@ export default function CreateGoal(props) {
                 textField: textField,
             })
             .then(res => {
+                console.log("data: ", (res.data));
+                const employeeInfo = res.data.success;
                 props.goals.push(
-                    createData(res.data.success.goalId, title, createdDate, convertDate(startDate), convertDate(endDate), status, category, textField)
+                    createData(employeeInfo.employeeId, employeeInfo.category, createdDate, [], employeeInfo.companyName, convertDate(endDate), employeeInfo.goalId, manager, convertDate(startDate), status, textField, title)
                 );
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = props.goals.map(i => i);

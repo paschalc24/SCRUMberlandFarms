@@ -54,8 +54,10 @@ export default function EditComment(props) {
           textField,
         };
     }
+    const createdDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
 
     const putComment = (commentId, companyName, goalId, employeeId, timestamp, textField) => {
+        console.log(createData(commentId, companyName, goalId, employeeId, timestamp, textField))
         axios
             .put("http://127.0.0.1:8000/comments/update/", {
                 commentId: commentId,
@@ -67,8 +69,9 @@ export default function EditComment(props) {
             })
             .then(res => {
                 console.log("data: ", (res.data));
+                comments.splice(comments.findIndex((comment) => comment.commentId === commentId), 1);
                 comments.push(
-                    createData(res.data.commentId, res.data.companyName, res.data.goalId, res.data.employeeId, res.data.timestamp, res.data.textField)
+                    createData(commentId, props.goal.companyName, props.goal.goalId, props.goal.employeeId, createdDate, textField)
                 );
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = comments.map(i => i);
