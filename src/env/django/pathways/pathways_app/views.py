@@ -44,7 +44,7 @@ def postEmployee(request):
         #if valid create the employee
         if serializer.is_valid():
             serializer.save()
-            return Response({"success": "employee posted successfully"}, status=status.HTTP_200_OK)
+            return Response({"success": serializer.data}, status=status.HTTP_200_OK)
         #otherwise return the missing fields
         else:
             return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
@@ -200,7 +200,7 @@ def postComment(request):
     serializer = commentSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response({"success": "comment posted succesfully"}, status=status.HTTP_200_OK)
+        return Response({"success": serializer.data}, status=status.HTTP_200_OK)
     else:
         return Response({"failure": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
