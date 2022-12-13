@@ -2,6 +2,7 @@
 * Project Pathways
 
 * Description
+Pathways is a microservice which companies can use to empower employees to manage their goals using tags and filtering, and facilitates communication between employees and their managers through a comment system. Pathways is designed with companies in mind - the primary users of the application would be the employees of UKG’s customers.
 
 * Getting started
 ** Pulling from github
