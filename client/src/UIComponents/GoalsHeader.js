@@ -32,7 +32,7 @@ function GoalsHeader(props) {
                     <Button size='sm' className="search-button"><BiSearchAlt2 className="magGlass" size={20}/></Button>
                 </InputGroup>
                 <div className="add-calendar">
-                    <CalendarButton value={props.value} setValue={props.setValue}/>
+                    {/* <CalendarButton value={props.value} setValue={props.setValue}/> */}
                     <CreateGoal employeeProfile={props.employeeProfile} goals={props.goals} setGoals={props.setGoals}/>
                 </div>
                 <Button size='sm' className="employees-button" onClick={props.transition}>

@@ -15,13 +15,16 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 export default function EditGoal(props) {
+    const findGoal = props.goals.filter((item) => item.goal.goalId === props.goalId);
+    const goalToUpdate = findGoal[0].goal;
+
     const [show, setShow] = useState(false);
-    const [goalName, setGoalName] = useState('');
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [goalName, setGoalName] = useState(goalToUpdate.title);
+    const [startDate, setStartDate] = useState(new Date(moment(goalToUpdate.startDate).format('MM/DD/YYYY')));
+    const [endDate, setEndDate] = useState(new Date(moment(goalToUpdate.endDate).format('MM/DD/YYYY')));
     const status = "In-Progress";
-    const [category, setCategory] = useState('');
-    const [textField, setTextField] = useState('');
+    const [category, setCategory] = useState(goalToUpdate.category);
+    const [textField, setTextField] = useState(goalToUpdate.textField);
     const [showError, setShowError] = React.useState(false)
 
     const handleRequired = () => {
@@ -50,8 +53,6 @@ export default function EditGoal(props) {
     const handleShow = () => setShow(true);
 
     const updateGoal = (employeeId, companyName, managerId, title, category, startDate, endDate, status, textField) => {
-        const findGoal = props.goals.filter((item) => item.goal.goalId === props.goalId);
-        const goalToUpdate = findGoal[0].goal;
         goalToUpdate.title = title;
         goalToUpdate.startDate = startDate;
         goalToUpdate.endDate = endDate;
@@ -134,13 +135,6 @@ export default function EditGoal(props) {
                                 <DatePicker className="endDate" selected={endDate} onChange={(date) => setEndDate(date)}/>
                             </div>
                         </Form.Group>
-                        {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Status</Form.Label>
-                            <Form.Select value={status} onChange={e => setStatus(e.target.value)} aria-label="Default select example">
-                                <option value="In-Progress">In-Progress</option>
-                                <option value="Completed">Completed</option>
-                            </Form.Select>
-                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Category</Form.Label>
                             <Form.Control value={category} onChange={e => setCategory(e.target.value)} type="text" required/>
