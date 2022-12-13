@@ -42,7 +42,7 @@ python3 manage.py runserver
 
 
 * API Documentation
--https://docs.google.com/document/d/1qgwNsiARfFwsfgtevtwyBBSMOgKt6LmCH0oQcQaaVzI/edit?usp=sharing
+-https://docs.google.com/document/d/19mWn-yQjW3YoaNqUtCMSuj-LGuHHBbMX34UwxqltkS0/edit?usp=sharing
 
 * Testing
 The backend django test suite can be run using the following commands:
