@@ -20,7 +20,7 @@ export default function MainPage(props) {
         <Container fluid> 
           <Row><Header view={props.managerView} vTitle={props.employeeName}/></Row>
           <Row className="mainRow">
-              <ManagerGoalsList employeesToManage={props.employeesToManage} employeeProfile={props.employeeProfile} view={props.managerView}/>
+              <ManagerGoalsList employeeName={props.employeeName} employeesToManage={props.employeesToManage} employeeProfile={props.employeeProfile} view={props.managerView}/>
           </Row>
         </Container>
       </div>

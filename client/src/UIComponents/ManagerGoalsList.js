@@ -18,7 +18,7 @@ function ManagerGoalsList(props) {
     return (
         <Carousel activeIndex={slide} controls="false" variant="dark">
             <Carousel.Item>
-                <CollapsibleTable employeeProfile={props.employeeProfile} view={props.view} transition={change}/>
+                <CollapsibleTable employeeName={props.employeeName} employeeProfile={props.employeeProfile} view={props.view} transition={change}/>
             </Carousel.Item>
             <Carousel.Item>
                 <EmployeesList employeeProfile={props.employeeProfile} employeesToManage={props.employeesToManage} transition={change}/>

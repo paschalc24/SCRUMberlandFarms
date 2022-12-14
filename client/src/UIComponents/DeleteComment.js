@@ -20,15 +20,26 @@ export default function DeleteComment(props) {
     const handleShow = () => setShow(true);
 
     const deleteRow = () => {
-        const newList = props.comments.filter((item) => item.commentId !== props.commentId);
+        const newComments = props.comments.filter(comment => comment.commentId !== props.commentId);
+        const newList = props.goals.map((item) => {
+            if (item.goal.goalId) {
+                let result = {};
+                let filteredComments = [];
+                filteredComments = item.comments.filter(comment => comment.commentId !== props.commentId);
+                result.goal = item.goal;
+                result.comments = filteredComments;
+                return result;
+            }
+            return item;
+        });
         axios
             .delete("http://127.0.0.1:8000/comments/delete/", {
                 data: {commentId: props.commentId}
             })
             .then(res => console.log("data: ", res))
             .catch(err => console.log(err));
-
-        props.setComments(newList);
+        props.setComments(newComments);
+        props.setGoals(newList);
     };
 
     return (
