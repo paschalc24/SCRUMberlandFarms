@@ -111,7 +111,10 @@ function CommentEmployeeGoals(props) {
                     </Form.Label>
                     <br></br>
                     <Form.Label>
-                        <span className="goal-description">Goal Description:&nbsp;</span>{goal.goal.title}
+                        <span className="goal-description">Goal Title:&nbsp;</span>{goal.goal.title}
+                    </Form.Label>
+                    <Form.Label>
+                        <span className="goal-description">Goal Description:&nbsp;</span>{goal.goal.textField}
                     </Form.Label>
                     <br></br>
                     <Form.Label>
