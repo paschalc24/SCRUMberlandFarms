@@ -16,7 +16,7 @@ function Header({view, vTitle}) {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" alt="">
-            <Nav className="me-auto">
+            {/* <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#link">Link</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
@@ -30,7 +30,7 @@ function Header({view, vTitle}) {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
-            </Nav>
+            </Nav> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>

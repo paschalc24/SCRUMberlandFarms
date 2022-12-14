@@ -105,7 +105,6 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody >
-          {console.log(goals)}
           {goals.map((item) => {
             return(<Row key={item.goal.goalId} comments={item.comments} goal={item.goal} goals={goals} setGoals={setGoals}/>)
           })}
