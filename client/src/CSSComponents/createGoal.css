@@ -36,6 +36,7 @@
 
 .create-button{
     border:none;
+    background-color: rgb(235, 235, 235);
 }
 
 #create-goal-tooltip > .tooltip-arrow::before {
