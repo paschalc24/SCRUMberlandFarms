@@ -93,3 +93,13 @@
     height: 8rem;
     overflow: auto;
 }
+
+.confirm-button {
+    background-color: #005151;
+    border-color: #005151;
+}
+
+.confirm-button:hover {
+    background-color: #004747;
+    border-color: #004747;
+}
