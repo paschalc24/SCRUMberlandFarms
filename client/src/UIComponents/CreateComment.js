@@ -26,11 +26,10 @@ export default function CreateComment(props) {
     const handleCloseYes = () => {
         setShowError(false);
         postComment(
-            uuidv4(),
             props.goal.companyName, 
             props.goal.goalId,
             props.goal.employeeId,
-            convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD')),
+            moment((new Date(Date.now()))).format('YYYY-MM-DD'),
             textField
         );
         setShow(false);
@@ -38,11 +37,6 @@ export default function CreateComment(props) {
     const handleCloseNo = () => setShow(false);
 
     const handleShow = () => setShow(true);
-
-    const convertDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return new Date([month, day, year].join('/')).toDateString();
-    }
 
     function createData(commentId, companyName, goalId, employeeId, timestamp, textField) {
         return {
@@ -54,7 +48,6 @@ export default function CreateComment(props) {
           textField,
         };
     }
-    const creationDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
 
     const postComment = (companyName, goalId, employeeId, timestamp, textField) => {
         axios
@@ -68,9 +61,8 @@ export default function CreateComment(props) {
             .then(res => {
                 console.log("data: ", (res.data));
                 comments.push(
-                    createData(res.data.success.commentId, props.goal.companyName, props.goal.goalId, props.goal.employeeId, creationDate, textField)
+                    createData(res.data.success.commentId, companyName, goalId, employeeId, timestamp, textField)
                 );
-                console.log(comments)
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
                 const newList = comments.map(i => i);
                 setComments(newList);

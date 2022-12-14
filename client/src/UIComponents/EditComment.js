@@ -16,8 +16,6 @@ export default function EditComment(props) {
     const [show, setShow] = useState(false);
     const [textField, setTextField] = useState('');
     const [showError, setShowError] = React.useState(false);
-    const comments = props.comments;
-    const setComments = props.setComments;
 
     const handleRequired = () => {
         setShowError(true);
@@ -30,7 +28,7 @@ export default function EditComment(props) {
             props.goal.companyName, 
             props.goal.goalId,
             props.goal.employeeId,
-            convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD')),
+            moment((new Date(Date.now()))).format('YYYY-MM-DD'),
             textField
         );
         setShow(false);
@@ -38,11 +36,6 @@ export default function EditComment(props) {
     const handleCloseNo = () => setShow(false);
 
     const handleShow = () => setShow(true);
-
-    const convertDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return new Date([month, day, year].join('/')).toDateString();
-    }
 
     function createData(commentId, companyName, goalId, employeeId, timestamp, textField) {
         return {
@@ -54,10 +47,9 @@ export default function EditComment(props) {
           textField,
         };
     }
-    const creationDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
 
     const putComment = (commentId, companyName, goalId, employeeId, timestamp, textField) => {
-        console.log(createData(commentId, companyName, goalId, employeeId, timestamp, textField))
+
         axios
             .put("http://127.0.0.1:8000/comments/update/", {
                 commentId: commentId,
@@ -69,13 +61,13 @@ export default function EditComment(props) {
             })
             .then(res => {
                 console.log("data: ", (res.data));
-                comments.splice(comments.findIndex((comment) => comment.commentId === commentId), 1);
-                comments.push(
-                    createData(commentId, props.goal.companyName, props.goal.goalId, props.goal.employeeId, creationDate, textField)
+                props.comments.splice(props.comments.findIndex((comment) => comment.commentId === commentId), 1);
+                props.comments.push(
+                    createData(commentId, companyName, goalId, employeeId, timestamp, textField)
                 );
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
-                const newList = comments.map(i => i);
-                setComments(newList);
+                const newList = props.comments.map(i => i);
+                props.setComments(newList);
             })
             .catch(err => console.log(err));
     }

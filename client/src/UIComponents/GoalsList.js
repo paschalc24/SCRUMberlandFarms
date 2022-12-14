@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import React, { useState } from 'react';
 import DeleteGoal from "./DeleteGoal.js";
 import EditGoal from "./EditGoal.js";
@@ -19,10 +18,12 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import '../CSSComponents/goalslist.css';
 import GoalsHeader from "./GoalsHeader";
 import CommentsList from "../UIComponents/CommentsList";
+import CreateComment from "./CreateComment.js";
 
 function Row(props) {
   const { goal } = props;
   const [open, setOpen] = React.useState(false);
+  const [comments, setComments] = useState(props.comments);
   return (
     <React.Fragment >
       <TableRow sx={{ '& > *': { 
@@ -72,8 +73,9 @@ function Row(props) {
               <div id="border1"></div>
               <Typography sx={{fontFamily: "Varela Round"}} variant="h6" gutterBottom component="div">
                 Comments
+                <CreateComment goals={props.goals} setGoals={props.setGoals} employeeName={props.employeeName} employeeProfile={props.employeeProfile} goal={props.goal} comments={comments} setComments={setComments}/>
               </Typography>
-              <CommentsList goal={goal} comments={props.comments}/>
+              <CommentsList goalId={goal.goalId} goals={props.goals} setGoals={props.setGoals} employeeName={props.employeeName} employeeProfile={props.employeeProfile} goal={goal} comments={comments} setComments={setComments}/>
             </Box>
           </Collapse>
         </TableCell>
@@ -105,9 +107,8 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody >
-          {console.log(goals)}
           {goals.map((item) => {
-            return(<Row key={item.goal.goalId} comments={item.comments} goal={item.goal} goals={goals} setGoals={setGoals}/>)
+            return(<Row employeeName={props.employeeName} employeeProfile={props.employeeProfile} key={item.goal.goalId} comments={item.comments} goal={item.goal} goals={goals} setGoals={setGoals}/>)
           })}
         </TableBody>
       </Table>

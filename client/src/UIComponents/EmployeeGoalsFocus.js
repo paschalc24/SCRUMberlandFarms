@@ -1,10 +1,8 @@
 import React, { useState }from "react";
 
 import "../CSSComponents/EmployeeGoalsFocus.css";
-import PropTypes from 'prop-types';
 
 import axios from 'axios'; 
-import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment'
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -32,9 +30,7 @@ function CommentEmployeeGoals(props) {
     const [show, setShow] = useState(false);
     const [textField, setTextField] = useState('');
     const [showError, setShowError] = React.useState(false);
-
-    //const comments = { comments };
-    //const setComments = { setComments };
+    const [comments, setComments] = useState(goal.comments);
 
     const closeModal = () => {
         setShowError(false);
@@ -45,20 +41,13 @@ function CommentEmployeeGoals(props) {
     const handleCloseYes = () => {
         setShowError(false);
         postComment(
-            uuidv4(),
-            goal.goal.companyName, 
-            goal.goal.goalId,
-            goal.goal.employeeId,
-            convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD')),
+            props.goal.goal.companyName, 
+            props.goal.goal.goalId,
+            props.goal.goal.employeeId,
+            moment((new Date(Date.now()))).format('YYYY-MM-DD'),
             textField
         );
         setShow(false);
-        setTextField('');
-    }
-
-    const convertDate = (date) => {
-        const [year, month, day] = date.split('-');
-        return new Date([month, day, year].join('/')).toDateString();
     }
 
     function createData(commentId, companyName, goalId, employeeId, timestamp, textField) {
@@ -71,12 +60,11 @@ function CommentEmployeeGoals(props) {
           textField,
         };
     }
-    const creationDate = convertDate(moment((new Date(Date.now()))).format('YYYY-MM-DD'));
 
-    const postComment = (commentId, companyName, goalId, employeeId, timestamp, textField) => {
+    const postComment = (companyName, goalId, employeeId, timestamp, textField) => {
+        console.log(createData(companyName, goalId, employeeId, timestamp, textField))
         axios
             .post("http://127.0.0.1:8000/comments/post/", {
-                commentId: commentId,
                 companyName: companyName,
                 goalId: goalId,
                 employeeId: employeeId,
@@ -85,13 +73,12 @@ function CommentEmployeeGoals(props) {
             })
             .then(res => {
                 console.log("data: ", (res.data));
-                goal.comments.push(
-                    createData(commentId, goal.goal.companyName, goal.goal.goalId, goal.goal.employeeId, creationDate, textField)
+                comments.push(
+                    createData(res.data.success.commentId, companyName, goalId, employeeId, timestamp, textField)
                 );
-                console.log(goal.comments)
                 //i dont know why, but the list wouldnt rerender without mapping it for absolutely no reason
-                //const newList = this.comments.map(i => i);
-                //setComments(newList);
+                const newList = comments.map(i => i);
+                setComments(newList);
             })
             .catch(err => console.log(err));
     }
@@ -139,8 +126,8 @@ function CommentEmployeeGoals(props) {
                             <span className="comments-section-header">Comments:</span>
                         </Form.Label>
                         <ul className="comments-display">
-                            {goal.comments.map((comment) => {
-                                return(<li>{comment.textField}</li>);
+                            {comments.map((comment) => {
+                                return(<li key={comment.commentId}>{comment.textField}</li>);
                             })}
                         </ul>
                     </Form.Group>
