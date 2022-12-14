@@ -88,3 +88,8 @@
 .goal-due-date {
     font-weight: 700;
 }
+
+.comments-display {
+    height: 8rem;
+    overflow: auto;
+}

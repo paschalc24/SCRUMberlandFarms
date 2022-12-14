@@ -39,6 +39,7 @@ function CommentEmployeeGoals(props) {
     const closeModal = () => {
         setShowError(false);
         setShow(false);
+        setTextField('');
     }
 
     const handleCloseYes = () => {
@@ -52,6 +53,7 @@ function CommentEmployeeGoals(props) {
             textField
         );
         setShow(false);
+        setTextField('');
     }
 
     const convertDate = (date) => {
@@ -129,8 +131,18 @@ function CommentEmployeeGoals(props) {
                         <span className="goal-due-date">Due:&nbsp;</span>{goal.goal.endDate}
                     </Form.Label>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Comment</Form.Label>
+                        <Form.Label>Leave a Comment</Form.Label>
                         <Form.Control value={textField} onChange={e => setTextField(e.target.value)} as="textarea" rows={2} required/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            <span className="comments-section-header">Comments:</span>
+                        </Form.Label>
+                        <ul className="comments-display">
+                            {goal.comments.map((comment) => {
+                                return(<li>{comment.textField}</li>);
+                            })}
+                        </ul>
                     </Form.Group>
                 </Form>
                 <div>
