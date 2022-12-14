@@ -26,7 +26,7 @@ function ViewEmployeeGoals(props) {
                 </Tooltip>
             }
         >
-            <button size="sm" className="view-goals" onClick={() => setViewedGoals(employee, [])}>
+            <button size="sm" className="view-goals" onClick={() => setViewedGoals(employee)}>
                 <GiBullseye size={20}/>
             </button>
         </OverlayTrigger>

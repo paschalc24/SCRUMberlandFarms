@@ -19,8 +19,6 @@ import '../CSSComponents/EmployeesList.css';
 import PropTypes from 'prop-types';
 
 
-const initialEmployees = [];
-
 function EmployeeRow(props) {
 
     const { employee } = props; //the employee associated with this managed-employees table entry
@@ -30,11 +28,11 @@ function EmployeeRow(props) {
         <React.Fragment >
             <TableRow>
                 <TableCell></TableCell>
-                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.firstName}</TableCell>
-                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.lastName}</TableCell>
-                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.startDate}</TableCell>
-                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.email}</TableCell>
-                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.positionTitle}</TableCell>
+                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.employee.firstName}</TableCell>
+                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.employee.lastName}</TableCell>
+                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.employee.startDate}</TableCell>
+                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.employee.email}</TableCell>
+                <TableCell sx={{fontFamily: "Varela Round"}} align="left">{employee.employee.positionTitle}</TableCell>
                 <TableCell sx={{fontFamily: "Varela Round"}} align="right">
                     <ViewEmployeeGoals employee={employee} setViewedGoals={setViewedGoals} />
                 </TableCell>
@@ -57,15 +55,16 @@ Row.propTypes = {
 
 function EmployeesList(props) {
 
-    const [employees, setEmployees] = useState(initialEmployees); //the employees displayed in the managed-employees list
+    const [employees, setEmployees] = useState(props.employeesToManage); //the employees displayed in the managed-employees list
+    
     const [goals, setEmployeeGoals] = useState([]); //these are the goals that should be displayed in the left view component
     const [header, setHeader] = useState("No Goals Displayed"); //the header of the left view component that tells the user who's goals they are viewing
     const [associatedEmployeeName, setAssociatedEmployeeName] = useState(""); //the employee name that is associated with the goals that are displayed in the left view component
 
-    function setViewedGoals(employee, currentGoals) {
-        setAssociatedEmployeeName(employee.firstName + " " + employee.lastName);
-        setHeader(employee.firstName + " " + employee.lastName + "'s goals");
-        setEmployeeGoals(currentGoals);
+    function setViewedGoals(employee) {
+        setAssociatedEmployeeName(employee.employee.firstName + " " + employee.employee.lastName);
+        setHeader(employee.employee.firstName + " " + employee.employee.lastName + "'s goals");
+        setEmployeeGoals(employee.goals);
     }
 
     return(
@@ -88,7 +87,7 @@ function EmployeesList(props) {
                             </TableHead>
                             <TableBody>
                                 {employees.map((employee) => {
-                                    return(<EmployeeRow key={employee.lastName} employee={employee} setViewedGoals={setViewedGoals}/>)
+                                    return(<EmployeeRow key={employee.employee.lastName} employee={employee} setViewedGoals={setViewedGoals}/>)
                                 })}
                             </TableBody>
                         </Table>
