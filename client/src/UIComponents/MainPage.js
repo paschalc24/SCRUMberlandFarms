@@ -32,7 +32,7 @@ export default function MainPage(props) {
         <Container fluid> 
           <Row><Header view={props.managerView} vTitle={props.employeeName}/></Row>
           <Row className="mainRow">
-            <Col><CollapsibleTable view={props.managerView} employeeProfile={props.employeeProfile} value={value} setValue={setValue}/></Col>
+            <Col><CollapsibleTable view={props.managerView} employeeName={props.employeeName} employeeProfile={props.employeeProfile} value={value} setValue={setValue}/></Col>
           </Row>
         </Container>
       </div>

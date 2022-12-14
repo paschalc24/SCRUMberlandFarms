@@ -65,7 +65,7 @@ function GoalsHeader(props) {
                 </InputGroup>
                 <div className="add-calendar">
                     <CalendarButton goals={props.goals} setGoals={props.setGoals} value={props.value} setValue={props.setValue}/>
-                    <CreateGoal goals={props.goals} setGoals={props.setGoals}/>
+                    <CreateGoal employeeProfile={props.employeeProfile} goals={props.goals} setGoals={props.setGoals}/>
                 </div>
             </div>
         );
